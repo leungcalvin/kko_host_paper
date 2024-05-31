@@ -292,13 +292,24 @@ Radio pulsars (1353)
 \section{Introduction}
 \label{sec:intro}
 
-\section{VLBI Localization - Calvin writes}
-Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations. Since the typical shape of our localizations are east-west
+\section{Single-pulse localization - Calvin writes}
+Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations and hour angles.
+We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated.
 
-\subsection{Pulsar Observations}
-We observed the following pulsars:
+\subsection{North-south localization of pulsars}
+We localized a total of $82$ single pulses from $19$ distinct well-localized pulsars along the north-south direction using the CHIME baseband pipeline. In most cases, the measured declination from baseband localization is consistent within $2\sigma$ of the true position. A sky map of these localizations and the distribution of normalized declination errors are shown in Fig.~\ref{fig:bb_pulsars}.
 
-FIGURE: BB localization validation test: declination errors for a bunch of pulsars.
+We found that the CHIME baseband localization consistently performs poorly on the low-declination pulsars B0919+06 and B1642-03. We attribute this to the lower sensitivity and beam effects which distort localizations at such low declinations.
+
+were omitted from this sample.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/bb_pulsars.pdf}
+    \includegraphics[width=0.4\textwidth]{figures/bb_pulsars_chisq.pdf}
+    \caption{Astrometric errors for pulsars.}
+    \label{fig:bb_pulsars}
+\end{figure}
 VLBI localization: discuss calibrator choice – FIGURE showing example field 
 Motivate error ellipse dimensions 
 \section{FRB Observations}
