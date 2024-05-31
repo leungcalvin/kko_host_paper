@@ -187,7 +187,7 @@
 
 \begin{document}
 
-\title{Shion's Calibrator Survey}
+\title{KKO Hosts Paper}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -238,18 +238,12 @@
 %% automatically put the author and affiliation information from the manuscript
 %% and save the corresponding author the trouble of entering it by hand.
 
-\correspondingauthor{Shion}
-\email{shiona@mit.edu}
+\correspondingauthor{Calvin Leung}
+\email{calvin_leung@berkeley.edu}
 
-\author{Shion Andrew}
-\affiliation{MIT Kavli Institute for Astrophysics and Space Research, Massachusetts Institute of Technology, 77 Massachusetts Avenue Cambridge, MA 02139, USA}
 
-\author[0000-0002-4209-7408]{C.~Leung}
-\affiliation{UC Berkeley}
-
-\author[0000-0002-4279-6946]{K.~W.~Masui}
-\affiliation{MIT Kavli Institute for Astrophysics and Space Research, Massachusetts Institute of Technology, 77 Massachusetts Avenue Cambridge, MA 02139, USA}
-\affiliation{Department of Physics, Massachusetts Institute of Technology, 77 Massachusetts Avenue Cambridge, MA 02139, USA}
+%\author[0000-0002-4209-7408]{C.~Leung}
+%\affiliation{UC Berkeley}
 
 \collaboration{99}{(CHIME/FRB Collaboration)}
 
@@ -267,15 +261,7 @@
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Decades of classic radio surveys such as WENSS, TGSS have surveyed almost the entire sky at great sensitivity and high completeness. Recently this has been complemented by LoTSS in the Northern sky. However, on VLBI angular scales, the picture is very different. With the exception of the recent LOFAR Long Baseline Calibrator Survey, few attempts has been made to systematically study the sky at high angular resolution at low frequencies. Fewer than 100 sources are confirmed to have compact structure on scales of tens of milliarcseconds at sub-gigahertz frequencies.
 
-The Canadian Hydrogen Intensity Mapping Experiment (CHIME) has a new  VLBI outrigger at Green Bank, which forms a 3300 kilometer baseline operating at 400-800 MHz. $6\times$ the resolution of LOFAR's international stations at a frequency of 600 MHz: a factor of 4 lower in frequency.
-
-Using XX ``full-array baseband dumps'' which dump the full field of view for $\sim 100$ milliseconds, collected commensally during FRB triggers, we perform a shallow, wide-area VLBI survey which efficiently covers a significant fraction of the Northern sky. We  choose pointings with known RFC and LoTSS sources. 
-
-The sources detected represent the brightest sources with confirmed compact structure at low frequencies: natural targets for further studies of compact steep-spectrum sources and propagation effects through the ISM. Furthermore, with a grid of $\approx 200$ bright, compact calibrators, the primary goal of localizing a large sample of FRBs to sub-arcsecond accuracy can be realized using the in-beam calibration strategy in \citet{leung2020synoptic}. 
-
-The S/N of our detections and assuming that the VLBA spectral indices hold, the median flux threshold of our survey is XX Jy (probably like 3 Jy, LOL).We compare different methods of recovering fluxes from our measured S/N ratios.
 \end{abstract}
 
 %% Keywords should appear after the \end{abstract} command. 
@@ -305,87 +291,31 @@ Radio pulsars (1353)
 
 \section{Introduction}
 \label{sec:intro}
-Compact, low-frequency radio sources are valuable for studies of the turbulence of the ISM, for budgeting the power output of AGN jets, (Dallacasa 2021), and more practically, as calibrators for imaging the radio sky at low frequencies. The nature of compact steep-spectrum radio sources is still unclear: they may be the young, compact progenitors of extended radio galaxies, galaxies at high redshift (van Breuck reference),
 
+\section{VLBI Localization - Calvin writes}
+Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations. Since the typical shape of our localizations are east-west
 
-\section{A Gap in Existing Radio Surveys}
-Historically, many radio surveys have been conducted at low frequencies with kilometer-scale interferometers. There have also been a large number of observations done with the VLBA at P-band and the EVN at P-band.
+\subsection{Pulsar Observations}
+We observed the following pulsars:
 
-To see where we fit in, I made a list of everything we know about compact radio sources. The literature seems pretty patchworky.
-\begin{enumerate} 
-\item Rampardath 2009: 44 VLBA P-band observations of all archival VLBA observations. There are $15$ brighter than 1 Jy. \href{https://arxiv.org/pdf/0904.0478.pdf}{https://arxiv.org/pdf/0904.0478.pdf}
-\item Clark 1975: $\approx 20$ sources at 178 MHz on a 2600 km baseline (Arecibo to GB) \href{https://articles.adsabs.harvard.edu/pdf/1975AJ.....80..923C}{here}
-\item Fanti 1990: 47 compact steep-spectrum sources of all spectral indices. These are constructed from the 3C sample + Peacock \& Wall 1982 sample at 2 GHz, which are then extrapolated downwards. These are brighter than 10 Jy at 148 MHz. \href{https://ui.adsabs.harvard.edu/abs/1990A%26A...231..333F/abstract}{here}
-\item $87$ Compact steep spectrum sources selected at 600 MHz but measured at 5 GHz \href{https://www.aanda.org/articles/aa/pdf/2001/14/aah2500.pdf}{here}
-\item 13645 sources from the WFC at 2-8 GHz. This latest iteration of the VLBA calibrator catalog is notable since it does not bias against compact steep-spectrum sources, which account for most of the radio sources in the sky (72\%); most VLBI surveys have targeted just the 28\%, since they have a higher detection rate ($79\%$) than steep-spectrum single dish sources ($35\%$). 
-\item 917 sources from Preston et al. at 2.3 GHz. One of the first VLBI surveys. \href{https://ui.adsabs.harvard.edu/abs/1985AJ.....90.1599P/abstract}{here}
-\item 66841 from the Texas Survey conducted at 365 MHz on a $\sim$ few kilometer baseline, which is 96\% complete at 1 Jy. \href{https://articles.adsabs.harvard.edu/pdf/1996AJ....111.1945D}{here}
-\item 11299 sources from WENSS at a resolution of 54 arcseconds at 325 MHz \href{here}{https://aas.aanda.org/articles/aas/pdf/1997/11/ds1236.pdf}
-\item 34426 sources from Miyun Synthesis Radio Telescope at 232 MHz on a 1 km baseline.\href{here}{https://aas.aanda.org/articles/aas/pdf/1997/01/ds3672.pdf}
-\item 12141 sources from Molongolo Synthesis Telescope at 408 MHz at arcminute scales - \href{here}{https://articles.adsabs.harvard.edu/pdf/1981MNRAS.194..693L}
-\item 3 sources (B0223.1+3408, B0223.5+3542, B0218.0+3542) brighter than 1 Jy on VLBA scales from two deep fields: classic paper by Lenc 2008: \href{https://iopscience.iop.org/article/10.1086/524295/fulltext/72818.text.html}{here}
-\item 25 sources at 327 MHz on a 2800 km (Jodrell Bank - Simeiz) from a pre-launch preparation survey for the RadioAstron Space VLBI mission. Of the 25, only $\sim10$ are 1) not pulsars and 2) have flux estimates that look believable.
-\end{enumerate}
-
-\section{Observational Strategy with CHIME \& GBO} 
-\label{sec:observation_strategy}
-CHIME and GBO are each widefield interferometers which are 3300 kilometers apart.CHIME detects FRBs and pulsars and sends detection triggers to the long-baseline outriggers to dump the full field of view. Due to real-time hardware limitations, this can be done for a maximum of $1.4$ seconds, but during ordinary operations, the dump duration is $\approx 100$ milliseconds. The widefield nature of these ``full-array baseband dumps'' make it an extremely efficient way to survey wide areas, at the expense of sensitivity. The mutual field of view of both telescopes at $50\%$ sensitivity is 220 square degrees at 600 MHz. A 1-Jy radio source can be detected in a $100$-millisecond integration. 
-
-\subsection{Target Selection \& Search Strategy}
-To reduce computation time, we selected sources from LoTSS (LBCS?) and the Radio Fundamental Catalog in a range of $\pm 2$ degrees from  local stellar angle. The resulting source density of VLBA calibrators with compact 400 MHz flux is XX per 200 square degrees. 
-
-Details of the search...? How many sources do we lose to large TEC fluctuations? Probably need to search over phase, delay, and quadratic phase curvature to be reasonably complete.
-
-\subsection{Completeness and implications for a blind survey}
-Even though we do a targeted survey, we can assess our survey completeness. If our survey were grossly incomplete, we would have some unexpected detections by random coincidence as well as the expected detections near our pointing centers. 
-
-To assess this we map our sensitivity relative to our pointing center using a high-S/N detection. We find that the effective field of view of each pointing is a few arcminutes. By excluding the center of each pointing, this is effectively a blind survey over 1000 sq. deg. 
-
-We exclude the XX ``expected'' detections near the center of each pointing to assess the detection prospects of a blind survey. XX spurious detections within our effective footprint of 10000 sq deg, and of those XX, we were able to associate only YY of them with known sources. Therefore, we think that the targeted survey captures $95\%$ of compact radio sources at our brightness. 
-
-Alternate story: the blind survey is compelling and will detect a large number of peaked-spectrum sources. This population of peaked-spectrum sources could be detectable in the CHIME band at \SI{600}{\mega\hertz} but remain undetected by the LOFAR LBCS at \SI{150}{\mega\hertz}. Synchrotron self-absorption is a common feature in compact steep-spectrum and peaked-spectrum sources; assuming a power-law scaling of $\alpha = 5/2$ these sources would be a factor of $30\times$ brighter at CHIME frequencies, making them potentially detectable by CHIME but underneath the flux threshold of the LBCS. The missing population of sources could be high-redshift galaxy candidates (de Brueck 1999) or could represent the most compact, young progenitors of highly-evolved radio galaxies.
-
-%(\href{{https://arxiv.org/pdf/2009.02750.pdf}{see review of compact steep spectrum sources}).
-
-\section{Source Catalog}
-Here are all of our detections. A sample of 10 sources is shown in 
-Table \ref{tab:catalog}, and the full catalog can be downloaded at XXX in machine-readable format.
-
-
-
-%\clearpage
-%\begin{turnpage}
-\begin{deluxetable}{lllccccccccccccc}
-
-\tablecaption{Parameters of Detections}
-\tablehead{Jname & RA\_ICRS & DEC\_ICRS & SNR}
-\startdata
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..\\ 
-... & ... &... &..
-\enddata
-\tablecomments{Col.(1) Jname Cols. (2) \& (3) Right Ascension and Declination in degreesCol. (4) CHIME-GBO S/N.}
-\label{tab:catalog}
-\end{deluxetable}
-%\clearpage
-%\end{turnpage}
-
-\section{Flux Calibration}
-Since an unknown fraction of source flux is compact, establishing a flux scale is nontrivial. Single-dish fluxes will be contaminated by extended emission, while compact flux measurements from the VLBA must be extrapolated downward by approximately an order of magnitude.
-
-This poses a challenge even for the LBCS, who cross-matches their sources with VLBA calibrator catalog and for point sources, they use the spectral index at 2 \& 5 GHz to derive a fitting formula for the flux at low frequencies. The implication of their flux scale is that the LBCS fluxes are contaminated at the 30-50\% level by correlated flux on scales larger than $0.3''$. See Fig. 6 for their trends, which does not have error bars and gets noisier for longer baselines.
-
-\href{https://arxiv.org/pdf/2108.07284.pdf}{fitting formula}
-
-Since these are the brightest sources in the sky, and since there are not many sources to statistically establish a flux scale, we quote a ``radiometer-equivalent'' flux using the beam model and the GBO \& CHIME SEFD measurements. This may actually be an underestimate because of an effective increase in the system temperature caused by non-compact flux.
+FIGURE: BB localization validation test: declination errors for a bunch of pulsars.
+VLBI localization: discuss calibrator choice – FIGURE showing example field 
+Motivate error ellipse dimensions 
+\section{FRB Observations}
+\subsection{Host Galaxy Association}
+Lordrick can write about PATH.
+\section{Host Association}
+PATH P(U) choices
+\subsection{Unseen/ambiguous FRBs}
+Calculate \& plot max redshift implied by DM
+Point out potential targets for faint hosts/followup imaging.
+\section{Host Galaxy Observations}
+Describe spectra collection: a paragraph for each FRB, with what resource it was observed (Gemini? Keck? Lick?), 
+Reduction details – progress?
+SED fits – Mass, parametric SFR – fit archival photometry (CIGALE?)
+Macquart Diagram
+\section{Radio Counterparts}
+PRS upper limits from VLASS comment on presence/absence of radio SF in the HG.
 
 \section{Acknowledgments}
 \begin{acknowledgments}
