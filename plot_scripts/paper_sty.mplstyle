@@ -1,0 +1,55 @@
+# Setting for FRB VLBI ARO10m paper
+# Author: Tomas Cassanelli
+# Last update: 10.09.2020
+
+# Look here how to add more style!
+# https://matplotlib.org/stable/tutorials/introductory/customizing.html
+
+
+# LINES
+lines.linewidth     : 0.8
+
+# TEXT
+text.usetex         : False
+
+#mathtext.fontset    : stix
+
+# FONT
+font.family         : serif
+font.size           : 12
+
+# AXES
+axes.labelsize      : 12
+axes.linewidth      : 0.5
+axes.titlesize      : 14
+axes.grid           : True
+
+# CHIME, LC, FF, ARO10m
+axes.prop_cycle     : cycler('color', ['1f2db4', 'b41f2d', '1fb4a6', 'b4a61f'])
+
+
+# TICKS
+xtick.labelsize     : 12
+ytick.labelsize     : 12
+
+# IMAGES
+image.cmap          : viridis
+image.origin        : lower
+
+# GRIDS
+grid.linestyle      : --
+grid.alpha          : 0.8
+grid.linewidth      : 0.3
+grid.color          : b0b0b0
+
+# FIGURE
+figure.titlesize    : 14
+
+# LEGEND
+legend.fontsize     : 8
+legend.fancybox     : False
+legend.borderpad    : 0.4
+
+# SAVING FIGURES
+savefig.bbox        : tight
+savefig.pad_inches  : 0.03

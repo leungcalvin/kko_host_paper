@@ -1,0 +1,77 @@
+# Setting for FRB VLBI paper
+# Author: Tomas Cassanelli
+
+# Look here how to add more style!
+# https://matplotlib.org/stable/tutorials/introductory/customizing.html
+
+
+# LINES
+lines.linewidth     : 0.5
+lines.markersize    : 4
+
+# TEXT
+text.color          : white
+text.usetex         : False
+text.latex.preamble : \usepackage{times} \usepackage{upgreek} \usepackage{siunitx}[=v2] \sisetup{detect-all} \DeclareSIUnit{\parsec}{pc} \DeclareSIUnit{\arcsec}{asec} \DeclareSIUnit{\day}{day} \DeclareSIUnit{\TECu}{TECu} \DeclareSIUnit{\deg}{deg} 
+
+# FONT
+font.family         : serif
+font.size           : 9
+#mathtext.fontset    : cm
+
+# AXES
+axes.labelsize      : 8.5
+axes.linewidth      : 0.4
+axes.titlesize      : 9
+axes.grid           : True
+axes.edgecolor      : white
+axes.labelcolor     : white
+axes.facecolor      : 191919
+
+# CHIME, LC, FF, ARO10m
+axes.prop_cycle     : cycler('color', ['fde724', '24fde7', 'e724fd', '0f4bfc'])
+patch.linewidth     : 0.5
+
+# TICKS
+xtick.labelsize     : 8
+ytick.labelsize     : 8
+xtick.major.width   : 0.4
+xtick.minor.width   : 0.4
+ytick.major.width   : 0.4
+ytick.minor.width   : 0.4
+
+xtick.color         : white
+ytick.color         : white
+
+# IMAGES
+image.cmap          : viridis
+image.origin        : upper
+image.aspect        : auto
+
+# GRIDS
+grid.linestyle      : --
+grid.alpha          : 0.6
+grid.linewidth      : 0.4
+grid.color          : b0b0b0
+
+# FIGURE
+figure.titlesize    : 9
+#figure.dpi          : 100  # default
+figure.dpi          : 100
+
+figure.facecolor    : 111111
+figure.edgecolor    : white
+
+# LEGEND
+legend.fontsize     : 6
+legend.fancybox     : False
+legend.borderpad    : 0.4
+legend.frameon      : True
+legend.title_fontsize : 6
+legend.facecolor    : 111111
+legend.framealpha   : .6
+
+# SAVING FIGURES
+savefig.bbox        : tight
+savefig.pad_inches  : 0.03
+
