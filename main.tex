@@ -121,7 +121,7 @@
 
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
-\submitjournal{AJ}
+\submitjournal{ApJS}
 
 %% For manuscript that include authors in collaborations, AASTeX v6.31
 %% builds on the \collaboration command to allow greater freedom to 
@@ -169,8 +169,8 @@
 %%
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
-\shorttitle{Compact VLBI Calibrators at 400 MHz}
-\shortauthors{Andrew et al.}
+\shorttitle{First Host Galaxies from CHIME/FRB Outriggers}
+\shortauthors{CHIME/FRB Collaboration et al.}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
 %% with this command:
@@ -292,16 +292,15 @@ Radio pulsars (1353)
 \section{Introduction}
 \label{sec:intro}
 
-\section{Single-pulse localization - Calvin writes}
+\section{Single-pulse localization}
 Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations and hour angles.
 We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated.
 
 \subsection{North-south localization of pulsars}
 We localized a total of $82$ single pulses from $19$ distinct well-localized pulsars along the north-south direction using the CHIME baseband pipeline. In most cases, the measured declination from baseband localization is consistent within $2\sigma$ of the true position. A sky map of these localizations and the distribution of normalized declination errors are shown in Fig.~\ref{fig:bb_pulsars}.
 
-We found that the CHIME baseband localization consistently performs poorly on the low-declination pulsars B0919+06 and B1642-03. We attribute this to the lower sensitivity and beam effects which distort localizations at such low declinations.
-
-were omitted from this sample.
+We isolated the Crab B0531+21 and the low-declination pulsars B0919+06 and B1642-03 from our test pulsar sample. The Crab was omitted because its giant pulses are extremely bright and often are detected by the CHIME/FRB search engine in the sidelobes of the primary beam. Even main-lobe Crab pulses fail to be localized by the baseband pipeline because of their extreme brightness. The physical reason for this is that the pipeline fits a Gaussian in the image plane to super-resolve beyond the resolution limit of the telescope; this works well at low and moderate S/N ratios but fails at high S/N ratios.
+We also found that the CHIME baseband localization consistently performs poorly on the low-declination pulsars B0919+06 and B1642-03. We attribute this to the lower sensitivity and beam effects which distort localizations at such low declinations. \textbf{Only one of our associated host galaxies falls in this range, and the robustness of the association does not change if we increase the declination error (check this)}.
 
 \begin{figure}
     \centering
