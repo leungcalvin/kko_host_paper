@@ -112,6 +112,7 @@
     % print-unity-mantissa=false
     }
 \DeclareSIUnit{\parsec}{pc}
+\DeclareSIUnit{\jansky}{Jy}
 \DeclareSIUnit{\dmunit}{pc cm^{-3}}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
@@ -238,8 +239,8 @@
 %% automatically put the author and affiliation information from the manuscript
 %% and save the corresponding author the trouble of entering it by hand.
 
-\correspondingauthor{Calvin Leung}
-\email{calvin\_leung@berkeley.edu}
+\correspondingauthor{CHIME}%Calvin Leung}
+%\email{calvin\_leung@berkeley.edu}
 
 
 %\author[0000-0002-4209-7408]{C.~Leung}
@@ -290,42 +291,104 @@ Radio pulsars (1353)
 %% to the KEY in the \bibitem in the reference list below. 
 
 \section{Introduction}
+Fast radio bursts (FRBs) are enigmatic astronomical phenomena whose puzzling diversity has made them one of the most mysterious topics in contemporary astrophysics. Despite the identification of thousands of FRBs, their precise origins and mechanisms driving these bursts remain largely unknown. The precedent set by GRB and supernova communities suggests that studying the local and global details of host galaxies can shed light on the progenitors of FRBs.
+
+For instance, localizing FRBs to specific galactic environments can help us distinguish between models involving young, highly magnetized neutron stars, and those invoking more exotic progenitors, such as stellar remnants formed after compact-object mergers.
+
+The identification of FRB host galaxies also plays a crucial role in using FRBs as cosmological tools. The dispersion measures (DMs) of FRBs provide a unique probe of the intergalactic medium (IGM) and the distribution of baryonic matter in the Universe. The dispersion measures of large FRB samples have enormous potential to probe the IGM/CGM, and refine models for galaxy formation and the role of AGN feedback therein.
+
+In this paper we present the VLBI localization of XXX FRBs, as well as the successful host association and redshift measurements for XXX new FRB hosts. These bursts were discovered and localized using the Canadian Hydrogen Intensity Mapping Experiment (CHIME/FRB) and the first of its three VLBI outrigger stations. This significant increase in the number of localized FRBs is the beginning of an era of precise and plentiful localizations. In addition, the abundance of VLBI calibrators on a short baseline offers a unique laboratory for systematically testing ad-hoc calibrator choices often made in VLBI calibration, giving insight into required astrometric precision for next-generation FRB VLBI machines such as CHORD and BURSTT and CARTA. \textbf{Discuss: shoutouts to companion papers or others?}
+
 \label{sec:intro}
+
+\section{FRB Observations}
+We collected a total of XXX FRBs from the commissioning phase of the KKO telescope (mid-2023) through (\textbf{last FRB date in 2024}). Following the detection and real-time localization, triggers were sent to dump at CHIME and KKO the full  field of view for $\sim 100$ milliseconds following a real time single-pulse detection with a detection $S/N > 25$. Every FRB was localized by the CHIME/FRB baseband pipeline to maximize the FRB signal and coarsely localize the burst. Subsequently, full-array baseband dumps allowed for a commensal search for bright ($\sim\SI{1}{\jansky}$) VLBI calibrators from the RFC and VLBA catalogs within the baseband dump, whose effective field of view on the sky is $\sim \SI{200}{\deg^2}$. At each station, we formed station beams towards each of the $\sim 200$ calibrators within the field of view. A single correlator pointing was placed inside each station beam, and each beam was correlated. We detected anywhere between 3-11 VLBI calibrators per baseband dump, allowing a calibrator to be chosen after.
+
+\textbf{All Stokes-I waterfall plots in baseband data are shown in Fig. (Vishwangi?); burst properties paper maybe coming later; no danger of being scooped.}
 
 \section{Single-pulse localization}
 Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations and hour angles.
-We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated.
+We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated and have angular areas of XX arcseconds squared \textbf{(perhaps Vic can calculate this from all the cross-matching work?)}
 
-\subsection{North-south localization of pulsars}
+\subsection{Major-axis localization using baseband localization}
 We localized a total of $82$ single pulses from $19$ distinct well-localized pulsars along the north-south direction using the CHIME baseband pipeline. In most cases, the measured declination from baseband localization is consistent within $2\sigma$ of the true position. A sky map of these localizations and the distribution of normalized declination errors are shown in Fig.~\ref{fig:bb_pulsars}.
 
-We isolated the Crab B0531+21 and the low-declination pulsars B0919+06 and B1642-03 from our test pulsar sample. The Crab was omitted because its giant pulses are extremely bright and often are detected by the CHIME/FRB search engine in the sidelobes of the primary beam. Even main-lobe Crab pulses fail to be localized by the baseband pipeline because of their extreme brightness. The physical reason for this is that the pipeline fits a Gaussian in the image plane to super-resolve beyond the resolution limit of the telescope; this works well at low and moderate S/N ratios but fails at high S/N ratios.
-We also found that the CHIME baseband localization consistently performs poorly on the low-declination pulsars B0919+06 and B1642-03. We attribute this to the lower sensitivity and beam effects which distort localizations at such low declinations. \textbf{Only one of our associated host galaxies falls in this range, and the robustness of the association does not change if we increase the declination error (check this)}.
+We isolated the Crab B0531+21 and the low-declination pulsars B0919+06 and B1642-03 from our test pulsar sample. The Crab was omitted because its giant pulses are extremely bright and often are detected by the CHIME/FRB search engine in the sidelobes of the primary beam. Even main-lobe Crab pulses fail to be localized by the baseband pipeline because of their extreme brightness. The physical reason for this is that the pipeline fits a Gaussian in the image plane to super-resolve beyond the resolution limit of the telescope; this works well at low and moderate S/N ratios but fails at high S/N ratios \textbf{(See Fig. from Mattias)}.
 
-\begin{figure}
+We also found that the CHIME baseband localization consistently performs poorly on the low-declination pulsars B0919+06 and B1642-03. We attribute this to the lower sensitivity and beam effects which distort localizations at such low declinations. \textbf{Only one, maybe two, of our associated host galaxies falls in this range, and the robustness of the association does not change if we increase the declination error (check this)}. Alternatively, the host galaxy could be downgraded to silver.
+
+\begin{figure*}
     \centering
-    \includegraphics[width=0.4\textwidth]{figures/bb_pulsars.pdf}
-    \includegraphics[width=0.4\textwidth]{figures/bb_pulsars_chisq.pdf}
-    \caption{Astrometric errors for pulsars.}
+    \includegraphics[width=0.33\textwidth]{figures/bb_pulsars.pdf}
+    \includegraphics[width=0.33\textwidth]{figures/bb_pulsars_chisq.pdf}
+    \includegraphics[width=0.33\textwidth]{figures/bb_pulsars_chisq_ra.pdf}
+    \caption{Astrometric errors for pulsars.  \textbf{TODO (Mattias?): Also plot errors versus pulsar S/N, or just bin histograms into high and low S/N samples.}}
     \label{fig:bb_pulsars}
-\end{figure}
-VLBI localization: discuss calibrator choice – FIGURE showing example field 
-Motivate error ellipse dimensions 
-\section{FRB Observations}
-\subsection{Host Galaxy Association}
-Lordrick can write about PATH.
+\end{figure*}
+VLBI localization: discuss calibrator choice – \textbf{TODO: Make figure showing example field.}
+
+
+\subsection{Minor-axis localization using VLBI}
+Along the east-west direction, the position is strongly constrained by VLBI localization. \textbf{TODO: Write about calibrator selection strategy.}
+
+\textbf{Figure (Adam?): VLBI accuracy for pulsars versus target-calibrator separation and target brightness.} This motivate our minor axis ellipse dimensions, which for conservatism and simplicity we assume to be a constant 2 (sometimes 3) nanoseconds.
+
 \section{Host Association}
-PATH P(U) choices
-\subsection{Unseen/ambiguous FRBs}
+We use the default priors in the PATH formalism to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible (20/100 fields), we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy. In the remainder of fields, we use imaging from Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. 
+
+The galaxies overlapping the localization region are vetted for contamination by misclassified stars, and posterior probabilities $P(O|x)$ are assigned to each galaxy. With a properly-calibrated $P(U)$ for each galaxy survey, the posterior probabilities rank each galaxy in order of the probability of being the true host. A prior of $P(U) = 0.1$ was chosen for fields which overlapped widefield imaging from the DECaL Survey, while a prior of $P(U) = 0.2$ was chosen for PanSTARRS-PS1 fields.
+\textbf{Figure: 2D histogram of $P(O|x)$ versus $z$ for all (even empty) fields; put good HG in a different color. Also do the same but as a function of DM instead of $z$.}
+
+
+Fig.~\ref{fig:hg_images} shows host galaxies with high posterior probabilities (decide on cutoff). Because CHIME's discovery footprint is entirely contained within the footprint of Pan-STARRS, We display publicly-available host galaxy images from Pan-STARRS DR1 to maintain uniformity across the sample.
+
+\subsection{Unseen/ambiguous FRB hosts}
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/hg_images.pdf}
+    \caption{All of our host galaxies. \textbf{TODO: TNS names in lower RHS; dark background; zoom in on hosts. Need volunteer to help with this (perhaps somebody from F4 or with PATH experience? Discuss: should we have a separate figure with zoom-in on hosts?)}}
+    \label{fig:hg_images}
+\end{figure*}
 Calculate \& plot max redshift implied by DM
 Point out potential targets for faint hosts/followup imaging.
+
+\subsection{Repeaters}
+There are XX repeaters in our sample (\textbf{Discuss: any projects here? Vishwangi?})
+
 \section{Host Galaxy Observations}
-Describe spectra collection: a paragraph for each FRB, with what resource it was observed (Gemini? Keck? Lick?), 
-Reduction details – progress?
-SED fits – Mass, parametric SFR – fit archival photometry (CIGALE?)
-Macquart Diagram
+Redshifts were collected for all galaxies in the sample with $P(O|x) > 0.9$. In cases where the secondary galaxy was comparable in brightness, we opportunistically overlapped the long-slit with both top candidates. The data were reduced using the PypeIt software package to do flat-fielding, arc-lamp, and sky-subtraction of 2d spectra, and the final integration to 1d spectra. Redshifts were identified on the basis of at least XX emission lines where possible; we indicate cases where fewer lines than this were found.
+
+\subsection{FRB20231223C (0.999912)}
+Somebody took a mean redshift for this galaxy. Who? Please add some details as appropriate.
+\subsection{FRB20231005A (0.997258)}
+Somebody else took a redshift for this galaxy too. Who?
+\subsection{FRB20231011A (0.995596)}
+And this one too. Who?
+\subsection{FRB20231202A (0.993362)}
+\subsection{FRB20230203A (0.992672)}
+\subsection{FRB20230703A (0.990829)}
+\subsection{FRB20231128A (0.988884)}
+\subsection{FRB20230222B (0.982086)}
+\subsection{FRB20230730A (0.981888)}
+\subsection{FRB20231204A (0.979213)}
+\subsection{FRB20230311A (0.975967)}
+\subsection{FRB20231123A (0.966009)}
+\subsection{FRB20231201A (0.946022)}
+\subsection{FRB20231025B (0.938868)}
+\subsection{FRB20231008A (0.924363)}
+\subsection{FRB20230702A (0.856057)}
+\subsection{FRB20231230A (0.838449)}
+\subsection{FRB20230923A (0.702269)}
+\subsection{FRB20230409B (0.694610)}
+\subsection{FRB20230828A (0.464000)}
+\section{Redshift-dispersion relation}
+CHIME/KKO significantly increases the ensemble of low-redshift host galaxies. This is important because low-redshift hosts are the best sample for studying the correlation between FRB hosts and field galaxies; nearby outliers (e.g. M81) may not be representative of the cosmological FRB population. It is crucial to build up a large sample of these, if effects such as redshift evolution are to be measured.
+Our host galaxies live at low $z$ but moderate DM: see \textbf{Macquart diagram figure.}
+
+\textbf{Discuss: I believe we must show where we live in DM-redshift space, and that our distribution is roughly in line with expectations of an optical-confusion-limited survey. How to best convey this in a simple/transparent way that is not misleading?}
 \section{Radio Counterparts}
-PRS upper limits from VLASS comment on presence/absence of radio SF in the HG.
+PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.
+The two persistent radio sources are located in dwarf galaxy hosts with dense local environments, (280-480 units for FRB 190520) and ($\sim 150$ units for FRB 121102). While many Local Universe FRBs have been localized, many have been selected on the basis of their DM in order to rule out distant galaxies, which reduces the chance coincidence probability: a necessity of lacking angular resolution. This CHIME-KKO sample provides a complementary dataset where we can make host associations to substantially greater DMs. \textbf{TODO: Grab VLASS upper limits for each field. Looking for volunteer?}
 
 \section{Acknowledgments}
 \begin{acknowledgments}
