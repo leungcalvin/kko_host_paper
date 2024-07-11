@@ -331,7 +331,7 @@ For the remaining set of 100 pulses, we plot a summary of the baseband localizat
 \begin{figure*}
     \centering
     \includegraphics[width=1.0\linewidth]{figures/bblocs.pdf}
-    \caption{Validation of declination uncertainties outputted by the CHIME/FRB baseband localisation pipeline \citep{michilli2020analysis}. \textit{Left panel:} Declination offsets as a function of detection S/N for a sample of 100 pulses from 18 unique pulsars covering a declination range of $3^\circ\leq\delta\leq81^\circ$. Offsets and their associated uncertainties are represented by open-face, black markers and errorbars, respectively. For reference, the measured S/N  and declination uncertainties associated with FRBs presented in this work are indicated by the blue errorbars at a fiducial decl. offset of $-2.5$ arcmin. \textbf{Need some high S/N pulses to test, $>$ 100 S/N}. Theoretical uncertainty for a burst detected at zenith by CHIME as a function of S/N is depicted by the two red curves \citep{michilli2020analysis}. \textit{Right:} Histogram of measured declination offsets normalized by their outputted uncertainties. The normalized values are well described by a Gaussian distribution with a mean of 0.1 and standard deviation of 1.0 (overplotted dashed, red line), as expected for calibrated uncertainties.}
+    \caption{Validation of declination uncertainties outputted by the CHIME/FRB baseband localisation pipeline \citep{michilli2020analysis}. \textit{Left panel:} Declination offsets as a function of detection S/N for a sample of 100 pulses from 18 unique pulsars covering a declination range of $+6^\circ\leq\delta\leq+80^\circ$. Offsets and their associated uncertainties are represented by open-face, black markers and errorbars, respectively. For reference, the measured S/N  and declination uncertainties associated with FRBs presented in this work are indicated by the blue errorbars at a fiducial decl. offset of $-2.5$ arcmin. \textbf{Need some high S/N pulses to test, $>$ 100 S/N}. Theoretical uncertainty for a burst detected at zenith by CHIME as a function of S/N is depicted by the two red curves \citep{michilli2020analysis}. \textit{Right:} Histogram of measured declination offsets normalized by their outputted uncertainties. As expected, the normalized values are well described by a Gaussian distribution with a mean of 0.1 and standard deviation of 1.0 (overplotted dashed, red line).}
     \label{fig:bb_pulsars}
 \end{figure*}
 VLBI localization: discuss calibrator choice – \textbf{TODO: Make figure showing example field.}
@@ -397,7 +397,37 @@ Our host galaxies live at low $z$ but moderate DM: see \textbf{Macquart diagram 
 \textbf{Discuss: I believe we must show where we live in DM-redshift space, and that our distribution is roughly in line with expectations of an optical-confusion-limited survey. How to best convey this in a simple/transparent way that is not misleading?}
 \section{Radio Counterparts}
 PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.
-The two persistent radio sources are located in dwarf galaxy hosts with dense local environments, (280-480 units for FRB 190520) and ($\sim 150$ units for FRB 121102). While many Local Universe FRBs have been localized, many have been selected on the basis of their DM in order to rule out distant galaxies, which reduces the chance coincidence probability: a necessity of lacking angular resolution. This CHIME-KKO sample provides a complementary dataset where we can make host associations to substantially greater DMs. \textbf{TODO: Grab VLASS upper limits for each field. Mattias and Vic}
+The two persistent radio sources are located in dwarf galaxy hosts with dense local environments, (280-480 units for FRB 190520) and ($\sim 150$ units for FRB 121102). While many Local Universe FRBs have been localized, many have been selected on the basis of their DM in order to rule out distant galaxies, which reduces the chance coincidence probability: a necessity of lacking angular resolution. This CHIME-KKO sample provides a complementary dataset where we can make host associations to substantially greater DMs.
+
+\begin{table}
+\begin{tabular}{ccc}
+FRB name & z & L$_{\rm{PRS}}$ \\
+       &               &  (erg/s/Hz) \\ \hline
+       
+FRB20231223C & 0.10594 & $< 1.2 \times10^{29}$ \\
+FRB20231005A & 0.07112 & $< 4.5\times10^{28}$ \\
+FRB20231011A & 0.07830 & $<6.3\times10^{28}$ \\
+FRB20231202A & - & - \\
+FRB20230203A & 0.1464 & $<2.9\times10^{29}$ \\
+FRB20230703A & 0.1184 & $<1.5\times10^{29}$ \\
+\textcolor{red}{FRB20231128A} & 0.1079 & $<$ \\
+FRB20230222B & 0.11 & $<1.1\times10^{29}$\\
+FRB20230730A & 0.2115 & $<5.7\times10^{29}$ \\
+FRB20231204A & 0.06435 & $<$ \\
+FRB20230311A & 0.1918 & $<4.7\times10^{29}$ \\
+FRB20231123A & - &  - \\
+FRB20231201A & - & -  \\
+FRB20231025B & - & - \\
+FRB20231008A & - & - \\
+FRB20230702A & 0.5008999705 & $<3.6\times10^{30}$ \\
+\textcolor{red}{FRB20231230A} & 0.029807 & $<$ \\
+FRB20230923A & - & - \\
+FRB20230409B & 0.3001999855& $<1.1\times10^{30}$ \\
+FRB20230828A & 0.2736000121 & $<8.3\times10^{29}$ \\
+    \end{tabular}
+\caption{Limit on persistent radio counterparts derived from the VLA Sky Survey at 3 GHz. \textcolor{red}{how many decimal points for z? -VD}}
+\label{tab:hostderived}
+\end{table}
 
 \section{Acknowledgments}
 \begin{acknowledgments}
