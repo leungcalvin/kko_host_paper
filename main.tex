@@ -231,12 +231,13 @@ We localize FRBs in the north-south direction using the CHIME/FRB baseband local
 
 
 \subsection{Minor-axis localization using VLBI}
-Along the east-west direction, the position is strongly constrained by VLBI localization. Following the basic strategy of~\citep{leung2021synoptic}, we use the full-array baseband dumps to search for bright ($\sim$ 1 Jansky) VLBI calibrators from the RFC and VLBA catalogs within the baseband dump, whose effective field of view on the sky is $\sim 200$ deg$^2$. At each station, we formed station beams towards each of the $\sim 200$ VLBI calibrators within the field of view. Following~\citep{andrew2024calibrator}, we placed a single correlator pointing in each station beam, and each pointing was correlated using the~\texttt{PyFX} correlator~\citep{leung2024vlbi}. Visibilities were saved if the calibrator was detected. We detected up to 15 VLBI calibrators per baseband dump this way.
+Along the east-west direction, the position is strongly constrained by VLBI localization. Following the basic strategy of~\citep{leung2021synoptic}, we use the full-array baseband dumps to search for bright ($\sim$ 1 Jansky) VLBI calibrators from the RFC and VLBA catalogs within the baseband dump, whose effective field of view on the sky is $\sim 200$ deg$^2$. At each station, we formed station beams towards each of the $\sim 200$ VLBI calibrators within the field of view. Following~\citep{andrew2024calibrator}, we placed a single correlator pointing in each station beam, and each pointing was correlated using the~\texttt{PyFX} correlator~\citep{leung2024vlbi}. Visibilities were saved if the calibrator was detected. We detected up to 15 VLBI calibrators per baseband dump this way. We inspected the uncalibrated delay toward each calibrator. Typically, the VLBI calibrator delays agree to within 2 ns of each other, indicating that we do not need direction-dependent calibration at this level of delay accuracy; calibrators which have wildly discrepant delays can usually be associated with misidentified calibrators~\citep{andrew2024vlbi}. To incorporate this effect in our sample selection we reject calibrators whose delays are not within 2 ns of the median calibrator delay.
+After rejecting confused calibrators, we choose the calibrator which minimizes the target-calibrator separation. However, we find using a sample of pulsar localizations that our astrometric accuracy is insensitive to this choice, and that choosing the calibrator which maximizes the S/N of the referenced target scan yields a similar astrometric accuracy (see Appendix~\ref{sec:accuracy}).
 
 \section{Host Association}\label{sec:association}
-We use the default priors in the PATH toolkit to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible (55/78 fields), we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy due to its greater depth. In the remainder of fields (23/78), we default to Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. \textbf{Note: Waiting for last 5 fields from custom PATH; update these numbers.}
+After localizing each burst with VLBI, we use the default priors in the PATH toolkit to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible (55/78 fields), we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy due to its greater depth. In the remainder of fields (23/78), we default to Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. \textbf{Note: Waiting for last 5 fields from incomplete PATH run; update these numbers.}
 
-Stars are identified in each field on the basis of their Gaia DR3 classification. After automated removal, each field is manually inspected for contamination by misclassified stars \textbf{and other failures}. Finally, each galaxy candidate in the field is assigned a probability of being the true host.
+Stars are identified in each field on the basis of their classification in Gaia DR3. After this automated removal, each field is manually inspected for contamination by misclassified stars \textbf{and other failures}. Finally, each galaxy candidate in the field is assigned a probability of being the true host. \textbf{Note: would like somebody to review this}
 
 Accurately assigning these posterior probabilities is difficult when combining shallow, widefield archival imaging with a highly sensitive FRB detector such as CHIME. In this case, a significant fraction of bursts originates from beyond the maximum redshift out to which a faint host galaxy would be detectable. As a point of reference, the faint dwarf host of the first repeater (FRB 20121102A) would be detectable in the DECaLS $r$-band out to $z \sim 0.2$, depending on the Galactic extinction along the line of sight, implying an extragalactic DM of $\sim 200$. The redshift implied by the median DM of our sample significantly exceeds this (Fig.~\ref{fig:hg_vs_dm}).
 
@@ -366,29 +367,29 @@ The two persistent radio sources are located in dwarf galaxy hosts with dense lo
 
 \begin{table}
 \begin{tabular}{ccc}
-FRB name & z & L$_{\rm{PRS}}$ \\
+FRB name & $z$ & L$_{\rm{PRS}}$ \\
        &               &  (erg/s/Hz) \\ \hline
        
-FRB20231223C & 0.1059 & $< 1.2 \times10^{29}$ \\
-FRB20231005A & 0.0711 & $< 4.5\times10^{28}$ \\
-FRB20231011A & 0.0783 & $<6.3\times10^{28}$ \\
+FRB20231223C & 0.1059 & $< 2 \times10^{29}$ \\
+FRB20231005A & 0.0711 & $< 7\times10^{28}$ \\
+FRB20231011A & 0.0783 & $<1\times10^{29}$ \\
 FRB20231202A & - & - \\
-FRB20230203A & 0.1464 & $<2.9\times10^{29}$ \\
-FRB20230703A & 0.1184 & $<1.5\times10^{29}$ \\
+FRB20230203A & 0.1464 & $<4\times10^{29}$ \\
+\textcolor{red}{FRB20230703A} & 0.1184 & - \\
 \textcolor{red}{FRB20231128A} & 0.1079 & $<$ \\
-FRB20230222B & 0.11 & $<1.1\times10^{29}$\\
-FRB20230730A & 0.2115 & $<5.7\times10^{29}$ \\
-FRB20231204A & 0.0644 & $<$ \\
-FRB20230311A & 0.1918 & $<4.7\times10^{29}$ \\
-FRB20231123A & - &  - \\
+FRB20230222B & 0.11 & $<2\times10^{29}$\\
+FRB20230730A & 0.2115 & $<8\times10^{29}$ \\
+\textcolor{red}{FRB20231204A} & 0.0644 & $<$ \\
+FRB20230311A & 0.1918 & $<8\times10^{29}$ \\
+FRB20231123A & - &  $<9\times10^{28}$ \\
 FRB20231201A & - & -  \\
 FRB20231025B & - & - \\
 FRB20231008A & - & - \\
-FRB20230702A & 0.5009 & $<3.6\times10^{30}$ \\
+FRB20230702A & 0.5009 & $<5\times10^{30}$ \\
 \textcolor{red}{FRB20231230A} & 0.0298 & $<$ \\
-FRB20230923A & - & - \\
+FRB20230923A & - & $<5\times10^{30}$ \\
 FRB20230409B & 0.3002& $<1.1\times10^{30}$ \\
-FRB20230828A & 0.2736 & $<8.3\times10^{29}$ \\
+FRB20230828A & - & $<1\times10^{31}$ \\
     \end{tabular}
 \caption{Limit on persistent radio counterparts derived from the VLA Sky Survey at 3 GHz.}
 \label{tab:hostderived}
