@@ -27,79 +27,14 @@
 %%
 %% using aastex version 6.3
 %\documentclass[linenumbers]{aastex631}
-\documentclass[linenumbers, twocolumn]{aastex631}
+\documentclass[twocolumn]{aastex631}
 
-%% The default is a single spaced, 10 point font, single spaced article.
-%% There are 5 other style options available via an optional argument. They
-%% can be invoked like this:
-%%
-%% \documentclass[arguments]{aastex631}
-%% 
-%% where the layout options are:
-%%
-%%  twocolumn   : two text columns, 10 point font, single spaced article.
-%%                This is the most compact and represent the final published
-%%                derived PDF copy of the accepted manuscript from the publisher
-%%  manuscript  : one text column, 12 point font, double spaced article.
-%%  preprint    : one text column, 12 point font, single spaced article.  
-%%  preprint2   : two text columns, 12 point font, single spaced article.
-%%  modern      : a stylish, single text column, 12 point font, article with
-%% 		  wider left and right margins. This uses the Daniel
-%% 		  Foreman-Mackey and David Hogg design.
-%%  RNAAS       : Supresses an abstract. Originally for RNAAS manuscripts 
-%%                but now that abstracts are required this is obsolete for
-%%                AAS Journals. Authors might need it for other reasons. DO NOT
-%%                use \begin{abstract} and \end{abstract} with this style.
-%%
-%% Note that you can submit to the AAS Journals in any of these 6 styles.
-%%
-%% There are other optional arguments one can invoke to allow other stylistic
-%% actions. The available options are:
-%%
-%%   astrosymb    : Loads Astrosymb font and define \astrocommands. 
-%%   tighten      : Makes baselineskip slightly smaller, only works with 
-%%                  the twocolumn substyle.
-%%   times        : uses times font instead of the default
-%%   linenumbers  : turn on lineno package.
-%%   trackchanges : required to see the revision mark up and print its output
-%%   longauthor   : Do not use the more compressed footnote style (default) for 
-%%                  the author/collaboration/affiliations. Instead print all
-%%                  affiliation information after each name. Creates a much 
-%%                  longer author list but may be desirable for short 
-%%                  author papers.
-%% twocolappendix : make 2 column appendix.
-%%   anonymous    : Do not show the authors, affiliations and acknowledgments 
-%%                  for dual anonymous review.
-%%
-%% these can be used in any combination, e.g.
-%%
-%% \documentclass[twocolumn,linenumbers,trackchanges]{aastex631}
-%%
-%% AASTeX v6.* now includes \hyperref support. While we have built in specific
-%% defaults into the classfile you can manually override them with the
-%% \hypersetup command. For example,
-%%
-%% \hypersetup{linkcolor=red,citecolor=green,filecolor=cyan,urlcolor=magenta}
-%%
-%% will change the color of the internal links to red, the links to the
-%% bibliography to green, the file links to cyan, and the external links to
-%% magenta. Additional information on \hyperref options can be found here:
-%% https://www.tug.org/applications/hyperref/manual.html#x1-40003
-%%
-%% Note that in v6.3 "bookmarks" has been changed to "true" in hyperref
-%% to improve the accessibility of the compiled pdf file.
-%%
-%% If you want to create your own macros, you can do so
-%% using \newcommand. Your macros should appear before
-%% the \begin{document} command.
-%%
 \usepackage{amsmath}
-\newcommand{\vdag}{(v)^\dagger}
-\newcommand\aastex{AAS\TeX}
-\newcommand\latex{La\TeX}
-\newcommand{\comment}[1]{{\color{blue}#1}}
-
+\usepackage{booktabs}
+\usepackage{savesym}
+\savesymbol{tablenum}
 \usepackage{siunitx}
+\restoresymbol{SIX}{tablenum}
 \sisetup{
     %binary-units,
     range-phrase=\text{--},
@@ -116,9 +51,9 @@
 \DeclareSIUnit{\dmunit}{pc cm^{-3}}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
-\received{\today}
+\received{\today}%
 \revised{\today}
-%\accepted{\today}
+\accepted{\today}
 
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
@@ -188,7 +123,7 @@
 
 \begin{document}
 
-\title{KKO Hosts Paper}
+\title{Eighteen New Low-redshift Host Galaxies From CHIME/FRB Outriggers}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -239,7 +174,7 @@
 %% automatically put the author and affiliation information from the manuscript
 %% and save the corresponding author the trouble of entering it by hand.
 
-\correspondingauthor{CHIME}%Calvin Leung}
+%\correspondingauthor{CHIME}%Calvin Leung}
 %\email{calvin\_leung@berkeley.edu}
 
 
@@ -262,117 +197,60 @@
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-
+We present 83 fast radio bursts localized to 2'' by $\sim 1'$ precision by the Canadian Hydrogen Intensity Mapping Experiment (CHIME), as well as 18 new host galaxies, and 14 spectroscopic redshifts.
 \end{abstract}
-
-%% Keywords should appear after the \end{abstract} command. 
-%% The AAS Journals now uses Unified Astronomy Thesaurus concepts:
-%% https://astrothesaurus.org
-%% You will be asked to selected these concepts during the submission process
-%% but this old "keyword" functionality is maintained in case authors want
-%% to include these concepts in their preprints.
-\keywords{Radio astronomy(1338), Very long baseline interferometry (1769), Radio transient sources (2008), 
-Radio pulsars (1353)
-}
-
-%% From the front matter, we move on to the body of the paper.
-%% Sections are demarcated by \section and \subsection, respectively.
-%% Observe the use of the LaTeX \label
-%% command after the \subsection to give a symbolic KEY to the
-%% subsection for cross-referencing in a \ref command.
-%% You can use LaTeX's \ref and \label commands to keep track of
-%% cross-references to sections, equations, tables, and figures.
-%% That way, if you change the order of any elements, LaTeX will
-%% automatically renumber them.
-%%
-%% We recommend that authors also use the natbib \citep
-%% and \citet commands to identify citations.  The citations are
-%% tied to the reference list via symbolic KEYs. The KEY corresponds
-%% to the KEY in the \bibitem in the reference list below. 
+\keywords{Radio astronomy(1338), Very long baseline interferometry (1769), Radio transient sources (2008)}
 
 \section{Introduction}\label{sec:intro}
-Fast radio bursts (FRBs) are enigmatic astronomical phenomena whose puzzling diversity has made them one of the most mysterious topics in contemporary astrophysics~\citep{cordes2019fast,petroff2022fast}. Despite the identification of thousands of FRBs~\citep{collaboration2021chime}, the precise origins of the extragalactic bursts remains an enigma. However, the precedent set by the gamma-ray burst (GRB) and supernova communities suggests that studying the local and global details of host galaxies, as well as the transient-host spatial distribution of offsets between transients and their hosts~\citep{bloom2002observed,fong2022comprehensive,raskin2008spatial, tunnicliffe2014on}, can shed light on the progenitors of FRBs via their host environments and inferred delay-time distribution. While a Galactic analogue~\citep{collaboration2020bright,bochenek2020fast} suggests a young magnetar origin for extragalactic FRBs, an FRB localized to a globular cluster~\citep{kirsten2022repeating} suggests that FRBs may originate from a graveyard of compact objects and an old stellar population.
+Fast radio bursts (FRBs) are short-duration radio pulses whose shocking diversity has earned them a reputation as perhaps the most mysterious class of astrophysical transients~\citep{cordes2019fast,petroff2022fast}. While thousands of FRBs have been discovered~\citep{collaboration2021chime} spanning several orders of magnitude in luminosity, rise time, burst duration, and activity timescale, their origins remain unknown and their potential as cosmological probes remains untapped -- bottlenecked by a lack of robust burst localization and host galaxy identification. 
 
-Host galaxy studies are a powerful tool to distinguish between models involving young, highly magnetized neutron stars, and those invoking more exotic progenitors, such as stellar remnants formed after compact-object mergers, and play a role in the use of FRBs as cosmological probes. The dispersion measures (DMs) of FRBs are sensitive to the diffuse baryons in the intergalactic medium (IGM) and the interstellar media of their host galaxies, and can play a role in refining models of galaxy formation and AGN feedback in cosmology.
+The host galaxies of FRBs are central to the study of FRB progenitors and their eventual utility as cosmological probes. Following in the footsteps of the gamma-ray burst (GRB) community~\citep{bloom2002observed,fong2022comprehensive},
+several early studies have been conducted on FRB host galaxies. With a handful of bursts (5), early studies of sources discovered by the Australian Square Kilometre Array Pathfinder~\citep{macquart2020census} found an offset distribution compatible with short GRB hosts and supernovae~\citep{heintz2020host,bhandari2020host}. This was expanded by ~\citet{bhandari2022characterizing} and~\citet{bhardwaj2024host} (15 and 18 hosts), and~\citet{law2024deep}, who found a broad diversity of delay times and formation channels using 11 new hosts of FRBs discovered and localized by the Deep Synoptic Array~\citep{kocz2019dsa}. 
 
-We are entering an era of of precise FRB localizations and plentiful host galaxy associations. With a uniform radio survey strategy, the Deep Synoptic Array has detected 11 FRBs and localized them to their host galaxies~\citep{law2024deep}, with redshifts ranging from  $z = 0.04$ to $0.62$ with a median of $z = 0.24$. Recently, the completion of the ASKAP Fast Transient incoherent-sum survey~\citep{shannon2024commensal} has added an optically-complete sample of 43 FRBs and 30 redshifts with redshifts ranging from $z = 0.023$ to $1.02$. We expand on these groundbreaking efforts using the Canadian Hydrogen Intensity Mapping Experiment (CHIME/FRB) and the first of its three VLBI outrigger stations -- KKO -- to localize 83 FRB sources with an accuracy of $\sim 1' \times 2''$. The high detection rate of FRBs and the modest localization accuracy allows 18 bright, low-redshift host galaxies to identified with high confidence, as quantified by the Bayesian host association algorithm PATH~\citep{aggarwal2021probabilistic}. In Sec~\ref{sec:
+These studies have all been limited due to the small sample sizes involved. However, we are entering an era of of precise FRB localizations and plentiful host galaxy associations: the Deep Synoptic Array has detected 11 FRBs and localized them to their host galaxies~\citep{law2024deep}, with redshifts ranging from  $z = 0.04$ to $0.62$.
+The recent completion of the ASKAP Fast Transient incoherent-sum survey~\citep{shannon2024commensal} has added an optically-complete sample of 43 FRBs and 30 redshifts with redshifts ranging from $z = 0.023$ to $1.02$, many of which have been characterized in the sample of~\citet{gordon2023demographics} (see also~\citet{gordon2023fast}).
 
-This substantially increasing the size of low-redshift host galaxies, which are crucial for spatially-resolved followup and breaking degeneracies in global fits to the redshift-dispersion relation~\citep{jahnsschindler2023how}.
-We present spectroscopic redshifts for 14 of the 18 hosts in low-extinction sightlines, but reserve detailed characterization of these hosts for future work.
+This paper expands on these groundbreaking efforts using the Canadian Hydrogen Intensity Mapping Experiment (CHIME/FRB) and KKO, the first of its three VLBI outrigger stations. Using triggered VLBI, we localize 83 FRB sources with an accuracy of $\sim 1' \times 2''$ (Sec.~\ref{sec:localization}), serving as a proof-of-concept of the triggered VLBI technique. The abundance of VLBA and RFC astrometric calibrators at 600 MHz which we observe is encouraging for next-generation FRB telescopes which will rely on similar techniques to pinpoint FRBs: these include CHIME's successor CHORD~\citep{vanderlinde2019canadian}, as well as other compact arrays being built as HIRAX~\citep{newburgh2016hirax}, BURSTT~\citep{lin2022burstt}, and CASPA~\citep{luo2024fast}. We systematically investigate the impact of calibrator choice on astrometric accuracy using a sample of single-pulse localizations from pulsars, finding that on this short baseline, our astrometric accuracy is unaffected by our calibrator choice (Appendix~\ref{sec:accuracy}).
 
+The high detection rate of the CHIME/FRB backend~\citep{collaboration2018chime} allows 83 bright FRBs to be successfully localized. Despite the moderate accuracy of the single-pulse localizations, 18 of these bursts can confidently be associated with bright host galaxies, as quantified by a conservative application of the Bayesian host association algorithm PATH~\citep{aggarwal2021probabilistic} (Sec~\ref{sec:association}) and a detailed simulation of the rate of false-positive associations~\citep{andersen2024inprep}.
 
+Finally Sec.~\ref{sec:sample} we describe the 18 hosts in the sample, and highlight a few interesting cases therein. They have brightnesses of $16.4 < m_r < 22.7$ and are all at low redshifts ($z < 0.33$), and like the sample presented in~\citet{law2024deep}, are uniformly selected from the Pan-STARRS~\citep{chambers2016pan, magnier2020pan,waters2020pan, magnier2020pan2, magnier2020pan3, flewelling2020pan} and Dark Energy Camera Legacy Survey (DECaLS)~\citep{dey2019overview} imaging surveys. These bright galaxies represent ideal, nearby targets for spatially-resolved followup studies (e.g.~\citep{mannings2021high,woodland2023environments}), where followup facilities can discover faint optical hosts such as dwarf galaxies, which have been known to host a handful of unusual FRBs~\citep{tendulkar2017host,niu2021repeating}. Low-redshift host galaxies are also crucial components of FRB cosmology, providing the tightest constraints on host-galaxy contributions to the total DM along the sightline of an FRB~\citep{james2021z,jahnsschindler2023how}. 
 
-In addition, this work serves as a proof-of-concept of the triggered VLBI technique on short baselines. The abundance of VLBA and RFC astrometric calibrators at 600 MHz on a short (66 km) baseline is encouraging for  next-generation FRB telescopes which will rely on similar techniques to pinpoint FRBs: these include CHIME's successor CHORD~\citep{2019clrp.2020...28V}, as well as other compact arrays~\citep{luo2024fast}. We systematically investigate the impact of calibrator choice, using a sample of single-pulse localizations done on pulsars, systematically testing the impact of calibrator choices often made in VLBI calibration, giving insight into required astrometric precision for
+We perform spectroscopic followup using a combination of the 3-meter Shane Reflector at Lick Observatory, our Long and Large Program at Gemini North (PI: Eftekhari), and observations with ????? instrument? at Keck Observatory. In this paper we present spectroscopic redshifts for 14 of the 18 hosts towards low-extinction sightlines through the Milky Way, and reserve detailed spectral characterization for future work. 
 
-\section{FRB Observations}
+ 
+
+\section{FRB Detection and Initial Localization}\label{sec:localization}
 \subsection{Initial burst detection at CHIME}
 Between December 9 2022 through Feb 10 2024, CHIME/FRB detected $269$ bright (S/N $> 20$) FRB candidates which were later confirmed by two human tsars inspecting their dynamic spectra. 
-Following the detection and real-time localization, triggers were sent to dump the full field of view at CHIME and KKO  for $\sim 100$ milliseconds. During this time, baseband data were successfully dumped for the majority of these 269 candidates at CHIME. This enabled the interferometric localization using the CHIME core (``baseband localization'') on arcminute scales. 
+Following the detection and real-time localization, triggers were sent to dump the full field of view at CHIME and KKO  for $\sim 100$ milliseconds. During this time, baseband data were successfully dumped for the majority of these 269 candidates at CHIME. This enabled the interferometric localization using the CHIME core (``baseband localization'') on arcminute scales. In many but not all of these cases, data were also successfully captured at the KKO outrigger, which was in a commissioning phase until about June 2023. We use the baseband dumps at CHIME and KKO to localize these bursts to 2-arcsecond scale precision along a roughly east-west axis defined by the orientation of the baseline.
 
-In many but not all of these cases, data were also successfully captured at the KKO outrigger, which was in a commissioning phase until about June 2023. We use the baseband dumps at CHIME and KKO to localize these bursts to 2-arcsecond scale precision.
-
-\section{Single-pulse localization}\label{sec:localization}
-Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations and hour angles.
-We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated. 
+\subsection{Single-pulse localization}
+Single-pulse VLBI localization represents a new frontier in VLBI astrometry. Due to sparse $uv$ coverage and the transience of the signal, it is critical to realistically assess the magnitude of typical localization uncertainties. We do this using pulsar localizations at a variety of declinations and hour angles (see Appendix~\ref{sec:accuracy}. We rely on the CHIME baseband localization in the declination direction to localize the source in the north-south direction, while adding the KKO station brings $\sim 2''$ angular resolution primarily along the east-west direction. The localization ellipses are thus highly elongated. 
 
 \subsection{Major-axis localization using CHIME core}
 We localize FRBs in the north-south direction using the CHIME/FRB baseband localization pipeline~\citep{michilli2020analysis}. The astrometric uncertainties assigned to baseband localizations are calculated according to the procedure used in 
 
-we localize a total of $100$ single pulses from $18$ distinct, well-localized pulsars. The pulses cover a wide range of detected S/N values ($5 \leq \text{S/N} \leq 100$) and declinations ($+6^\circ \leq \delta \leq +80^\circ$). The Crab pulsar -- PSR B0531+21 -- as well one pulsar below a declination of $\delta < +6^\circ$ are omitted from the sample. Baseband localisations of the Crab are systematically offset by $\sim 2 ~\mathrm{arcmin}$ West of South of CHIME's primary beam. We suspect this offset arises from confusion with the surrounding, radio-bright nebula which has an angular extent of roughly $5~\mathrm{arcmin}$ in declination at $5~\mathrm{GHz}$ \citep{Bietenholz_2004}, competing with the $\sim2~\mathrm{arcmin}$ resolution of the baseband localisation pipeline. We do not observe this behavior in any other pulsar at similar declinations to the Crab and therefore rule that the Crab is an outlier. We have also identified instances for which pulses originating from PSR B1642-03 are poorly baseband localised for reasons that are not yet entirely well-understood. We suspect that imperfect characterization of CHIME's response to variations in ambient temperature is likely the driving factor at these very-low declinations \citep{michilli2020analysis}. Unfortunately, the lack of bright, single-pulse emitting pulsars between $-3^\circ\leq \delta \leq +6^\circ$ limits our ability to robustly test baseband localisations within this region of CHIME's primary beam. The FRB sample presented in this paper contains one FRB that lies within this region: however, we caution using the associated host to draw any significant conclusions until the systematic effects at low declinations are better understood.\textbf{Only one, maybe two, of our associated host galaxies falls in this range, and the robustness of the association does not change if we increase the declination error (check this). Alternatively, the host galaxy could be downgraded to silver.} As a final cut, we limit the analysis to pulses detected within CHIME's primary beam that have a detected S/N $> 5$. All FRBs presented in this sample obey these criteria. Efforts to extend this analysis to sidelobe detections are currently underway and will be presented in future works. 
-
-For the remaining set of 100 pulses, we plot a summary of the baseband localizations performed to validate the uncertainties along the declination axis in Figure \ref{fig:bb_pulsars}. In the left panel, we plot the measured declination offset along with its associated uncertainty as a function of detection S/N for each pulse in black. We overplot the theoretical uncertainty for an FRB detected at $\nu = 600~\mathrm{MHz}$ at zenith by CHIME in red. This uncertainty increases as the angle from zenith increases ($\sigma_\theta\propto 1/\mathrm{cos}\theta$; \citep{michilli2020analysis}), hence why some values tend away from the theoretical prediction. For the 18 FRBs presented in this paper, we plot their measured S/N and associated decl. uncertainties in blue at a fiducial offset of $-2.5^\circ$ for visual comparison with pulsars in a similar range of S/N values. In the right plot, we plot a histogram of the declination offsets normalised by their uncertainties. Assuming that the baseband localisation pipeline is well-calibrated, we expect the distribution of values to be Gaussian distributed with mean of 0 and standard deviation of 1. We measure a mean of 0.1 and standard deviation of 1.0, suggesting that the data is well described by Gaussian statistics. We overplot the corresponding Gaussian distribution in red. The results of this analysis reinforces that the major axes of the CHIME-KKO localisations are well-calibrated over a wide range of detected S/N and declinations. 
-
-% In most cases, the measured declination from baseband localization is consistent within $2\sigma$ of the true position. A sky map of these localizations and the distribution of normalized declination errors are shown in Fig.~\ref{fig:bb_pulsars}.
-
-% We isolated the Crab B0531+21 and the low-declination pulsars B0919+06 and B1642-03 from our test pulsar sample. The Crab was omitted because its giant pulses are extremely bright and often are detected by the CHIME/FRB search engine in the sidelobes of the primary beam. Even main-lobe Crab pulses fail to be localized by the baseband pipeline because of their extreme brightness. The physical reason for this is that the pipeline fits a Gaussian in the image plane to super-resolve beyond the resolution limit of the telescope; this works well at low and moderate S/N ratios but fails at high S/N ratios \textbf{(See Fig. from Mattias)}.
-
-
-% \begin{figure*}
-%     \centering
-%     \includegraphics[width=0.33\textwidth]{figures/bb_pulsars.pdf}
-%     \includegraphics[width=0.33\textwidth]{figures/bb_pulsars_chisq.pdf}
-%     \includegraphics[width=0.33\textwidth]{figures/bb_pulsars_chisq_ra.pdf}
-%     \caption{Astrometric errors for pulsars.  \textbf{TODO (Mattias?): Also plot errors versus pulsar S/N, or just bin histograms into high and low S/N samples.}}
-%     \label{fig:bb_pulsars}
-% \end{figure*}
-\begin{figure*}
-    \centering
-    \includegraphics[width=1.0\linewidth]{figures/bblocs.pdf}
-    \caption{Validation of declination uncertainties outputted by the CHIME/FRB baseband localisation pipeline \citep{michilli2020analysis}. \textit{Left panel:} Declination offsets as a function of detection S/N for a sample of 100 pulses from 18 unique pulsars covering a declination range of $+6^\circ\leq\delta\leq+80^\circ$. Offsets and their associated uncertainties are represented by open-face, black markers and errorbars, respectively. For reference, the measured S/N  and declination uncertainties associated with FRBs presented in this work are indicated by the blue errorbars at a fiducial decl. offset of $-2.5$ arcmin. \textbf{Need some high S/N pulses to test, $>$ 100 S/N}. Theoretical uncertainty for a burst detected at zenith by CHIME as a function of S/N is depicted by the two red curves \citep{michilli2020analysis}. \textit{Right:} Histogram of measured declination offsets normalized by their outputted uncertainties. As expected, the normalized values are well described by a Gaussian distribution with a mean of 0.1 and standard deviation of 1.0 (overplotted dashed, red line).}
-    \label{fig:bb_pulsars}
-\end{figure*}
-VLBI localization: discuss calibrator choice – \textbf{TODO: Make figure showing example field.}
 
 
 \subsection{Minor-axis localization using VLBI}
-Along the east-west direction, the position is strongly constrained by VLBI localization. Following the basic strategy of~\citep{leung2020synoptic}, we use the full-array baseband dumps to search for bright ($\sim\SI{1}{\jansky}$) VLBI calibrators from the RFC and VLBA catalogs within the baseband dump, whose effective field of view on the sky is $\sim \SI{200}{\deg^2}$. At each station, we formed station beams towards each of the $\sim 200$ VLBI calibrators within the field of view. Following~\citep{andrew2024calibrator}, we placed a single correlator pointing in each station beam, and each pointing was correlated using the~\texttt{PyFX} correlator~\citep{leung2024vlbi}. Visibilities were saved if the calibrator was detected. We detected up to 15 VLBI calibrators per baseband dump this way.
-
-Selecting the closest calibrator minimizes the impact of ionospheric and beam variations, but choosing the brightest calibrator can ensure a more robust detection. In both strategies, we could accidentally choose a calibrator that is impacted by an unknown systematic, such as those detected in a sidelobe or confused sources. Since we expect all sources to be affected by similar total instrumental delay, we can mitigate this risk by comparing the delays of all calibrators in the field and identify outliers. We thus adopt the following strategy for calibrator selection --- for all calibrators detected in the field, select those whose measured total delays are within 2~ns of the median delay. From these, choose the calibrator closest in declination to the baseband localization of the FRB.
-
-To compare this with other strategies, we perform localizations using all available calibrators for a set of known pulsars, and compare the offsets of the measured to true positions. Figure~\ref{fig:psr_cal_test} shows the offsets for a set of between 1 and 5 observations of 18 pulsars. Each column of points represents a single observation (i.e., baseband dump), with each point the result of localizing using a different in-beam calibrator. The colored points indicate the results of using the calibrator chosen with each selection criterion -- ``Closest \& Good'' refers to the strategy described in the last paragraph, while ``S/N'' and ``Closest'' refer to using the calibrator with the highest S/N cross-correlation and the closest calibrator in declination, respectively.
-
-For almost all of the calibrators tested, our chosen selection method (green points) ensures offsets are less than 2.5 arcsec.
-
-% For each event, we plot the measured position offset using the calibrator selected with three strategies -- ``Closest \& Good'' refers to the strategy described in the last paragraph, while ``S/N'' and ``Closest'' refer to using the calibrator with the highest S/N cross-correlation and the closest calibrator in declination, respectively. In some cases, two or more strategies selected the same calibrator.
-
-\begin{figure*}
-	\centering
-	\includegraphics[width=1.01\linewidth]{{figures/pulsar_cal_offset_compare}.png}
-	\caption{Offsets of measured from true positions, along the baseline direction, for a sample of pulsars. Each point is the offset of the measured position from the true position using a different in-beam calibrator. Each column shows offsets for a given baseband acquisition, grouped by target pulsar. The color of the point indicates which calibrator would be selected by each selection strategy -- red for maximum S/N, blue for the closest in declination, and green for our chosen strategy of selecting the closest calibrator that is ``in-family'' with the others.}
-	\label{fig:psr_cal_test}
-\end{figure*}
-
-
-
-%\textbf{Figure (Adam?): VLBI accuracy for pulsars versus target-calibrator separation and target brightness.} This motivate our minor axis ellipse dimensions, which for conservatism and simplicity we assume to be a constant 2 (sometimes 3) nanoseconds.
+Along the east-west direction, the position is strongly constrained by VLBI localization. Following the basic strategy of~\citep{leung2021synoptic}, we use the full-array baseband dumps to search for bright ($\sim$ 1 Jansky) VLBI calibrators from the RFC and VLBA catalogs within the baseband dump, whose effective field of view on the sky is $\sim 200$ deg$^2$. At each station, we formed station beams towards each of the $\sim 200$ VLBI calibrators within the field of view. Following~\citep{andrew2024calibrator}, we placed a single correlator pointing in each station beam, and each pointing was correlated using the~\texttt{PyFX} correlator~\citep{leung2024vlbi}. Visibilities were saved if the calibrator was detected. We detected up to 15 VLBI calibrators per baseband dump this way.
 
 \section{Host Association}\label{sec:association}
-We use the default priors in the PATH formalism to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible (20/100 fields), we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy. In the remainder of fields, we use imaging from Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. 
+We use the default priors in the PATH toolkit to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible (55/78 fields), we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy due to its greater depth. In the remainder of fields (23/78), we default to Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. \textbf{Note: Waiting for last 5 fields from custom PATH; update these numbers.}
 
-The galaxies overlapping the localization region are vetted for contamination by misclassified stars, and posterior probabilities $P(O|x)$ are assigned to each galaxy. With a properly-calibrated $P(U)$ for each galaxy survey, the posterior probabilities rank each galaxy in order of the probability of being the true host. A prior of $P(U) = 0.1$ was chosen for fields which overlapped widefield imaging from the DECaL Survey, while a prior of $P(U) = 0.2$ was chosen for PanSTARRS-PS1 fields.
-\textbf{Figure: 2D histogram of $P(O|x)$ versus $z$ for all (even empty) fields; put good HG in a different color. Also do the same but as a function of DM instead of $z$.}
+Stars are identified in each field on the basis of their Gaia DR3 classification. After automated removal, each field is manually inspected for contamination by misclassified stars \textbf{and other failures}. Finally, each galaxy candidate in the field is assigned a probability of being the true host.
 
+Accurately assigning these posterior probabilities is difficult when combining shallow, widefield archival imaging with a highly sensitive FRB detector such as CHIME. In this case, a significant fraction of bursts originates from beyond the maximum redshift out to which a faint host galaxy would be detectable. As a point of reference, the faint dwarf host of the first repeater (FRB 20121102A) would be detectable in the DECaLS $r$-band out to $z \sim 0.2$, depending on the Galactic extinction along the line of sight, implying an extragalactic DM of $\sim 200$. The redshift implied by the median DM of our sample significantly exceeds this (Fig.~\ref{fig:hg_vs_dm}).
 
+The PATH framework accounts for the survey depth mismatch by specifying the ``unseen'' probability $P(U)$, which uses the FRB redshift distribution, the galaxy luminosity function, the localization ellipse size, and the optical survey depth to calculate the prior probability that the host galaxy of an individual FRB in a survey remains. For the specific combination of FRBs detected by CHIME, we assign $P(U) = 0.32$ for the PanSTARRS-PS1 fields, and $P(U) = 0.15$ for the DECaLS fields. We note that this is a conservative choice because the sample of bursts presented here represent the brightest bursts detected by CHIME, and hence preferentially sample the nearby end of the CHIME redshift distribution~\citep{shin2023inferring}. We reserve a detailed justification of these choices to an upcoming simulation paper~\citet{andersen2024inprep}, 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/hg_vs_dm.pdf}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
 Fig.~\ref{fig:hg_images} shows host galaxies with high posterior probabilities (decide on cutoff). Because CHIME's discovery footprint is entirely contained within the footprint of Pan-STARRS, We display publicly-available host galaxy images from Pan-STARRS DR1 to maintain uniformity across the sample.
 
 \subsection{Unseen/ambiguous FRB hosts}
@@ -469,12 +347,12 @@ We also place robust upper limits on the RMS value of DM$_\mathrm{host}$ in the 
 Our host galaxies live at low $z$ but moderate DM: see \textbf{Macquart diagram figure.}
 
 \section{Radio Counterpart Cross-matching}
-Thus far, there are two unambiguous associations of a luminous compact persistent radio source (PRS) with FRBs\,20121102A and 20190520B \citep{chatterjee2017direct,marcote2017repeating,Niu190520b,Bhandari+23b}. More recently, a third PRS was found to be associated with the active repeating FRB\,20201124A. However, the larger offset and physical size of the radio source makes this association more tentative. Here, we perform a systematic search for a radio source coincident with the CHIME-KKO FRBs using the the Faint Images of the Radio Sky at Twenty cm (FIRST; \citealt{FIRST}) and the NRAO VLA Sky Survey (NVSS; \citealt{NVSS}) at 1.5\,GHz, and the Very Large Array Sky Survey (VLASS; \citealt{VLASS}) at 3\,GHz, similar to the analysis in \citep{Ibik et al 2024}. \textcolor{red}{VD: Didn't we also check LOFAR?}
+Thus far, there are two unambiguous associations of a luminous compact persistent radio source (PRS) with FRBs\,20121102A and 20190520B \citep{chatterjee2017direct,marcote2017repeating,Niu190520b,Bhandari+23b}. More recently, a third PRS was found to be associated with the active repeating FRB\,20201124A. However, the larger offset and physical size of the radio source makes this association more tentative. Here, we perform a systematic search for a radio source coincident with the CHIME-KKO FRBs using the the Faint Images of the Radio Sky at Twenty cm (FIRST; \citealt{FIRST}) and the NRAO VLA Sky Survey (NVSS; \citealt{NVSS}) at 1.5\,GHz, and the Very Large Array Sky Survey (VLASS; \citealt{VLASS}) at 3\,GHz, similar to the analysis in \citep{ibik2024inprep}. \textcolor{red}{VD: Didn't we also check LOFAR?}
 
 To perform the search, we utilized The Canadian Initiative for Radio Astronomy Data Analysis (CIRADA)\footnote{https://cirada.ca/} to access the image cutouts. We overlaid the localization ellipses of the CHIME/KKO sample and used the root-mean-square (rms) FITS files to determine the significance levels. The detection threshold is set to be XX for a radio detection.   
 
 
-We find non-detections the FRBs in our sample in all archival surveys except FRB\,20231128A and placed upper limits on the PRS luminosities at 3\,GHz using their spectroscopic redshifts. The values are reported in Table \ref{tab:hostderived}. We first assess the non-detections and exclude the possibility of PRSs brighter than 1.2 $\times$ 10$^{29}$ erg/s/Hz for the FRBs in this sample, comparable to the luminosity of the PRS associated with FRB\,20121102A. If these fainter PRSs exist, the non-detections may be due to a combination of the sensitivity limits and cadence of the observing instrument. Moreover, the PRS limits align with those found for FRB repeaters in \cite{Ibik et al 2024}. Notably, these high luminosity upper limits suggest that if there is a PRS linked to any of these FRBs and it is powered by a core-collapse supernova (CCSN), then the PRS would need to be more luminous than any known radio superluminous supernova or long-duration $\gamma$-ray burst. Conversely, this high luminosity is forecasted for magnetar nebulae \citep{margalit&mezger2018} and hypernebula models \citep{sridhar et al 2021}, yet no observations supporting this have been made to date. \textcolor{red}{PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.}
+We find non-detections the FRBs in our sample in all archival surveys except FRB\,20231128A and placed upper limits on the PRS luminosities at 3\,GHz using their spectroscopic redshifts. The values are reported in Table \ref{tab:hostderived}. We first assess the non-detections and exclude the possibility of PRSs brighter than 1.2 $\times$ 10$^{29}$ erg/s/Hz for the FRBs in this sample, comparable to the luminosity of the PRS associated with FRB\,20121102A. If these fainter PRSs exist, the non-detections may be due to a combination of the sensitivity limits and cadence of the observing instrument. Moreover, the PRS limits align with those found for FRB repeaters in \cite{ibik2024inprep}. Notably, these high luminosity upper limits suggest that if there is a PRS linked to any of these FRBs and it is powered by a core-collapse supernova (CCSN), then the PRS would need to be more luminous than any known radio superluminous supernova or long-duration $\gamma$-ray burst. Conversely, this high luminosity is forecasted for magnetar nebulae \citep{metzger2019fast} and hypernebula models \citep{sridhar2021periodic} \textbf{CL: Is this the right paper for Sridhar et al and Metzger et al? Please check}, yet no observations supporting this have been made to date. \textcolor{red}{PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.}
 
 
 For FRB\,20231128A, we find a radio source within the X-$\sigma$ of the localization ellipse with a luminosity of L$_{3GHz}$ = 1.95 $\times$ 10$^{29}$ erg/s/Hz. \textcolor{red}{VD: add Pcc calculations for this source (see TE's paper), comparison to the know PRSs, size limits, contribution from SF? What does this mean in terms of PRS models.}
@@ -516,17 +394,16 @@ FRB20230828A & 0.2736 & $<8.3\times10^{29}$ \\
 \end{table}
 
 \section{Data Description}
-We release our localization ellipse catalog for all \numellipses~FRBs in our sample. We encourage transient cross-matching for the community to perform optical followup of these bursts to potentially discover additional host galaxies in our sample.
-
+We release our localization ellipse catalog for all 83 FRBs in our sample. We encourage transient cross-matching for the community to perform optical followup of these bursts to potentially discover additional host galaxies in our sample.
+\begin{table*}    
+\caption{A table of FRB localizations and host galaxy associations.}
+\input{sample.tex}
+\end{table*}
 \section{Acknowledgments}
 \begin{acknowledgments}
 We acknowledge that CHIME is located on the traditional, 
-ancestral, and unceded territory of the Syilx/Okanagan people.
-
-We are grateful to the staff of the Dominion Radio
-Astrophysical Observatory, which is
-operated by the National
-Research Council Canada. 
+ancestral, and unceded territory of the Syilx/Okanagan people. We are grateful to the staff of the Dominion Radio
+Astrophysical Observatory, which is operated by the National Research Council of Canada. 
 CHIME is funded by a grant from the Canada Foundation 
 for Innovation (CFI) 2012 Leading Edge Fund (Project 31170) 
 and by contributions from the provinces of British Columbia, 
@@ -541,57 +418,69 @@ University and the McGill Space Institute via the
 Trottier Family Foundation, and the University of 
 British Columbia. 
 The CHIME/FRB Outriggers program is funded by 
-the Gordon and Betty Moore Foundation
-and by a National Science Foundation (NSF) grant (2008031).
+the Gordon and Betty Moore Foundation and by a National Science Foundation (NSF) grant (2008031).
 FRB research at MIT is supported by an NSF grant (2008031).
 FRB research at WVU is supported by an NSF grant (2006548, 2018490).
+
+The Pan-STARRS1 Surveys (PS1) and the PS1 public science archive have been made possible through contributions by the Institute for Astronomy, the University of Hawaii, the Pan-STARRS Project Office, the Max-Planck Society and its participating institutes, the Max Planck Institute for Astronomy, Heidelberg and the Max Planck Institute for Extraterrestrial Physics, Garching, The Johns Hopkins University, Durham University, the University of Edinburgh, the Queen's University Belfast, the Harvard-Smithsonian Center for Astrophysics, the Las Cumbres Observatory Global Telescope Network Incorporated, the National Central University of Taiwan, the Space Telescope Science Institute, the National Aeronautics and Space Administration under Grant No. NNX08AR22G issued through the Planetary Science Division of the NASA Science Mission Directorate, the National Science Foundation Grant No. AST-1238877, the University of Maryland, Eotvos Lorand University (ELTE), the Los Alamos National Laboratory, and the Gordon and Betty Moore Foundation.
+
+The Legacy Surveys consist of three individual and complementary projects: the Dark Energy Camera Legacy Survey (DECaLS; Proposal ID #2014B-0404; PIs: David Schlegel and Arjun Dey), the Beijing-Arizona Sky Survey (BASS; NOAO Prop. ID #2015A-0801; PIs: Zhou Xu and Xiaohui Fan), and the Mayall z-band Legacy Survey (MzLS; Prop. ID \#2016A-0453; PI: Arjun Dey). DECaLS, BASS and MzLS together include data obtained, respectively, at the Blanco telescope, Cerro Tololo Inter-American Observatory, NSF’s NOIRLab; the Bok telescope, Steward Observatory, University of Arizona; and the Mayall telescope, Kitt Peak National Observatory, NOIRLab. Pipeline processing and analyses of the data were supported by NOIRLab and the Lawrence Berkeley National Laboratory (LBNL). The Legacy Surveys project is honored to be permitted to conduct astronomical research on Iolkam Du’ag (Kitt Peak), a mountain with particular significance to the Tohono O’odham Nation.
+
+NOIRLab is operated by the Association of Universities for Research in Astronomy (AURA) under a cooperative agreement with the National Science Foundation. LBNL is managed by the Regents of the University of California under contract to the U.S. Department of Energy.
+
+This project used data obtained with the Dark Energy Camera (DECam), which was constructed by the Dark Energy Survey (DES) collaboration. Funding for the DES Projects has been provided by the U.S. Department of Energy, the U.S. National Science Foundation, the Ministry of Science and Education of Spain, the Science and Technology Facilities Council of the United Kingdom, the Higher Education Funding Council for England, the National Center for Supercomputing Applications at the University of Illinois at Urbana-Champaign, the Kavli Institute of Cosmological Physics at the University of Chicago, Center for Cosmology and Astro-Particle Physics at the Ohio State University, the Mitchell Institute for Fundamental Physics and Astronomy at Texas A&M University, Financiadora de Estudos e Projetos, Fundacao Carlos Chagas Filho de Amparo, Financiadora de Estudos e Projetos, Fundacao Carlos Chagas Filho de Amparo a Pesquisa do Estado do Rio de Janeiro, Conselho Nacional de Desenvolvimento Cientifico e Tecnologico and the Ministerio da Ciencia, Tecnologia e Inovacao, the Deutsche Forschungsgemeinschaft and the Collaborating Institutions in the Dark Energy Survey. The Collaborating Institutions are Argonne National Laboratory, the University of California at Santa Cruz, the University of Cambridge, Centro de Investigaciones Energeticas, Medioambientales y Tecnologicas-Madrid, the University of Chicago, University College London, the DES-Brazil Consortium, the University of Edinburgh, the Eidgenossische Technische Hochschule (ETH) Zurich, Fermi National Accelerator Laboratory, the University of Illinois at Urbana-Champaign, the Institut de Ciencies de l’Espai (IEEC/CSIC), the Institut de Fisica d’Altes Energies, Lawrence Berkeley National Laboratory, the Ludwig Maximilians Universitat Munchen and the associated Excellence Cluster Universe, the University of Michigan, NSF’s NOIRLab, the University of Nottingham, the Ohio State University, the University of Pennsylvania, the University of Portsmouth, SLAC National Accelerator Laboratory, Stanford University, the University of Sussex, and Texas A&M University.
+
+BASS is a key project of the Telescope Access Program (TAP), which has been funded by the National Astronomical Observatories of China, the Chinese Academy of Sciences (the Strategic Priority Research Program “The Emergence of Cosmological Structures” Grant # XDB09000000), and the Special Fund for Astronomy from the Ministry of Finance. The BASS is also supported by the External Cooperation Program of Chinese Academy of Sciences (Grant # 114A11KYSB20160057), and Chinese National Natural Science Foundation (Grant # 12120101003, # 11433005).
+
+The Legacy Survey team makes use of data products from the Near-Earth Object Wide-field Infrared Survey Explorer (NEOWISE), which is a project of the Jet Propulsion Laboratory/California Institute of Technology. NEOWISE is funded by the National Aeronautics and Space Administration.
+
+The Legacy Surveys imaging of the DESI footprint is supported by the Director, Office of Science, Office of High Energy Physics of the U.S. Department of Energy under Contract No. DE-AC02-05CH1123, by the National Energy Research Scientific Computing Center, a DOE Office of Science User Facility under the same contract; and by the U.S. National Science Foundation, Division of Astronomical Sciences under Contract No. AST-0950945 to NOAO.
+
+The Photometric Redshifts for the Legacy Surveys (PRLS) catalog used in this paper was produced thanks to funding from the U.S. Department of Energy Office of Science, Office of High Energy Physics via grant DE-SC0007914.
+
 \end{acknowledgments}
-
-%% To help institutions obtain information on the effectiveness of their 
-%% telescopes the AAS Journals has created a group of keywords for telescope 
-%% facilities.
-%
-%% Following the acknowledgments section, use the following syntax and the
-%% \facility{} or \facilities{} macros to list the keywords of facilities used 
-%% in the research for the paper.  Each keyword is check against the master 
-%% list during copy editing.  Individual instruments can be provided in 
-%% parentheses, after the keyword, but they are not verified.
-
 \vspace{5mm}
 \facilities{CHIME}
-
-%% Similar to \facility{}, there is the optional \software command to allow 
-%% authors a place to specify which programs were used during the creation of 
-%% the manuscript. Authors should list each code and include either a
-%% citation or url to the code inside ()s when available.
-
 \software{\texttt{numpy} \citep{harris2020array}, \texttt{scipy} \citep{virtanen2020scipy}, \texttt{matplotlib}~\citep{hunter2007matplotlib}, 
 }
-%\texttt{AllanTools}~\citep{2018ascl.soft04021W}}
-
-%% Appendix material should be preceded with a single \appendix command.
-%% There should be a \section command for each appendix. Mark appendix
-%% subsections with the same markup you use in the main body of the paper.
-
-%% Each Appendix (indicated with \section) will be lettered A, B, C, etc.
-%% The equation counter will reset when it encounters the \appendix
-%% command and will number appendix equations (A1), (A2), etc. The
-%% Figure and Table counter will not reset.
-
-%% For this sample we use BibTeX plus aasjournals.bst to generate the
-%% the bibliography. The sample631.bib file was populated from ADS. To
-%% get the citations to show in the compiled file do the following:
-%%
-%% pdflatex sample631.tex
-%% bibtext sample631
-%% pdflatex sample631.tex
-%% pdflatex sample631.tex
 
 \appendix
+\section{Astrometric Calibration}\label{sec:accuracy}
+We localize a total of $100$ single pulses from $18$ distinct, well-localized pulsars. The pulses cover a wide range of detected S/N values ($5 \leq \text{S/N} \leq 100$) and declinations ($+6^\circ \leq \delta \leq +80^\circ$). The Crab pulsar -- PSR B0531+21 -- as well one pulsar below a declination of $\delta < +6^\circ$ are omitted from the sample. Baseband localisations of the Crab are systematically offset by $\sim 2 ~\mathrm{arcmin}$ West of South of CHIME's primary beam. We suspect this offset arises from confusion with the surrounding, radio-bright nebula whose angular extent of roughly $5~\mathrm{arcmin}$ in declination at $5~\mathrm{GHz}$ \citep{Bietenholz_2004} makes it incompletely resolved by the short internal baselines of CHIME. We do not observe this behavior in any other pulsar at similar declinations to the Crab and therefore rule that the Crab is an outlier. We have also identified instances for which pulses originating from PSR B1642-03 are poorly baseband localised for reasons that are not yet entirely well-understood. We suspect that imperfect characterization of CHIME's response to variations in ambient temperature is likely the driving factor at these very-low declinations \citep{michilli2020analysis}. Unfortunately, the lack of bright, single-pulse emitting pulsars between $-3^\circ\leq \delta \leq +6^\circ$ limits our ability to robustly test baseband localisations within this region of CHIME's primary beam. The FRB sample presented in this paper contains one FRB that lies within this region: however, we caution using the associated host to draw any significant conclusions until the systematic effects at low declinations are better understood.\textbf{Only one, maybe two, of our associated host galaxies falls in this range, and the robustness of the association does not change if we increase the declination error (check this). Alternatively, the host galaxy could be downgraded to silver.} As a final cut, we limit the analysis to pulses detected within CHIME's primary beam that have a detected S/N $> 5$. All FRBs presented in this sample obey these criteria. Efforts to extend this analysis to sidelobe detections are currently underway and will be presented in future works. 
 
-\bibliography{references}{}
+For the remaining set of 100 pulses, we plot a summary of the baseband localizations performed to validate the uncertainties along the declination axis in Figure \ref{fig:bb_pulsars}. In the left panel, we plot the measured declination offset along with its associated uncertainty as a function of detection S/N for each pulse in black. We overplot the theoretical uncertainty for an FRB detected at $\nu = 600~\mathrm{MHz}$ at zenith by CHIME in red. This uncertainty increases as the angle from zenith increases ($\sigma_\theta\propto 1/\mathrm{cos}\theta$; \citep{michilli2020analysis}), hence why some values tend away from the theoretical prediction. For the 18 FRBs presented in this paper, we plot their measured S/N and associated decl. uncertainties in blue at a fiducial offset of $-2.5^\circ$ for visual comparison with pulsars in a similar range of S/N values. In the right plot, we plot a histogram of the declination offsets normalised by their uncertainties. Assuming that the baseband localisation pipeline is well-calibrated, we expect the distribution of values to be Gaussian distributed with mean of 0 and standard deviation of 1. We measure a mean of 0.1 and standard deviation of 1.0, suggesting that the data is well described by Gaussian statistics. We overplot the corresponding Gaussian distribution in red. The results of this analysis reinforces that the major axes of the CHIME-KKO localisations are well-calibrated over a wide range of detected S/N and declinations. 
+
+% \end{figure*}
+\begin{figure*}
+    \centering
+    \includegraphics[width=1.0\linewidth]{figures/bblocs.pdf}
+    \caption{Validation of declination uncertainties outputted by the CHIME/FRB baseband localisation pipeline \citep{michilli2020analysis}. \textit{Left panel:} Declination offsets as a function of detection S/N for a sample of 100 pulses from 18 unique pulsars covering a declination range of $+6^\circ\leq\delta\leq+80^\circ$. Offsets and their associated uncertainties are represented by open-face, black markers and errorbars, respectively. For reference, the measured S/N  and declination uncertainties associated with FRBs presented in this work are indicated by the blue errorbars at a fiducial decl. offset of $-2.5$ arcmin. \textbf{Need some high S/N pulses to test, $>$ 100 S/N}. Theoretical uncertainty for a burst detected at zenith by CHIME as a function of S/N is depicted by the two red curves \citep{michilli2020analysis}. \textit{Right:} Histogram of measured declination offsets normalized by their outputted uncertainties. As expected, the normalized values are well described by a Gaussian distribution with a mean of 0.1 and standard deviation of 1.0 (overplotted dashed, red line).}
+    \label{fig:bb_pulsars}
+\end{figure*}
+VLBI localization: discuss calibrator choice – \textbf{TODO: Make figure showing example field.}
+
+Selecting the closest calibrator minimizes the impact of ionospheric and beam variations, but choosing the brightest calibrator can ensure a more robust detection. In both strategies, we could accidentally choose a calibrator that is impacted by an unknown systematic, such as those detected in a sidelobe or confused sources. Since we expect all sources to be affected by similar total instrumental delay, we can mitigate this risk by comparing the delays of all calibrators in the field and identify outliers. We thus adopt the following strategy for calibrator selection --- for all calibrators detected in the field, select those whose measured total delays are within 2~ns of the median delay. From these, choose the calibrator closest in declination to the baseband localization of the FRB.
+
+To compare this with other strategies, we perform localizations using all available calibrators for a set of known pulsars, and compare the offsets of the measured to true positions. Figure~\ref{fig:psr_cal_test} shows the offsets for a set of between 1 and 5 observations of 18 pulsars. Each column of points represents a single observation (i.e., baseband dump), with each point the result of localizing using a different in-beam calibrator. The colored points indicate the results of using the calibrator chosen with each selection criterion -- ``Closest \& Good'' refers to the strategy described in the last paragraph, while ``S/N'' and ``Closest'' refer to using the calibrator with the highest S/N cross-correlation and the closest calibrator in declination, respectively.
+
+For almost all of the calibrators tested, our chosen selection method (green points) ensures offsets are less than 2.5 arcsec.
+
+% For each event, we plot the measured position offset using the calibrator selected with three strategies -- ``Closest \& Good'' refers to the strategy described in the last paragraph, while ``S/N'' and ``Closest'' refer to using the calibrator with the highest S/N cross-correlation and the closest calibrator in declination, respectively. In some cases, two or more strategies selected the same calibrator.
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=1.01\linewidth]{{figures/pulsar_cal_offset_compare}.png}
+	\caption{Offsets of measured from true positions, along the baseline direction, for a sample of pulsars. Each point is the offset of the measured position from the true position using a different in-beam calibrator. Each column shows offsets for a given baseband acquisition, grouped by target pulsar. The color of the point indicates which calibrator would be selected by each selection strategy -- red for maximum S/N, blue for the closest in declination, and green for our chosen strategy of selecting the closest calibrator that is ``in-family'' with the others.}
+	\label{fig:psr_cal_test}
+\end{figure*}
+
+
+
+%\textbf{Figure (Adam?): VLBI accuracy for pulsars versus target-calibrator separation and target brightness.} This motivate our minor axis ellipse dimensions, which for conservatism and simplicity we assume to be a constant 2 (sometimes 3) nanoseconds.
+
 
 \bibliographystyle{aasjournal}
+\bibliography{references}
 
 
 
