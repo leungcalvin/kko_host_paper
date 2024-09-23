@@ -403,7 +403,7 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
 
     # Select columns to keep based on the 'hosts' argument
     if hosts:
-        selected_columns = ['primary_z_spec', 'primary_P_Ox', 'primary_mag']
+        selected_columns = ['primary_z_spec', 'primary_P_Ox', 'primary_mag','primary_z_source']
     else:
         selected_columns = ['primary_P_Ox']
 
@@ -423,6 +423,7 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
     df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.2f}")
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
+    df['primary_z_source'] = df['primary_z_source']
     df['DM'] = df['DM'].map(lambda x: f"{x:.1f}")
     #df['DM_YT20'] = df['DM_YT20'].map(lambda x: f"{x:.1f}")
     #df['DM_NE2001'] = df['DM_NE2001'].map(lambda x: f"{x:.1f}")
@@ -443,16 +444,17 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
         'primary_id': r'$\text{ID}_\text{HG}$',
         'primary_ra': r'$\text{RA}_\text{HG}$', 
         'primary_dec': r'$\text{DEC}_\text{HG}$', 
-        'primary_P_Ox': r'$\text{P(O\vert x)}$', 
+        'primary_P_Ox': r'$\text{P(O}$\vert$\text{x)}$', 
+        'primary_z_source': r'$\text{Source}$',
         'primary_mag': r'$m_r$',
         #'primary_z_phot_median': r'$\text{Primary } z_{\text{phot, median}}$', 
         #'primary_z_phot_l95': r'$\text{Primary } z_{\text{phot, l95}}$', 
         #'primary_z_phot_u95': r'$\text{Primary } z_{\text{phot, u95}}$', 
-        'primary_z_spec': r'$\text{Primary } z_{\text{spec}}$', 
-        'm_r': r'$m_r$'}
-    if hosts:
-        formatted_columns['flux'] = r'$\text{Peak Burst Flux (Jy)}$'
-        formatted_columns['fluence'] = r'$\text{Burst Fluence (Jy ms)}$'
+        'primary_z_spec': r'$z_{\text{spec}}$', 
+        'm_r': r'$m_r$',
+        'flux': r'$\text{Peak Burst Flux (Jy)}$',
+        'fluence': r'$\text{Burst Fluence (Jy ms)}$'
+        }
     
 
     # Rename the columns for LaTeX output
