@@ -246,16 +246,30 @@ for ind,row in final.iterrows():
         final.at[ind,'primary_z_spec'] = -1
         final.at[ind,'primary_z_spec_source'] = "None"
         
-
-np.sum((final['primary_z_spec'] > 0) * (final['primary_z_phot_median'] > 0)),np.sum((final['primary_z_spec'] > 0)),np.sum((final['primary_z_phot_median'] > 0))
-
 import matplotlib.pyplot as plt
 
-plt.figure()
-plt.plot(np.arange(len(final.index)),final['primary_z_spec'] > 0)
-plt.plot(np.arange(len(final.index)),final['primary_z_phot_median'] > 0)
-
+# Add DM IGM estimates
 from frb.dm import igm
+z_interp = np.geomspace(0.001,1,num = 30)
+dm_igm_interp = []
+for z_interp_i in z_interp:
+    dm_igm_interp.append(igm.average_DM(z_interp_i).value)
+
+best_redshifts = []
+for evid,row in final.iterrows():
+    if row['primary_z_spec'] > 0:
+        best_redshift = row['primary_z_spec']
+    elif row['primary_z_phot_median'] > 0:
+        best_redshift = row['primary_z_phot_median']
+    else:
+        best_redshift = -1
+    best_redshifts.append(best_redshift)
+dm_igm = np.interp(xp = z_interp, fp = dm_igm_interp, x = best_redshifts)
+best_redshifts = np.squeeze(best_redshifts)
+dm_igm[best_redshifts < 0] = np.nan
+dm_igm[~np.isfinite(best_redshifts)] = np.nan
+
+final['dm_igm'] = dm_igm
 
 for evid,row in final.iterrows():
     if row['primary_z_spec'] > 0:
@@ -270,7 +284,22 @@ for evid,row in final.iterrows():
     else:
         final.at[evid,'dm_igm'] = np.nan
 
-        
+# Add Galactic extinction from F & M 2007
+import dustmaps
+from dustmaps.sfd import SFDQuery
+import dustmaps.sfd as sfd
+dustmaps.sfd.fetch()
+sfd = SFDQuery()
+sources = coord.SkyCoord(final['primary_ra'],final['primary_dec'],unit = 'deg',frame = 'icrs')
+e_b_minus_v = sfd(sources)
+r_v = 3.1
+a_v = r_v * e_b_minus_v
+import extinction
+evs = []
+for av in a_v:
+    ext_value_mags = extinction.fm07(wave = np.array([6000.0]), a_v = av, unit = 'aa')
+    evs.append(ext_value_mags)
+evs = np.squeeze(evs)        
 
 fluxfluence_all = {'335002503': (6.02, 0.69, 152.83, 15.46),
  '348570237': (78.34, 7.91, 46.06, 4.86),
@@ -370,7 +399,7 @@ for evid,row in final.iterrows():
     else:
         print(evid)
 
-def dataframe_to_latex_formatted(df, filename, hosts=True):
+def dataframe_to_latex_formatted(df, filename):
     """
     Outputs a formatted pandas DataFrame to a LaTeX file, filtering out rows based on the 'include' column,
     omitting specified columns, formatting specific columns with the desired precision, and including/excluding
@@ -391,8 +420,7 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
     # Combine fluence and fluence_err into a formatted string
     if 'fluence' in df.columns:
         df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f} \pm {row['fluence_err']:.1f}$ Jy ms", axis=1)
-    if hosts:
-        df['primary_mag'] = df['primary_mag'].map(lambda x: f"{x:.2f}")
+    df['primary_mag'] = df['primary_mag'].map(lambda x: f"{x:.2f}")
 
     # Drop unwanted columns
     df = df.drop(columns=[
@@ -402,10 +430,7 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
     ])
 
     # Select columns to keep based on the 'hosts' argument
-    if hosts:
-        selected_columns = ['primary_z_spec', 'primary_P_Ox', 'primary_mag','primary_z_source']
-    else:
-        selected_columns = ['primary_P_Ox']
+    selected_columns = ['primary_z_spec', 'primary_P_Ox', 'primary_mag','primary_z_spec_source']
 
     # Ensure that only the required columns are kept
     df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence'] + selected_columns]
@@ -423,14 +448,14 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
     df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.2f}")
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
-    df['primary_z_source'] = df['primary_z_source']
+    df['primary_z_spec_source'] = df['primary_z_spec_source']
     df['DM'] = df['DM'].map(lambda x: f"{x:.1f}")
     #df['DM_YT20'] = df['DM_YT20'].map(lambda x: f"{x:.1f}")
     #df['DM_NE2001'] = df['DM_NE2001'].map(lambda x: f"{x:.1f}")
-    if hosts:
-        df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
+    df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
     # Rename columns to be more LaTeX-friendly
     formatted_columns = {
+        'name': r'$\text{TNS Name}$',
         'ra_frb': r'$\text{RA}_{\text{FRB}}$', 
         'dec_frb': r'$\text{DEC}_{\text{FRB}}$', 
         'b_err': r'$b_{\text{err}}$', 
@@ -445,7 +470,7 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
         'primary_ra': r'$\text{RA}_\text{HG}$', 
         'primary_dec': r'$\text{DEC}_\text{HG}$', 
         'primary_P_Ox': r'$\text{P(O}$\vert$\text{x)}$', 
-        'primary_z_source': r'$\text{Source}$',
+        'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
         'primary_mag': r'$m_r$',
         #'primary_z_phot_median': r'$\text{Primary } z_{\text{phot, median}}$', 
         #'primary_z_phot_l95': r'$\text{Primary } z_{\text{phot, l95}}$', 
@@ -470,6 +495,6 @@ def dataframe_to_latex_formatted(df, filename, hosts=True):
     print(f"LaTeX table successfully saved to {filename}")
 
 ### WRITE IT OUT
-dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.9], '/arc/home/calvin/kko_host_paper/sample_gold.tex', hosts=True)
-dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.0], '/arc/home/calvin/kko_host_paper/sample_full.tex', hosts=False)
+dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.9], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
+dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.0], '/arc/home/calvin/kko_host_paper/sample_full.tex')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
