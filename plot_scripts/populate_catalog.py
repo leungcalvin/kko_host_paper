@@ -288,7 +288,7 @@ for evid,row in final.iterrows():
 import dustmaps
 from dustmaps.sfd import SFDQuery
 import dustmaps.sfd as sfd
-dustmaps.sfd.fetch()
+#dustmaps.sfd.fetch()
 sfd = SFDQuery()
 sources = coord.SkyCoord(final['primary_ra'],final['primary_dec'],unit = 'deg',frame = 'icrs')
 e_b_minus_v = sfd(sources)
@@ -300,6 +300,7 @@ for av in a_v:
     ext_value_mags = extinction.fm07(wave = np.array([6000.0]), a_v = av, unit = 'aa')
     evs.append(ext_value_mags)
 evs = np.squeeze(evs)        
+final['extinction_mags'] = evs
 
 fluxfluence_all = {'335002503': (6.02, 0.69, 152.83, 15.46),
  '348570237': (78.34, 7.91, 46.06, 4.86),
