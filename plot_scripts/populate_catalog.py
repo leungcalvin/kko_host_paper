@@ -430,11 +430,8 @@ def dataframe_to_latex_formatted(df, filename):
         'secondary_z_phot_l95', 'secondary_z_phot_u95', 'secondary_z_spec'
     ])
 
-    # Select columns to keep based on the 'hosts' argument
-    selected_columns = ['primary_z_spec', 'primary_P_Ox', 'primary_mag','primary_z_spec_source']
-
     # Ensure that only the required columns are kept
-    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence'] + selected_columns]
+    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_z_spec', 'primary_P_Ox', 'primary_mag']]
 
 
     # Format specific columns with the desired precision
@@ -470,8 +467,8 @@ def dataframe_to_latex_formatted(df, filename):
         'primary_id': r'$\text{ID}_\text{HG}$',
         'primary_ra': r'$\text{RA}_\text{HG}$', 
         'primary_dec': r'$\text{DEC}_\text{HG}$', 
-        'primary_P_Ox': r'$\text{P(O}$\vert$\text{x)}$', 
-        'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
+        'primary_P_Ox': r'$\text{P(O} \vert \text{x)}$', 
+        #'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
         'primary_mag': r'$m_r$',
         #'primary_z_phot_median': r'$\text{Primary } z_{\text{phot, median}}$', 
         #'primary_z_phot_l95': r'$\text{Primary } z_{\text{phot, l95}}$', 
