@@ -456,7 +456,7 @@ def dataframe_to_latex_formatted(df, filename):
     df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
     # Rename columns to be more LaTeX-friendly
     formatted_columns = {
-        'name': r'$\text{TNS Name}$',
+        'name': r'$\text{Name}$',
         'ra_frb': r'$\text{RA}_{\text{FRB}}$', 
         'dec_frb': r'$\text{DEC}_{\text{FRB}}$', 
         'b_err': r'$b_{\text{err}}$', 
