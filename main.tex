@@ -462,22 +462,23 @@ In the VLASS-QL images, we found a radio source at $4\sigma$ with a luminosity o
 
 %R17 and R34
 
-\section{DM host measurements}
-Tracing the origin of DM outliers has been a major question since (and leading up to) the inception of the FRB field. DM budgets have been observed to undershoot (FRB20220319B; see~\citet{ravi2023deep}) and overshoot the total due to an insufficiently-modeled sightline (e.g. FRB 20190520A~\citet{niu2021repeating,lee2023frb}). With every new FRB, observers are motivated to dissect in great detail~\citep{2024arXiv240200505K} the origin of the DM excess: is it dominated by a dense circum-source medium, or could it possibly originate from structures along the line of sight?
+\section{A direct measurement of the host contribution to the DM budget}
+Tracing the origin of DM outliers has been a major question since (and leading up to) the inception of the FRB field. DM budgets have been observed to undershoot (FRB20220319B; see~\citet{ravi2023deep}) and overshoot the total due to an insufficiently-modeled sightline (e.g. FRB 20190520A~\citet{niu2021repeating,lee2023frb}). With every new FRB, observers are motivated to dissect in great detail~\citep{2024arXiv240200505K} the origin of the DM excess after subtracting DM$_\text{IGM}$: is the remainder dominated by a dense circum-source medium, or could it possibly originate from gas along the line of sight?
 
-Low-redshift observations allow us to minimize the mean IGM contribution to the DM budget and characterize these subdominant contributions, which nontrivially impact the joint distribution of redshifts and extragalactic dispersion measures (DM$_{eg}$, particularly at low redshifts~\citep{macquart2020census,james2021z}. In particular, the DM$_{eg}$ distribution at low redshifts is difficult to model nontrivially due to the presence of feedback which expels gas into the intergalactic medium
+At increasing redshift this question is difficult to answer because of the increasing contribution of large-scale structure to the DM budget. It can produce either overdense or underdense lines of sight following some Gaussian distribution about the mean density. In the Local Universe, however, this question is more tractable since the mean IGM contribution and the large-scale structure contributions to the DM budget are minimized. In addition, while the joint distribution $p(z,DM_\mathrm{EG})$ is nontrivial to accurately model\citep{macquart2020census,james2021z}, the discrete structures responsible for DM excesses and deficits may still be identifiable with little or no casework.
 
-~\citep{macquart2020census}. Based on sightlines ray-traced through the illustris TNG simulation~\citep{walker2024dispersion}, the IGM adds 63.3 units of RMS scatter about the median DM$_\text{IGM}(z)$ $z = 0.1$ and 105 at $z = 0.2$.
+This is illustrated qualitatively by the empirically-observed distribution of redshifts and DMs.  We have compiled (Fig.~\ref{fig:macquart}) the vast majority, if not all, FRBs with secure redshifts detected to date with secure redshifts. The 14 host galaxies in this paper significantly improve coverage at low redshifts, but unlike many other FRBs in the Local Universe (e.g.~\citet{bhardwaj2024host}), they have been selected uniformly as a function of total dispersion measure out to total DM $\sim 1000$, at which point the dispersive sweep no longer completely fits in the baseband buffers of CHIME and its outriggers\citep{denman2020gpu,leung2021synoptic,lanman2024chime}.
 
-Fig.~\ref{fig:host_dm} for low-redshift sightlines. 
+With the 14 host galaxies in this paper, we assemble a sample of 27 host galaxies at $z < 0.2$, which allows us to make a clean direct measurement of the distribution of DM residuals after subtracting DM$_\text{IGM}$.
 
-The sample of FRBs localized substantially increases the number of low-redshift host galaxies, which we show in Fig.~\ref{fig:macquart}. we assemble a sample of 27 host galaxies at $z < 0.2$, which allows us to make the first direct measurement of the host galaxy parameters (commonly parameterized as $\sigma_\textrm{host}$ and $\mu_\textrm{host}$). Model-independent measurements of host galaxy and halo contributions to the total DM budget are crucial to break degeneracies in attempts to use FRBs to constrain any combination of the baryon density, the IGM gas fraction $f_{IGM}$ and ionization history, or the Hubble parameter -- several among the many ambitious goals of FRB cosmology. 
+The distribution of residuals is often commonly parameterized as a log-normal distribution. In the literature the parameter $\mu_\textrm{host}$ captures the mean of the distribution, while its width and heavy tail are both fixed by $\sigma_\textrm{host}$ (see e.g.~\citet{macquart2020census,james2021z}, as well 
+
+Model-independent measurements of host galaxy and halo contributions to the total DM budget are crucial to break degeneracies in attempts to use FRBs to constrain any combination of the baryon density, the IGM gas fraction $f_{IGM}$ and ionization history, or the Hubble parameter -- several among the many ambitious goals of FRB cosmology. 
 
 Despite the complexity of unmodeled contributions to DM$_\mathrm{host}$, the host galaxy DM has often been reduced to a single pair of numbers $\sigma_\mathrm{host},\mu_{\mathrm{host}}$ which characterize the mean and uncertainty of a log-normal DM distribution which lumps together unaccounted-for contributions from the host galaxy, filaments and voids along the line of sight, and circumburst media. 
 
 
-
-We propose that DM excesses at low host luminosities tend to trace the local environment, whereas DM excesses at high host luminosities tend to trace the presence of large-scale gas environment around the galaxy. This is consistent with a well-known trend of more luminous, evolved galaxies existing in larger haloes, and with the observation.
+Based on sightlines ray-traced through the Illustris TNG simulation~\citep{walker2024dispersion}, the IGM adds 63.3 units of RMS scatter about the median DM$_\text{IGM}(z)$ $z = 0.1$ and 105 at $z = 0.2$.
 
 characterize host galaxy contributions to the DM budget~\ref{fig:host_dm} as a function of the host galaxy's absolute r-band luminosity.
 
