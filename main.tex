@@ -127,7 +127,7 @@
 
 \begin{document}
 
-\title{Eighteen New Low-redshift Host Galaxies From CHIME/FRB Outriggers}
+\title{A Catalog of Low-Redshift FRB Host Galaxies From CHIME/FRB Outriggers}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -280,6 +280,29 @@ These simulations indicate that the optimal values of $P(U)$ are $0.32$ for the 
 
 Table~\ref{tab:gold_sample} shows the bursts which we robustly associate with a host galaxy. Fig.~\ref{fig:hg_images} shows these host galaxies with high posterior probabilities. Because CHIME's survey footprint is entirely contained within the footprint of Pan-STARRS, We display publicly-available host galaxy images from Pan-STARRS DR1 to maintain uniformity across the sample. 
 
+\begin{figure*}[h]
+\centering
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20230203A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20230222B_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20230703A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20230730A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20230926A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231005A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231007B_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231011A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231017A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231025C_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231025B_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231123A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231128A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231201A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231202A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231204A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231206A_path.pdf}
+\includegraphics[trim=3.2in 0.4in 3.1in 0.4in, clip,width=0.17\textwidth]{FRB20231223C_path.pdf}
+\caption{Each FRB field with a host galaxy favored by the PATH algorithm with $P(O|x) > 0.9$. Bright stars in many fields are visible in the images but removed during manual vetting of each host association. 1$\sigma$ and 3$\sigma$ localization contours are displayed as solid and dashed white ellipses respectively.}
+\end{figure*}
+
 %Any FRB detector will have to contend with FRBs with no readily-detected host galaxy. This can suggest a high-redshift origin for these FRB if the localization region is sufficiently small to make a robust association at faint optical magnitudes, as shown in~\citet{marnoch2023unseen}. In our case, the localization ellipses are of size 70-600 square arcseconds, which only allows for a robust association out to a limiting magnitude of $\sim 20$, as seen by the gold-standard associations in our sample. 
 
 
@@ -372,7 +395,7 @@ We used PypeIt (\citet{prochaska2020pypeit}) for all post-observation data proce
 \includegraphics[trim=0.325in 0.325in 0.3in 0.325in, clip,width=0.25\textwidth]{FRB20231204A.pdf}
 \includegraphics[trim=0.325in 0.325in 0.3in 0.325in, clip,width=0.25\textwidth]{FRB20231206A.pdf}
 \includegraphics[trim=0.325in 0.325in 0.3in 0.325in, clip,width=0.25\textwidth]{FRB20231223C.pdf}
-\caption{All of our host galaxies.}
+\caption{Zoom in on our host galaxies.}
     \label{fig:hg_images}
 \end{figure*}
 
@@ -482,12 +505,14 @@ In the last section of this paper we combine our low-redshift host sample with F
 
 We argue that using the moments of the $\dmh$ distribution adds flexibility in the ``right'' way: it allows the RMS scatter (the variance) in the distribution to be  characterized independently of its heavy tail (i.e. the skew of the distribution). In the future, DM contributions such as the contribution from host galaxy disks~\citep{cassanelli2022fast}, intervening haloes, and the large-scale structure could potentially be disentangled by their distinct imprints on the moments of the $\dmh$ distribution.
 
-In our moment-based analysis, the distribution of $\dmh$ is assumed to have some mean, standard deviation, skew, and kurtosis. We first estimate the mean and standard deviation $M_h$ and $S_h$ using maximum-likelihood estimation with a Gaussian likelihood: an approach which is simplistic enough for standardization across the field. The likelihood is
+In our moment-based analysis, the distribution of $\dmh$ is assumed to have some mean, standard deviation, skew, and kurtosis. We first estimate the mean and standard deviation $M_h$ and $S_h$ using maximum-likelihood estimation with a Gaussian likelihood summed over sightlines $i$: an approach which is simplistic enough for standardization across the field. We maximize
 
-$$\log \mathcal{L}(M_h,S_h) = -\sum_i \dfrac{|\dmh_i - M_h|^2}{2(S_h^2 + \sigma_i^2)}$$
+$$\log \mathcal{L}(M_h,S_h) = -\sum_i \dfrac{|\dmh_{,i} - M_h|^2}{2(S_h^2 + \sigma_i^2)}$$
 
-where $\sigma_i = \sqrt{0.2\mathrm{DM}_\textrm{NE2001})^2 + \sigma_\textrm{IGM}^2(z)}$ and where $\sigma_\textrm{IGM}^2$ accounts for the scatter in the distribution measured from the result of dispersion-measure ray tracing through the Illustris TNG simulation~\citep{walker2024dispersion}. %the IGM adds 63.3 pc cm$^{-3}$ of RMS scatter about the median DM$_\text{IGM}(z)$ at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$.
+where $\sigma_i^2 = (0.2\mathrm{DM}_\textrm{NE2001,i})^2 + \sigma_\textrm{IGM}^2(z)$ and where $\sigma_\textrm{IGM}^2$ accounts for the redshift-dependent scatter in the DM distribution due to large-scale structure. We fix $\sigma_\textrm{IGM}^2$ to the results of dispersion-measure ray tracing through the Illustris TNG simulation~\citep{walker2024dispersion}, but note that the small redshift range ($z < 0.2$) prevents us from disentangling our fitted parameter $S_h^2$ from $\sigma_\textrm{IGM}^2$, which adds 63.3 pc cm$^{-3}$ of RMS scatter at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$. We then plug in our best estimates of $M_h$ and $S_h$ into the standard weighted estimators to estimate the skew and kurtosis $\Gamma_h$ and $\kappa_h$ respectively. Defining weights $w_i = (S_h^2 + \sigma_i)^{-2}$ we have
 
+$$\Gamma_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h^{3}\sum_i w_i} $$
+$$\kappa_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^4}{S_h^{4}\sum_i w_i}.$$
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/macquart.pdf}
@@ -501,7 +526,6 @@ where $\sigma_i = \sqrt{0.2\mathrm{DM}_\textrm{NE2001})^2 + \sigma_\textrm{IGM}^
     \caption{We plot the DM excess after subtracting contributions from the IGM~\citep{macquart2020census}, Milky Way disk~\citep{cordes2002ne2001}, and its halo~\citep{yamasaki2020galactic} as a function of r-band host galaxy luminosity for low-redshift FRBs in the literature.}
     \label{fig:host_dm}
 \end{figure*}
-
 
 % We first assess the non-detections and exclude the possibility of PRSs brighter than 1.2 $\times$ 10$^{29}$ erg/s/Hz for the FRBs in this sample, comparable to the luminosity of the PRS associated with FRB\,20121102A. If these fainter PRSs exist, the non-detections may be due to a combination of the sensitivity limits and cadence of the observing instrument. Moreover, the PRS limits align with those found for FRB repeaters in \cite{ibik2024inprep}. Notably, these high luminosity upper limits suggest that if there is a PRS linked to any of these FRBs and it is powered by a core-collapse supernova (CCSN), then the PRS would need to be more luminous than any known radio superluminous supernova or long-duration $\gamma$-ray burst. Conversely, this high luminosity is forecasted for magnetar nebulae \citep{metzger2019fast} and hypernebula models \citep{sridhar2021periodic} \textbf{CL: Is this the right paper for Sridhar et al and Metzger et al? Please check}, yet no observations supporting this have been made to date. \textcolor{red}{PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.}
 
@@ -553,15 +577,15 @@ where $\sigma_i = \sqrt{0.2\mathrm{DM}_\textrm{NE2001})^2 + \sigma_\textrm{IGM}^
 
 \begin{table}
 \begin{threeparttable}
-\begin{tabular}{ccc}
-FRB name & $z$ & L$_{\rm{PRS}}$ \\
+\begin{tabular}{lrr}
+TNS Name & $z$ & L$_{\rm{PRS}}$ \\
        &               &  (erg/s/Hz) \\ \hline
        
 FRB20230203A & 0.1464 & $<4\times10^{29}$ \\
 FRB20230222B & 0.11 & $<2\times10^{29}$\\
 FRB20230703A & 0.1184 & $<2\times10^{29}$ \\
 FRB20230730A & 0.2115 & $<8\times10^{29}$ \\
-\textcolor{orange}{FRB20230926A} & 0.0553 & $< 5\times10^{28}$ \\
+FRB20230926A^a & 0.0553 & $< 5\times10^{28}$ \\
 FRB20231005A & 0.0713 & $< 7\times10^{28}$ \\
 % \textcolor{green}{FRB20231007B} & -- & $*$ \\
 FRB20231011A & 0.0783 & $<1\times10^{29}$ \\
@@ -569,31 +593,32 @@ FRB20231017A & 0.245 & $< 1\times10^{30}$ \\
 FRB20231025B & 0.3237 & $<2\times10^{30}$ \\
 % \textcolor{green}{FRB20231025C} & -- & $*$ \\
 FRB20231123A & 0.0729 &  $<9\times10^{28}$ \\
-\textcolor{orange}{FRB20231128A} & 0.1079 & $<2\times10^{29}$ \\
+FRB20231128A^a & 0.1079 & $<2\times10^{29}$ \\
 % \textcolor{green}{FRB20231201A} & -- & $*$  \\
 % \textcolor{green}{FRB20231202A} & -- & $*$ \\
-FRB20231204A & 0.0644 & $\dagger$ \\
-\textcolor{orange}{FRB20231206A} & 0.06591 & $<7\times10^{28}$ \\
+FRB20231204A^b & 0.0644 & $-$ \\
+FRB20231206A^a & 0.06591 & $<7\times10^{28}$ \\
 FRB20231223C & 0.10594 & $< 2 \times10^{29}$ \\
 FRB20230222A & 0.1223 & $< 3 \times10^{29}$ \\
     \end{tabular}
 
 % Upper limits on persistent radio counterparts derived from the VLA Sky Survey (Quick Look) at 3 GHz. FR Limits are quoted at the $5\sigma$ detection threshold, estimated using the provided residual files obtained while querying CIRADA. using VLASS-QL and the assumed host redshift.
-\caption{Upper limits on PRS luminosities derived from VLASS Quick Look images for localized events with measured host galaxy redshifts. Column 1: TNS name. Column 2: redshift of the most probable host. Column 3: Luminosity limits of any PRS at 3\,GHz above $5\sigma$.}
-\begin{tablenotes}
-    \item[$\dagger$] No corresponding fitsfile associated with the position was available when querying CIRADA. 
-\end{tablenotes}
-
+\caption{For each burst in the sample,5$\sigma$ upper limits on PRS luminosities derived from VLASS Quick Look images for localized events with measured host galaxy redshifts. $^a$~A radio source is detected at $>3$\textbf{???}$\sigma$ in LoTSS, FIRST but not in VLASS. $^b$~No corresponding fitsfile associated with the position was available when querying CIRADA. Column 1: TNS name. Column 2: redshift of the most probable host. Column 3: Luminosity limits of any PRS at 3\,GHz above $5\sigma$.}
 \label{tab:hostderived}
 \end{threeparttable}
 \end{table}
 
-\section{Data Description}
-We release our localization ellipse catalog for all 83 FRBs in our sample. We encourage transient cross-matching for the community to perform optical follow-up of these bursts to potentially discover additional host galaxies in our sample.
-\begin{table*}
-
+\begin{table*} 
+\centering
 \caption{A table of FRB localizations and host galaxy associations.}
 \input{sample_gold.tex}
+\end{table*}
+
+\begin{table*} 
+\addtolength{\leftskip}{-4cm}
+\caption{A table of FRB localizations with no obvious host galaxy.}
+\input{sample_full.tex}
+\addtolength{\rightskip}{-4cm}
 \end{table*}
 \section{Acknowledgments}
 \begin{acknowledgments}
