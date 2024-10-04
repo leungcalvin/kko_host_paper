@@ -503,13 +503,21 @@ To capture the width and heavy tail of the DM$_\textrm{h}$ distribution, is ofte
 
 In the last section of this paper we combine our low-redshift host sample with FRBs in the literature to characterize the $\dmh$ distribution. We do so non-parametrically, by measuring the moments (i.e. the mean, width, skew, and kurtosis) of the $\dmh$ distribution. We compare our results to the results of global fitting analyses~\citep{james2021z,connor2024gas} which use the \textit{de facto} standard log-normal parameterization by translating $\muhost$ and $\sighost$ into the equivalent moments. 
 
+The results are shown in Fig.~\ref{fig:host_dm}. We have denoted FRBs which lie in galaxy clusters: FRB20231206A and FRB20230203A (see above), as well as FRB20220914A and FRB20220509G~\citep{connor2023deep}. Finally, we have excluded a galaxy merger (FRB20231204A). We have also identified FRBs for which the host galaxy is highly inclined (FRB20210603A~\citep{cassanelli2022fast},FRB20231120A~\citep{2024arXiv240916964S}, and FRB20240201A and FRB20240310A~\citep{shannon2024commensal}). A third group of FRBs are those for which the low total DM is crucial to the host galaxy association~\citep{bhardwaj2024host,michilli2023subarcminute,Ibik2024host}.
+
+
 We argue that using the moments of the $\dmh$ distribution adds flexibility in the ``right'' way: it allows the RMS scatter (the variance) in the distribution to be  characterized independently of its heavy tail (i.e. the skew of the distribution). In the future, DM contributions such as the contribution from host galaxy disks~\citep{cassanelli2022fast}, intervening haloes, and the large-scale structure could potentially be disentangled by their distinct imprints on the moments of the $\dmh$ distribution.
 
-In our moment-based analysis, the distribution of $\dmh$ is assumed to have some mean, standard deviation, skew, and kurtosis. Gaussian likelihood summed over sightlines $i$: an approach which is simplistic enough for standardization across the field. We calculate the first four moments of the \dmh distribution, weighting each data point by
-$\sigma_i^2 = (0.2\mathrm{DM}_\textrm{NE2001,i})^2 + \sigma_\textrm{IGM}^2(z)$ and where $\sigma_\textrm{IGM}^2$ accounts for the redshift-dependent scatter in the DM distribution due to large-scale structure. We fix $\sigma_\textrm{IGM}^2$ to the results of dispersion-measure ray tracing through the Illustris TNG simulation~\citep{walker2024dispersion}, but note that the small redshift range ($z < 0.2$) prevents us from disentangling our fitted parameter $S_h^2$ from $\sigma_\textrm{IGM}^2$, which adds 63.3 pc cm$^{-3}$ of RMS scatter at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$. We then plug in our best estimates of $M_h$ and $S_h$ into the standard weighted estimators to estimate the skew and kurtosis $\Gamma_h$ and $\kappa_h$ respectively. Defining weights $w_i = (S_h^2 + \sigma_i)^{-2}$ we have
+In our moment-based analysis, the distribution of $\dmh$ is assumed to have some mean, standard deviation, skew, and kurtosis; however no functional form is assumed. We estimate the first four moments of the $\dmh$e distribution, weighting each data point to account for errors in the NE2001 model and an RMS contribution from the IGM.  %$\sigma_\textrm{IGM}^2$ to the results of dispersion-measure ray tracing through the Illustris TNG simulation~\citep{walker2024dispersion}, but note that the small redshift range ($z < 0.2$) prevents us from disentangling our fitted parameter $S_h^2$ from $\sigma_\textrm{IGM}^2$, which adds 63.3 pc cm$^{-3}$ of RMS scatter at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$. 
+We use standard weighted estimators to estimate the skew and kurtosis $\Gamma_h$ and $\kappa_h$ respectively. Defining weights $w_i = \sigma_i^{-2}$ we have
 
+$$M_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h\sum_i w_i} $$
+$$S_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h^{2}\sum_i w_i} $$
 $$\Gamma_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h^{3}\sum_i w_i} $$
 $$\kappa_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^4}{S_h^{4}\sum_i w_i}.$$
+
+Parameter uncertainties are estimated by bootstrapping each sample with replacement 1000 times. 
+
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/macquart.pdf}
@@ -524,6 +532,12 @@ $$\kappa_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^4}{S_h^{4}\sum_i w_i}.$$
     \label{fig:host_dm}
 \end{figure*}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
 % We first assess the non-detections and exclude the possibility of PRSs brighter than 1.2 $\times$ 10$^{29}$ erg/s/Hz for the FRBs in this sample, comparable to the luminosity of the PRS associated with FRB\,20121102A. If these fainter PRSs exist, the non-detections may be due to a combination of the sensitivity limits and cadence of the observing instrument. Moreover, the PRS limits align with those found for FRB repeaters in \cite{ibik2024inprep}. Notably, these high luminosity upper limits suggest that if there is a PRS linked to any of these FRBs and it is powered by a core-collapse supernova (CCSN), then the PRS would need to be more luminous than any known radio superluminous supernova or long-duration $\gamma$-ray burst. Conversely, this high luminosity is forecasted for magnetar nebulae \citep{metzger2019fast} and hypernebula models \citep{sridhar2021periodic} \textbf{CL: Is this the right paper for Sridhar et al and Metzger et al? Please check}, yet no observations supporting this have been made to date. \textcolor{red}{PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.}
 
 
