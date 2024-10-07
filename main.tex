@@ -249,7 +249,14 @@ To characterize the localization accuracy, we apply this procedure to a sample o
 \section{Host Association}\label{sec:association}
 After localizing each burst with VLBI, we use the default priors in the PATH toolkit to assign posterior probabilities to each catalogued galaxy allowed by the combined localization region from baseband and CHIME-KKO VLBI. Each localization region is cross-matched with a widefield galaxy survey. Where possible \textbf{(55/78 fields)}, we cross-match against the Dark Energy Camera Legacy Survey (DECaLS) to find a host galaxy due to its greater depth. In the remainder of observations \textbf{(23/78 fields)}, we default to Pan-STARRS PS1, which covers the entire CHIME/FRB discovery footprint. \textbf{Note: Waiting for last 5 fields from incomplete PATH run; update these numbers when those are done.}
 
-\textbf{Note: would like somebody to review this} Stars are identified in each field on the basis of their classification in Gaia DR3. After this automated removal, each field is manually inspected for contamination by misclassified stars \textbf{and other failure modes to which I am blissfully unaware thanks to our follow-up team}. Finally, each galaxy candidate in the field is assigned a probability $P(O|x)$ of being the true host of the FRB using the PATH (Probabilistically Associating Transients to their Hosts) framework~\citep{aggarwal2021probabilistic}.
+\textbf{Lluis: modified this and moved it to the end of the paragraph since the manual inspection is AFTER PATH has assigned probabilities} Stars are identified in each field on the basis of their classification in Gaia DR3. After the automated removal of these stars, each galaxy 
+candidate in the field is assigned a probability $P(O|x)$ of being the true host of the FRB using 
+the PATH (Probabilistically Associating Transients to their Hosts) framework~\citep{aggarwal2021probabilistic}. Finally, each field is visually inspected by at 
+least one member of the team to identify potential misclassified and/or 
+unaccounted stars and galaxies. When one of these issues is detected, it is manually corrected 
+and PATH is run again for that field. 
+
+%After this automated removal, each field is manually inspected for contamination by misclassified stars \textbf{and other failure modes to which I am blissfully unaware thanks to our follow-up team}. Finally, each galaxy candidate in the field is assigned a probability $P(O|x)$ of being the true host of the FRB using the PATH (Probabilistically Associating Transients to their Hosts) framework~\citep{aggarwal2021probabilistic}.
 
 Accurately assigning these posterior probabilities is difficult when combining shallow, widefield archival imaging with a highly sensitive FRB detector such as CHIME. In this regime, a significant fraction of bursts originates from beyond the maximum redshift out to which a faint FRB host would be detectable. As a point of reference, the faint dwarf host of FRB 20121102A~\citet{tendulkar2017host} would be detectable in the DECaLS $r$-band out to $z \sim 0.2$, depending on the Galactic extinction along the line of sight, implying an extragalactic DM of $\sim 200$. The redshift implied by the median DM of our sample significantly exceeds this (Fig.~\ref{fig:hg_vs_dm}).
 
@@ -309,7 +316,14 @@ Table~\ref{tab:gold_sample} shows the bursts which we robustly associate with a 
 \section{Spectroscopic Followup}
 We conducted spectroscopic follow-up observations for host galaxies in our sample with the primary goal of measuring their redshifts. We restricted follow-up observations to cases where the host association was secure $P(O|x) > 0.9$; \textbf{19 of our 83 sightlines passed this criteria}. Applying a Galactic extinction cut of $E(B-V) < 0.30$ reduced this to 13 sightlines. We also observed the host galaxy of FRB20230730A even though it did not strictly pass the extinction criteria ($E(B-V) \sim 0.54$). In cases where the secondary galaxy was comparable in brightness, we overlapped the long-slit with both top host galaxy candidates. For 5 host galaxies, we used DEIMOS on the Keck II telescope in Mauna Kea. For the other 9 host galaxies, we used the Kast Double Spectrograph mounted on the Shane 3-m telescope at Lick Observatory on Mount Hamilton in San Jose, California.
 
-Two or more emission lines were used to confirm each redshift (see \ref{z_table}), except for the host galaxy of FRB20230730A for which only one line was detectable. We attribute this to the high extinction through this dusty sightline. \textbf{For several candidates we also attempted to measure the redshift of the secondary host galaxy candidate favored by PATH by orienting the long slit to cover both galaxies. This was done with the goal of ruling out host galaxy candidates on the basis of their maximum redshift, but we found this to be unnecessary: it was undertaken in N/14 cases but the second candidate was often too faint to justify the additional investment of observing time.}
+Two or more emission lines were used to confirm each redshift (see \ref{z_table}), except for the host galaxy of FRB20230730A for which only one line was detectable. We attribute this to the high extinction through this dusty sightline. \textbf{Lordrick: For three? candidates we also attempted to measure the redshift of the secondary host galaxy candidate favored by PATH by orienting the long slit to cover both galaxies. This was done with the goal of ruling out host galaxy candidates on the basis of their maximum redshift, but we found this to be unnecessary: it was undertaken in N/14 cases but the second candidate was often too faint to justify the additional investment of observing time. Lluis: FRB20230311A was borderline, we have secondary (13$\%$). Lluis/Lordrick: Out to what secondary probability are we spectroscopically complete? Lluis: a priori, we always aim at also observing the 
+secondary if it fits in the slit. However, the focus is on the primary, so the exposure time is 
+based on the primary, and the final slit orientation depends on whether including the secondary 
+may diminish the quality of the observation of the primary. The final decision is made on a 
+case-by-case basis by jointly considering factors such as the absolute and relative brightness of 
+the two objects, the probability value for the secondary, the relevance of the parallactic angle 
+compared to the position angle for the observation of the primary, and others that may have an 
+impact in a specific situation.}
 
 \subsection{Keck Observations}
 % Observations for the host galaxy candidates of FRB20230203A, FRB20230703A, FRB20230730A,FRB20230311A, and FRB20231011A were conducted using DEIMOS on December 14th of 2023 UT. The spectra of the hosts of FRB20230311A and FRB20230730A were obtained with custom-made multi-slit masks, and the spectra for the other three FRB hosts were obtained with long-slit spectroscopy. The data reduction was performed with the Python Spectroscopic Data Reduction
@@ -320,7 +334,7 @@ Two or more emission lines were used to confirm each redshift (see \ref{z_table}
 On December 14, 2023 we observed the top probability host galaxy candidates of FRB20230203A, FRB20230703A, FRB20230730A, FRB20230311A, and FRB20231011A using the DEIMOS spectrograph on Keck II telescope. We used custom-made slitmasks for FRB20230311A and FRB20230730A. We observed the other host galaxy candidates with a $300"$ long $0.7"$ wide slit. In our configuration, we used the 600ZD grating along with the GG455 filter. The central wavelength for all the observations was set to $7500 A^o$. The seeing was $\sim1"$ throughout the night, and the observing conditions were spectroscopic. All targets were observed at airmass $<1.5$. The exposure time and host observation details are summarized in table \ref{z_table}.
 The data reduction was performed with the Python Spectroscopic Data Reduction Pipeline (PypeIt, v1.15;~\citet{prochaska2020pypeit}) using standard reduction techniques. These included flux calibration using spectrophotometric standard star spectra, telluric corrections using standard atmospheric model grids available in PypeIt, and the coadding of the 1D spectra.
 \begin{table*}
-\caption{A table of FRB follow-up observations summarry.}
+\caption{A table of FRB follow-up observations summary.}
 \input{redshifts_table}
 \label{z_table}
 \end{table*}
@@ -400,7 +414,7 @@ We used PypeIt (\citet{prochaska2020pypeit}) for all post-observation data proce
 \end{figure*}
 
 \section{Bursts}
-The morphology of these bursts is qualitatively very rich. All Stokes-I waterfall plots in baseband data are shown in Fig.~\ref{fig:wfall}. To check for morphological differences in FRB dynamic spectra, we have ordered the dynamic spectra in decreasing order of peak specific luminosity (Jy Gpc$^2$) implied by their host redshifts, but we defer detailed work on burst properties (e.g. morphological fitting~\citep{fonseca2024modeling}, scintillometry~\citep{schoen2021scintillation}, and polarimetry~\citep{mckinven2021polarization}) for later work. In the dynamic spectra of bursts from known repeaters (FRB20231204A and FRB20231206A), we see \textbf{some? none? smoking gun?} indication of the canonical downward-drifting substructure present in the repeating sources; we also note that they are in the less-luminous half of our sample: evidence that bursts from repeaters may be less luminous than those of non-repeaters. \textbf{Qualitatively we see no trends, though we are missing seven waterfall plots from Vishwangi.}
+The morphology of these bursts is qualitatively very rich. All Stokes-I waterfall plots in baseband data are shown in Fig.~\ref{fig:wfall}. To check for morphological differences in FRB dynamic spectra, we have ordered the dynamic spectra in decreasing order of peak specific luminosity (Jy Gpc$^2$) implied by their host redshifts, but we defer detailed work on burst properties (e.g. morphological fitting~\citep{fonseca2024modeling}, scintillometry~\citep{schoen2021scintillation}, and polarimetry~\citep{mckinven2021polarization}) for later work. In the dynamic spectra of bursts from known repeaters (FRB20231204A and FRB20231206A), we see \textbf{some? none? smoking gun?} indication of the canonical downward-drifting substructure present in the repeating sources; we also note that they are in the less-luminous half of our sample: evidence that bursts from repeaters may be less luminous than those of non-repeaters. \textbf{Vishwangi: how was binning set?}
 
 %Temporarily commenting some figures
 \newpage
@@ -431,23 +445,58 @@ The morphology of these bursts is qualitatively very rich. All Stokes-I waterfal
 \end{figure*}
 
 \section{Multi-wavelength counterpart cross-matching}
-The improved localizations for our sample of bright FRBs is a natural dataset in which to search for multi-wavelength counterparts to FRBs, due to the improved localization, large size (83), and low redshifts of the bursts in the sample. Motivated by the discovery of compact radio counterparts\citealt{chatterjee2017direct,niu2021repeating} and the association of some FRBs with magnetars (\textbf{Can Alice provide some text here...}), we cross-match the localization ellipses with the locations of known GRBs, and search for compact persistent radio sources for the bursts within our sample. 
+The improved localizations for our sample of bright FRBs is a natural dataset in which to search for multi-wavelength counterparts to FRBs, due to the improved localization, large size (83), and low redshifts of the bursts in the sample. Motivated by the discovery of compact radio counterparts \citep{chatterjee2017direct,niu2021repeating} and the association of some FRBs with magnetars, we cross-match the localization ellipses with the locations of known GRBs, and search for compact persistent radio sources for the bursts within our sample. 
 
 \subsection{High-energy counterpart search}
-We search for temporal and spatial cross-matches between our 83 FRBs and 2589 long and short gamma-ray burst (GRB)  triggers from the GRBWeb database\footnote{\url{https://user-web.icecube.wisc.edu/~grbweb_public/};
-Access date October 10, 2023} \citep{GRBweb} and the General Coordinates Network\footnote{\url{gcn.nasa.gov}} between 1991 April 21 and 9 September 2024. Using only the GRBs with 1$\sigma$ localizations $<1\degree$, we do not find any joint spatio-temporal (within 1 week in time and within 3$\sigma$ in spaces) coincidences. We do find three solely spatial cross-matches between FRBs 20231019A, 20230802A, 20230703A and three GRBs: 970306A, 120323A and 920221A*, respectively. Following the method presented in \citep{Curtin2024}, we simulate 1000 sets of GRBs and cross-match each with the FRB sample to estimate the chance coincidence probability of three cross-matches. Each mock sample of GRBs has at least three cross matches, implying a high chance coincidence probability, which is consistent with the large uncertainty regions for these GRBs ($\gtrsim0.5\degree$).  
+
+We search for temporal and spatial cross-matches between our 83 FRBs and 2589 long and short gamma-ray burst (GRB)  triggers from the GRBWeb database\footnote{\url{https://user-web.icecube.wisc.edu/\~grbweb_public/}} and the General Coordinates Network\footnote{\url{gcn.nasa.gov}} between 1991 April 21 and 9 September 2024. Using only the GRBs with 1$\sigma$ localizations $<1^\circ$, we do not find any joint spatio-temporal (within 1 week in time and within 3$\sigma$ in spaces) coincidences. We do find three solely spatial cross-matches between FRBs 20231019A, 20230802A, 20230703A and three GRBs: 970306A, 120323A and 920221A*, respectively. Following the method presented in \citep{Curtin2024}, we simulate 1000 sets of GRBs and cross-match each with the FRB sample to estimate the chance coincidence probability of three cross-matches. Each mock sample of GRBs has at least three cross matches, implying a high chance coincidence probability, which is consistent with the large uncertainty regions for these GRBs ($\gtrsim0.5^\circ$).  
 
 \subsection{Persistent Radio cross-matching methodology}
 Thus far, two FRBs have been confidently associated with persistent radio sources. A third PRS was found to be associated with the active repeating FRB\,20201124A \citep{Bruni2024Nature}, but the larger spatial offset and physical size of the radio source make this source different from the radio counterparts to FRB 20121102A and 20190520B, which have been shown to be compact on milliarcsecond scales~\citep{marcote2017repeating,bhandariprs190520}.
-We perform a systematic search for unresolved radio sources coincident with the CHIME-KKO FRBs in the Faint Images of the Radio Sky at Twenty cm (FIRST; \citealt{FIRST}) and the NRAO VLA Sky Survey (NVSS; \citealt{NVSS}) at 1.4\,GHz, as well as the Very Large Array Sky Survey (VLASS; \citealt{VLASS}) at 3\,GHz. For sources detected in either VLASS or FIRST, we also search the positions in the LOFAR Two-metre Sky Survey (LoTSS) Data Release 2 (DR2; \citealt{LoTSS}) at 144\,MHz. In each survey we searched for radio point sources above its $5\sigma$ detection threshold, using the Canadian Initiative for Radio Astronomy Data Analysis (CIRADA)\footnote{https://cirada.ca/} portal to access the image cutouts. 
+We perform a systematic search for unresolved radio sources coincident with the CHIME-KKO FRBs in the Faint Images of the Radio Sky at Twenty cm (FIRST; \citealt{FIRST}) and the NRAO VLA Sky Survey (NVSS; \citealt{NVSS}) at 1.4\,GHz, as well as the Very Large Array Sky Survey (VLASS; \citealt{VLASS}) at 3\,GHz. For sources detected in either VLASS or FIRST, we also search the positions in the LOFAR Two-metre Sky Survey (LoTSS) Data Release 2 (DR2; \citealt{LoTSS}) at 144\,MHz. In each survey we searched for radio point sources above its $5\sigma$ detection threshold, using the Canadian Initiative for Radio Astronomy Data Analysis (CIRADA)\footnote{\url{https://cirada.ca/}} portal to access the image cutouts. 
 
 In the FIRST and NVSS cutouts we estimated the noise by computing the RMS (i.e. $\sigma$) over the entire 2'' $\times$ 2'' cutout.  While this can lead to slightly overestimated noise estimates if a particularly dominant radio source is present within the field, we found that this method was sufficient for achieving relatively uniform noise estimates across all fields. In VLASS, cutouts of the imaging residuals allowed for a better noise RMS estimate, which improves the sensitivity of our search and deepens our upper limits on persistent radio emission.
 
-We summarize the results in Table \ref{tab:hostderived}. Given that the majority of the CHIME-KKO localizations fell outside of the FIRST footprint, we do not include limits from the survey in Table \ref{tab:hostderived} and instead discuss a few sources of interest in Sec.~\ref{sec:sample}. Likewise, the degraded \textbf{(CL: do you mean lower?)} sensitivity and angular resolution of NVSS, make their limits less constraining, so we omit them from our calculations. While all fields targeted by VLASS yielded non-detections at the $5\sigma$ level, we identified three potential PRSs just below the detection threshold (but more than $3\sigma$) and discuss each of these sources in \S \ref{subsec:FRB20231206A}, \ref{subsec:FRB20231128A} and \ref{subsec:FRB20230926A}. \par
+We summarize the results in Table \ref{tab:hostderived}. Given that the majority of the CHIME-KKO localizations fell outside of the FIRST footprint, we do not include limits from the survey in Table \ref{tab:hostderived} and instead discuss a few sources of interest in Sec.~\ref{sec:sample}. Likewise, the degraded sensitivity and angular resolution of NVSS, make their limits less constraining, so we omit them from our calculations. While all fields targeted by VLASS yielded non-detections at the $5\sigma$ level, we identified three potential PRSs just below the detection threshold (but more than $3\sigma$) and discuss each of these sources in \S \ref{subsec:FRB20231206A}, \ref{subsec:FRB20231128A} and \ref{subsec:FRB20230926A}. \par
 
-For the 14 FRBs with redshifts we translate the VLASS RMS flux sensitivity into upper limits on the PRS luminosity at the redshift of the FRB at 3\,GHz, as listed in Table \ref{tab:hostderived} (excluding FRB\,20231204A which had no associated VLASS query). Due to the low redshift of our host galaxy sample, the majority of our limits fall at or below the luminosities of PRSs associated with FRB\,20121102A and FRB\,20190520B \citep{chatterjee2017direct, niu2021repeating}, \textbf{adding to the preponderance of evidence that those sources are rare outliers in the FRB population}. If such fainter PRSs exist, our non-detections could be explained by a combination of lower sensitivities and limited time sampling\textbf{CL: what is meant by ``limited time sampling?''}. Alternatively, the large angular size of the VLASS radio sources suggests that the radio emission may be partly contributed by ongoing star formation or an active galactic nucleus within the host galaxy \citep{Condon92, Condon19}.\textbf{CL: Are your candidates extended? Not sure why this last sentence is relevant.}
+For the 14 FRBs with redshifts we translate the VLASS RMS flux sensitivity into upper limits on the PRS luminosity at the redshift of the FRB at 3\,GHz, as listed in Table \ref{tab:hostderived} (excluding FRB\,20231204A which had no associated VLASS query). Due to the low redshift of our host galaxy sample, the majority of our limits fall at or below the luminosities of PRSs associated with FRB\,20121102A and FRB\,20190520B \citep{chatterjee2017direct, niu2021repeating}, adding to the preponderance of evidence that those two sources are rare outliers in the FRB population. If such fainter PRSs exist, our non-detections could be explained by lower sensitivities. Alternatively, the large angular size of the VLASS radio sources suggests that the radio emission may be partly contributed by ongoing star formation or an active galactic nucleus within the host galaxy \citep{Condon92, Condon19}.
 
 Moreover, the potential PRS limits are consistent with those found for a sample of FRB repeaters \citep{Ibik2024prs} and may suggest intrinsically fainter PRSs when compared to the PRSs associated with FRB\,20121102A and FRB\,20190520B, but similar to the PRS associated with FRB\,20201124A \citep{Bruni2024Nature} along with the PRS analogs presented in \cite{Dong2024radiosources}. In the neutron star nebulae models (see e.g., \citealt{Kashiyama2017, margalit2018concordance}), the lower luminosities can be explained by factors such as older age, larger nebula radius, or intrinsically lower energy output \citep{Margalit2019nebulae}. 
+
+
+
+\begin{table}
+\begin{threeparttable}
+\begin{tabular}{lrr}
+TNS Name & $z$ & L$_{\rm{3GHz}}$ \\
+       &               &  (erg/s/Hz) \\ \hline
+       
+FRB20230203A & 0.1464 & $<4\times10^{29}$ \\
+FRB20230222B & 0.11 & $<2\times10^{29}$\\
+FRB20230703A & 0.1184 & $<2\times10^{29}$ \\
+FRB20230730A & 0.2115 & $<8\times10^{29}$ \\
+FRB20230926A$^a$ & 0.0553 & $< 5\times10^{28}$ \\
+FRB20231005A & 0.0713 & $< 7\times10^{28}$ \\
+% \textcolor{green}{FRB20231007B} & -- & $*$ \\
+FRB20231011A & 0.0783 & $<1\times10^{29}$ \\
+FRB20231017A & 0.245 & $< 1\times10^{30}$ \\
+FRB20231025B & 0.3237 & $<2\times10^{30}$ \\
+% \textcolor{green}{FRB20231025C} & -- & $*$ \\
+FRB20231123A & 0.0729 &  $<9\times10^{28}$ \\
+FRB20231128A$^a$ & 0.1079 & $<2\times10^{29}$ \\
+% \textcolor{green}{FRB20231201A} & -- & $*$  \\
+% \textcolor{green}{FRB20231202A} & -- & $*$ \\
+FRB20231204A$^b$ & 0.0644 & $-$ \\
+FRB20231206A$^a$ & 0.06591 & $<7\times10^{28}$ \\
+FRB20231223C & 0.10594 & $< 2 \times10^{29}$ \\
+FRB20230222A & 0.1223 & $< 3 \times10^{29}$ \\
+    \end{tabular}
+
+% Upper limits on persistent radio counterparts derived from the VLA Sky Survey (Quick Look) at 3 GHz. FR Limits are quoted at the $5\sigma$ detection threshold, estimated using the provided residual files obtained while querying CIRADA. using VLASS-QL and the assumed host redshift.
+\caption{For each burst in the sample,5$\sigma$ upper limits on PRS luminosities derived from VLASS Quick Look images for localized events with measured host galaxy redshifts. $^a$~A radio source is detected at $>3$\textbf{???}$\sigma$ in LoTSS, FIRST but not in VLASS. $^b$~No corresponding fitsfile associated with the position was available when querying CIRADA. Column 1: TNS name. Column 2: redshift of the most probable host. Column 3: Luminosity limits of any PRS at 3\,GHz above $5\sigma$.}
+\label{tab:hostderived}
+\end{threeparttable}
+\end{table}
 
 \section{Host Galaxy Sample}\label{sec:sample}
 In this section we highlight some of the interesting sources in our sample. Both repeating FRBs in our sample have persistent radio source (PRS) candidates, but only one has a low chance coincidence probability. Three of our host galaxies are embedded in larger-scale structures: one repeating source in found in a starbursting galaxy merger, one in a massive X-ray cluster, and another in a rich optical cluster, and we comment on the rich potential of FRBs to probe these systems.
@@ -464,9 +513,9 @@ $$\left(\dfrac{f_{ion}}{0.34}\right)\left(\dfrac{\Sigma}{10^{21}\textrm{ cm}^{-3
 FRB20231204A is reminiscent of some other FRB hosts in the literature which show evidence of dynamical  disturbances~\citep{michalowski2021asymmetric,kaur2022fast}. However, those bursts do not have atypical values of DM$_\textrm{host}$ and the merger activity in those scenarios is not as dramatic as in the case of FRB20231204A. In the future, a sample of precisely-localized fast radio bursts as well as auxiliary observations characterizing the neutral gas of the star formation site (e.g.,~\citep{leewadell2023host,yamanaka2024alma,glowacki2023wallaby} may be able to discriminate between the ISM and CGM contributions to star formation during galaxy mergers, as well as the delay-time distribution of FRBs.
 
 \subsection{FRB20231206A: an FRB behind Abell 576 with an associated persistent radio source candidate}\label{subsec:FRB20231206A}
-The luminous host galaxy and large dispersion measure excess of FRB20231206A (295 pc cm$^{-3}$ led us to associate its host galaxy to Abell 576~\citep{abell}. This X-ray cluster at $z \approx 0.03$ occupies $\sim 9$ square degrees on the sky and hosts over a thousand galaxies. A subset of the galaxies comprising the cluster comprise a high-velocity tail~\citep{rines2001infall} which has led to its identification as a merger of two subcomponents with a relative velocity of $\sim 9000$ km/s~\citep{dupke2007merger}. The host galaxy of FRB20231206A | one of the most luminous in our sample | is part of the infalling sub-cluster. It has been proposed on the basis of the X-ray morphology of the cluster core that the sub-structure has already made its first passage through the core~\citep{kempner2004chandra} but neither the morphological nor the redshift information can reveal whether the sub-structure is in front or behind the cluster as viewed from earth: two possibilities which are equally likely.
+The luminous host galaxy and large dispersion measure excess of FRB20231206A (295 pc cm$^{-3}$ led us to associate its host galaxy to Abell 576~\citep{abell}. This X-ray cluster at $z \approx 0.03$ occupies $\sim 9$ square degrees on the sky and hosts over a thousand galaxies. A subset of the galaxies comprising the cluster comprise a high-velocity tail~\citep{rines2001infall} which has led to its identification as a merger of two subcomponents with a relative velocity of $\sim 9000$ km/s~\citep{dupke2007merger}. The host galaxy of FRB20231206A | one of the most luminous in our sample | is part of the infalling sub-cluster. It has been proposed on the basis of the X-ray morphology of the cluster core that the sub-structure has already made its first passage through the core~\citep{kempner2004chandra} but neither the morphological nor the redshift information can reveal whether the sub-structure is in front or behind the cluster as viewed from earth.
 
-The DM excess of FRB 20231206A can break this degeneracy. At the distance of the cluster center, the host galaxy of FRB 20231206A is transversely displaced by $\approx 5$ Mpc from the cluster center, whose extent is quantified by its $r_{200} = 2.02$ Mpc. At the virial radius the mass of the cluster is between $1-1.4 \times 10^{15} M_\odot$ (~\cite{rines2000infall,girardi1998optical}). We argue that the large (390 pc cm$^{-3}$) dispersion measure excess is more consistent with a geometry where the FRB host lies behind the X-ray cluster. In a scenario where the intracluster medium is completely ionized and where the FRB host lies behind the cluster's dark matter halo, the observed dispersion measure excess then constrains the ionized gas column of the ICM at large impact parameters (in this case, a gas density measurement at 2 $R_{200}$) far beyond the typical reach of X-ray based gas fraction measurements which typically the cluster gas fraction at $\sim R_{2500}-R_{500}$~\citep{mantz2022cosmological} to infer $\Omega_b/\Omega_m$ (see e.g.~\citet{ettori1999rosat}). 
+The DM excess of FRB 20231206A can break this degeneracy. At the distance of the cluster center, the host galaxy of FRB 20231206A is transversely displaced by $\approx 5$ Mpc from the cluster center, whose extent is quantified by its $r_{200} = 2.02$ Mpc. At the virial radius the mass of the cluster is between $1-1.4 \times 10^{15} M_\odot$ (~\cite{rines2000infall,girardi1998optical}). We argue that the large (390 pc cm$^{-3}$) dispersion measure excess is more consistent with a geometry where the FRB host lies behind the X-ray cluster. In a scenario where the intracluster medium is completely ionized and where the FRB host lies behind the cluster's dark matter halo, the observed dispersion measure excess then constrains the ionized gas column of the ICM at large impact parameters (in this case, a gas density measurement at 2 $R_{200}$) far beyond the typical reach of X-ray based gas fraction measurements which typically the cluster gas fraction at $\sim R_{2500}-R_{500}$ (e.g.~\citet{ettori1999rosat, mantz2022cosmological}).
 %As in the earlier case, the poor FRB localization limits us to an illustrative order-of-magnitude estiamte. The mass density at a projected radius of 5 Mpc within the aperture implies a mass surface density of $\sigma(<5\text{~Mpc}) \sim 1.5\times10^{13} M_\odot$ Mpc$^{-2}$~\citep{rines2000infall}. Under the assumption of a cosmological ionization fraction, we estimate $f_{gas} \sim 0.6$ at $\sim 2 R_{vir}$. 
 
 Our radio cross-match also revealed a faint persistent radio counterpart in FIRST whose detection significance was $3.9\sigma$ above the RMS flux, but with a large P$_{cc} \sim 0.1$. Its implied luminosity at the distance of the host galaxy is $L_\mathrm{1.4~\mathrm{GHz}} \sim 7\times10^{28}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$. Similar to FRB\,20231128A, this source is also coincident with the most probable host galaxy (P(O\textbar$x$) = 0.9897) within the $1\sigma$ localization ellipse. Upon revisiting the corresponding VLASS Quick Look (VLASS-QL) query, we identified a source coincident with the FIRST source with a detection significance of $\sim3.5\sigma$ and luminosity of $L_{3.0~\mathrm{GHz}} = 5\times10^{28}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$. We calculated a $P_\mathrm{cc}$ with FRB\,20231206A of $P_\mathrm{cc} \sim 0.1$, and found no associated LoTSS data at the source position.\par
@@ -477,14 +526,14 @@ The source with the second-highest DM excess in our sample besides FRB20231206A 
 
 The angular extent of the cluster can be inferred using the richness-$r_{200}$ relation of~\citet{gal2009northern}. For rich optical clusters ($N_{gal} = 63$) like NSC100649+353929, the $N_{gal}$-$R_{200}$ relation suggests a virial radius of 1.8 Mpc, implying that the FRB sightline passes through the virial radius of the cluster, whose angular extent is $\sim12'$.%https://home.ifa.hawaii.edu/users/rgal/science/nosocs/DPOSS.clusters.NGP
 
-Another potential foreground candidate is SDSS CGB 73719, a photometrically-identified galaxy group consisting of five members. Though the spectroscopic redshift for SDSSCGB 73719 is unknown and publicly available photometric redshift information from DESI DR9~\citep{zhou2023target} inconclusive, we note that the median redshift of groups in its parent catalog is $z = 0.09$, making it another potential contributor to the foreground DM budget of FRB20230203A~\citep{mcconnachie2009compact}. Mass and redshift estimates from spectroscopic followup of this field will conclusively settle the origin of the DM excess.
+Another potential foreground candidate is SDSS CGB 73719, a photometrically-identified galaxy group consisting of five members. Though the spectroscopic redshift for SDSSCGB 73719 is unknown and publicly available photometric redshift information from DESI DR9~\citep{zhou2023target} inconclusive, we note that the median redshift of groups in its parent catalog is $z = 0.09$, making it another potential contributor to the foreground DM budget of FRB20230203A~\citep{mcconnachie2009compact}. Mass and redshift estimates from spectroscopic followup of this field will conclusively settle the origin of the DM excess, though we note that its host galaxy is also highly inclined ($i\approx 80^\circ$).
 
 \subsection{FRB20231128A}\label{subsec:FRB20231128A}
 We note that the other burst from a repeating source in our sample is a repeat burst of FRB20191106C, which was first reported in~\citet{collaboration2023chime}. We found a radio source at $4.9\sigma$ in FIRST within the 1$\sigma$ localization ellipse with a luminosity of L$_{1.4 ~\mathrm{GHz}}$ = 1.95 $\times$ 10$^{29}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$. Extending the method outlined in \cite{Eftekhari18pcc} for our elliptical localization region, we estimated a probability of chance coincidence ($P_\mathrm{cc}$) with FRB\,20231128A of $P_\mathrm{cc} = 0.008$. The source is also coincident with the most probable host galaxy (P(O\textbar $x$) = 0.986). Further, searching at the position of the radio source, we identified a bright radio source at $35\sigma$ in LoTSS with a luminosity of $L_{\mathrm{144~\mathrm{MHz}}} = 8\times10^{29}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$. Ongoing efforts are currently underway to characterize the source on milliarcsecond scales using the European VLBI Network and will be presented in upcoming works. 
 % Given the high detection significance, we revisited the VLASS Quick Look (VLASS-QL) image but did not identify any radio source above the $3\sigma$ detection threshold. However, We caution the absolute value of the luminosity quoted by both surveys which are more susceptible to flux errors than dedicated observations. 
 
 \subsection{FRB20230926A}\label{subsec:FRB20230926A}
-In the VLASS-QL images, we found a radio source at $4\sigma$ with a luminosity of $L_\mathrm{3.0~\mathrm{GHz}} \sim 4\times10^{28}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$ and coincident with the most probable host galaxy (P(O\textbar$x$) = 0.9963) within the $1\sigma$ localization ellipse. Similar to previous cases, we estimated a $P_\mathrm{cc}$ with FRB\,20230926A of  $P_\mathrm{cc} \sim 0.1$. The source was not detected in FIRST at $1.4~\mathrm{GHz}$. However, the potential PRS was detected at multiple VLASS epochs. Searching in the LoTSS footprint, we also identified a resolved radio source ($>25\sigma$) at $144~\mathrm{MHz}$ at the position of the source in VLASS-QL images. Additionally, a fainter radio source was also identified with a lower detection significance $\sim 10\sigma$ 10" North of the potential PRS at the host position but still within the $1\sigma$ localization region. 
+In the VLASS-QL images, we found a radio source at $4\sigma$ with a luminosity of $L_\mathrm{3.0~\mathrm{GHz}} \sim 4\times10^{28}~\mathrm{erg~s}^{-1}~\mathrm{Hz}^{-1}$ and coincident with the most probable host galaxy (P(O\textbar$x$) = 0.9963) within the $1\sigma$ localization ellipse. Similar to previous cases, we estimated a $P_\mathrm{cc}$ with FRB\,20230926A of  $P_\mathrm{cc} \sim 0.1$. The source was not detected in FIRST at $1.4~\mathrm{GHz}$. However, the potential PRS was detected at multiple VLASS epochs. Searching in the LoTSS footprint, we also identified a resolved radio source ($>25\sigma$) at $144~\mathrm{MHz}$ at the position of the source in VLASS-QL images. An additional radio source within the $1\sigma$ localization region was also identified with a lower detection significance $\sim 10\sigma$ 10" North of the brighter one.
 
 %R17 and R34
 
@@ -493,30 +542,34 @@ Tracing the origin of DM outliers has been a major question since (and leading u
 
 At increasing redshift this question is difficult to answer because of the increasing contribution of large-scale structure to the DM budget. It can produce either overdense or underdense lines of sight following some Gaussian distribution about the mean density. In the Local Universe, however, this question is more tractable since the mean IGM contribution and the large-scale structure contributions to the DM budget are minimized. In addition, while the joint distribution $p(z,DM_\mathrm{EG})$ is nontrivial to accurately model\citep{macquart2020census,james2021z}, the discrete structures responsible for DM excesses and deficits may still be identifiable with little or no casework.
 
-This is illustrated qualitatively by the empirically-observed distribution of redshifts and DMs.  We have compiled (Fig.~\ref{fig:macquart}) the vast majority, if not all, FRBs with secure redshifts detected to date with secure redshifts. The 14 host galaxies in this paper significantly improves coverage of low redshifts. Unlike many other FRBs in the Local Universe (e.g.~\citet{bhardwaj2024host}), they have been selected uniformly as a function of total dispersion measure out to a total DM of $\sim 1000$ at which point the dispersive sweep no longer completely fits in the baseband buffers of CHIME and its outriggers\citep{denman2020gpu,leung2021synoptic,lanman2024chime}.
+This is illustrated qualitatively by the empirically-observed distribution of redshifts and DMs.  We have compiled (Fig.~\ref{fig:macquart}) the vast majority, if not all, FRBs with secure redshifts detected to date, using the host galaxies in this paper to assemble a sample of 27 host galaxies at $z < 0.2$. This allows us to make a direct measurement of the distribution of the  residual extragalactic DMs, which we refer to as DM$_\textrm{h}$:
 
-With the 14 host galaxies in this paper, we assemble a sample of 27 host galaxies at $z < 0.2$. This allows us to make a direct measurement of the distribution of the extragalactic residual DMs, which we refer to as DM$_\textrm{h}$:
+$$\textrm{DM}_{h}/(1 + z_h) = \textrm{DM}_{tot} - \langle \textrm{DM}_\textrm{IGM}(z_h)\rangle - \textrm{DM}_{\textrm{NE2001}} - \textrm{DM}_{\textrm{YT20}}.$$
 
-$$\textrm{DM}_{h}/(1 + z) = \textrm{DM}_{tot} - \textrm{DM}_\textrm{IGM}(z) - \textrm{DM}_{\textrm{NE2001}} - \textrm{DM}_{\textrm{YT20}}.$$
 
-To capture the width and heavy tail of the DM$_\textrm{h}$ distribution, is often parameterized as a log-normal distribution in the literature with two parameters. $\muhost$ captures the center of the distribution, while its width and heavy tail are both fixed by $\sighost$. While this parametrization is ubiquitous e.g.~\citet{macquart2020census,james2021z,baptista2024measuring} it has no quantitative justification; however the distribution of DM$_\textrm{h}$ is crucial to virtually all attempts to use FRBs as probes of ionized gas. FRBs have been touted as ways to probe the baryon density $\Omega_b$, the IGM gas fraction $f_{IGM}$ and ionization history $f_{ion}$, as well as the Hubble parameter~\citep{james2022measurement}, but all of these parameters are degenerate with the mean of the distribution ($\mu_\textrm{host}$ in the log-normal parameterization). FRBs have also been touted as probes of astrophysical feedback through one-point and two-point cross-correlation analyses~\citep{rafiei_ravandi2021chime,2019arXiv190102418M}; this application requires breaking degeneracies with measurements of the scatter in the DM$_\textrm{h}$ distribution ($\sigma_\textrm{host}$ in the log-normal parameterization)~\citep{mcquinn2014locating,baptista2024measuring}.
-
+The DM$_\textrm{h}$ distribution is often parameterized by modeling it probilistically as a log-normal distribution with some mean $\muhost$ and width $\sighost$ which also fixes its heavy tail extending to high $\dmh$. This parametrization is ubiquitous e.g.~\citet{macquart2020census,james2021z,baptista2024measuring} it yet lacks quantitative justification; however the distribution of DM$_\textrm{h}$ is crucial to virtually all attempts to use FRBs as probes of ionized gas. For instance, FRBs have been touted as excellent probes of the baryon density $\Omega_b$, IGM gas properties, and even the Hubble constant; yet these quantities width are often highly degenerate with host galaxy properties (e.g. Figure 9 of~\citet{james2022measurement}). FRBs have also been touted as probes of astrophysical feedback through one-point and two-point cross-correlation analyses~\citep{rafiei_ravandi2021chime,2019arXiv190102418M}, yet cross-correlation forecasts are sensitive to the noise added by host galaxy contamination of DM measurements ($\sigma_\textrm{host}$ in the log-normal parameterization)~\citep{mcquinn2014locating,baptista2024measuring}.
 In the last section of this paper we combine our low-redshift host sample with FRBs in the literature to characterize the $\dmh$ distribution. We do so non-parametrically, by measuring the moments (i.e. the mean, width, skew, and kurtosis) of the $\dmh$ distribution. We compare our results to the results of global fitting analyses~\citep{james2021z,connor2024gas} which use the \textit{de facto} standard log-normal parameterization by translating $\muhost$ and $\sighost$ into the equivalent moments. 
 
-The results are shown in Fig.~\ref{fig:host_dm}. We have denoted FRBs which lie in galaxy clusters: FRB20231206A and FRB20230203A (see above), as well as FRB20220914A and FRB20220509G~\citep{connor2023deep}. Finally, we have excluded a galaxy merger (FRB20231204A). We have also identified FRBs for which the host galaxy is highly inclined (FRB20210603A~\citep{cassanelli2022fast},FRB20231120A~\citep{2024arXiv240916964S}, and FRB20240201A and FRB20240310A~\citep{shannon2024commensal}). A third group of FRBs are those for which the low total DM is crucial to the host galaxy association~\citep{bhardwaj2024host,michilli2023subarcminute,Ibik2024host}.
+We summarize all available data on the $\dmh$ distribution  in Fig.~\ref{fig:host_dm}. 
 
+We have denoted the FRBs which we have argued are associated with galaxy clusters: FRB20231206A and FRB20230203A (see above), as well as FRB20220914A and FRB20220509G~\citep{connor2023deep}. Secondly, we have denoted the galaxy merger FRB (FRB20231204A). Finally, we have also identified FRBs for which the host galaxy is highly inclined (FRB20210603A~\citep{cassanelli2022fast},FRB20231120A~\citep{2024arXiv240916964S}, and FRB20240201A and FRB20240310A~\citep{shannon2024commensal}). 
 
-We argue that using the moments of the $\dmh$ distribution adds flexibility in the ``right'' way: it allows the RMS scatter (the variance) in the distribution to be  characterized independently of its heavy tail (i.e. the skew of the distribution). In the future, DM contributions such as the contribution from host galaxy disks~\citep{cassanelli2022fast}, intervening haloes, and the large-scale structure could potentially be disentangled by their distinct imprints on the moments of the $\dmh$ distribution.
+A third group of FRBs are those for which the low total DM is crucial to the host galaxy association~\citep{bhardwaj2024host,michilli2023subarcminute,Ibik2024host}. Finally, we have omitted FRB121102 and FRB190520B since they are generally considered to be outliers from the general FRB population on the basis of their persistent radio source association and their low-luminosity host galaxies.
+
+Using the moments of the $\dmh$ distribution is more flexible than the standard log-normal distribution. It allows the RMS scatter (the variance) in the distribution to be  characterized independently of its heavy tail, i.e. its skew. In the future, DM contributions such as the contribution from host galaxy disks~\citep{cassanelli2022fast}, intervening haloes, and the large-scale structure could potentially be disentangled by their distinct imprints on the moments of the $\dmh$ distribution.
 
 In our moment-based analysis, the distribution of $\dmh$ is assumed to have some mean, standard deviation, skew, and kurtosis; however no functional form is assumed. We estimate the first four moments of the $\dmh$e distribution, weighting each data point to account for errors in the NE2001 model and an RMS contribution from the IGM.  %$\sigma_\textrm{IGM}^2$ to the results of dispersion-measure ray tracing through the Illustris TNG simulation~\citep{walker2024dispersion}, but note that the small redshift range ($z < 0.2$) prevents us from disentangling our fitted parameter $S_h^2$ from $\sigma_\textrm{IGM}^2$, which adds 63.3 pc cm$^{-3}$ of RMS scatter at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$. 
 We use standard weighted estimators to estimate the skew and kurtosis $\Gamma_h$ and $\kappa_h$ respectively. Defining weights $w_i = \sigma_i^{-2}$ we have
 
-$$M_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h\sum_i w_i} $$
-$$S_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h^{2}\sum_i w_i} $$
-$$\Gamma_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^3}{S_h^{3}\sum_i w_i} $$
-$$\kappa_h = \dfrac{\sum_i w_i (\dmh_{,i} - M_h)^4}{S_h^{4}\sum_i w_i}.$$
+$$M_h = \dfrac{\sum_i w_i (\dmh{}_{,i} - M_h)^3}{S_h\sum_i w_i} $$
+$$S_h = \dfrac{\sum_i w_i (\dmh{}_{,i} - M_h)^3}{S_h^{2}\sum_i w_i} $$
+$$\Gamma_h = \dfrac{\sum_i w_i (\dmh{}_{,i} - M_h)^3}{S_h^{3}\sum_i w_i} $$
+$$\kappa_h = \dfrac{\sum_i w_i (\dmh{}_{,i} - M_h)^4}{S_h^{4}\sum_i w_i}.$$
 
 Parameter uncertainties are estimated by bootstrapping each sample with replacement 1000 times. 
+
+We investigate the effects of astrophysical contamination of $\dmh$ as well as instrumental selection effects by subdividing our compiled list of host galaxies. We first identify and successively remove clusters, edge-on galaxies, and low-DM FRBs. As one would expect, we see a modest drop in $M_h$ upon the removal of clusters and edge-on galaxies, and a modest increase in $M_h$ upon the removal of low-DM selected FRBs, which preferentially are selected for low $\dmh$. 
+By sub-dividing our aggregated sample by detection experiment, we can repeat the experiment for three sub-samples of host galaxies from the DSA-110, ASKAP, and CHIME respectively. 
 
 \begin{figure*}
     \centering
@@ -532,12 +585,12 @@ Parameter uncertainties are estimated by bootstrapping each sample with replacem
     \label{fig:host_dm}
 \end{figure*}
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \includegraphics[width=0.5\linewidth]{}
-    \caption{Caption}
-    \label{fig:enter-label}
-\end{figure}
+    \includegraphics[width=\linewidth]{figures/mvsk.pdf}
+    \caption{Characterization of the distribution of $\dmh$. The top three lines show the implied values of the first four moments in global fitting analyses where a log-normal distribution of $\dmh$ is assumed. Below, we characterize the distribution by direct measurement of its moments. We investigate the effect of removing sightlines with galaxy clusters, edge-on host galaxies, as well as FRBs selected on the basis of their dispersion measure. Then, we investigate different radio selection from the three largest subsamples, from the DSA-110, ASKAP, and CHIME before aggregating the data into a final measurement of $M_h = 123 \pm 19$, $S_h = 121 \pm 12$.}
+    \label{fig:mvsk}
+\end{figure*}
 % We first assess the non-detections and exclude the possibility of PRSs brighter than 1.2 $\times$ 10$^{29}$ erg/s/Hz for the FRBs in this sample, comparable to the luminosity of the PRS associated with FRB\,20121102A. If these fainter PRSs exist, the non-detections may be due to a combination of the sensitivity limits and cadence of the observing instrument. Moreover, the PRS limits align with those found for FRB repeaters in \cite{ibik2024inprep}. Notably, these high luminosity upper limits suggest that if there is a PRS linked to any of these FRBs and it is powered by a core-collapse supernova (CCSN), then the PRS would need to be more luminous than any known radio superluminous supernova or long-duration $\gamma$-ray burst. Conversely, this high luminosity is forecasted for magnetar nebulae \citep{metzger2019fast} and hypernebula models \citep{sridhar2021periodic} \textbf{CL: Is this the right paper for Sridhar et al and Metzger et al? Please check}, yet no observations supporting this have been made to date. \textcolor{red}{PRS upper limits from VLASS comment on the presence/absence of radio SF in the HG.}
 
 
@@ -585,44 +638,12 @@ Parameter uncertainties are estimated by bootstrapping each sample with replacem
 % \end{threeparttable}
 % \end{table}
 
-
-\begin{table}
-\begin{threeparttable}
-\begin{tabular}{lrr}
-TNS Name & $z$ & L$_{\rm{PRS}}$ \\
-       &               &  (erg/s/Hz) \\ \hline
-       
-FRB20230203A & 0.1464 & $<4\times10^{29}$ \\
-FRB20230222B & 0.11 & $<2\times10^{29}$\\
-FRB20230703A & 0.1184 & $<2\times10^{29}$ \\
-FRB20230730A & 0.2115 & $<8\times10^{29}$ \\
-FRB20230926A^a & 0.0553 & $< 5\times10^{28}$ \\
-FRB20231005A & 0.0713 & $< 7\times10^{28}$ \\
-% \textcolor{green}{FRB20231007B} & -- & $*$ \\
-FRB20231011A & 0.0783 & $<1\times10^{29}$ \\
-FRB20231017A & 0.245 & $< 1\times10^{30}$ \\
-FRB20231025B & 0.3237 & $<2\times10^{30}$ \\
-% \textcolor{green}{FRB20231025C} & -- & $*$ \\
-FRB20231123A & 0.0729 &  $<9\times10^{28}$ \\
-FRB20231128A^a & 0.1079 & $<2\times10^{29}$ \\
-% \textcolor{green}{FRB20231201A} & -- & $*$  \\
-% \textcolor{green}{FRB20231202A} & -- & $*$ \\
-FRB20231204A^b & 0.0644 & $-$ \\
-FRB20231206A^a & 0.06591 & $<7\times10^{28}$ \\
-FRB20231223C & 0.10594 & $< 2 \times10^{29}$ \\
-FRB20230222A & 0.1223 & $< 3 \times10^{29}$ \\
-    \end{tabular}
-
-% Upper limits on persistent radio counterparts derived from the VLA Sky Survey (Quick Look) at 3 GHz. FR Limits are quoted at the $5\sigma$ detection threshold, estimated using the provided residual files obtained while querying CIRADA. using VLASS-QL and the assumed host redshift.
-\caption{For each burst in the sample,5$\sigma$ upper limits on PRS luminosities derived from VLASS Quick Look images for localized events with measured host galaxy redshifts. $^a$~A radio source is detected at $>3$\textbf{???}$\sigma$ in LoTSS, FIRST but not in VLASS. $^b$~No corresponding fitsfile associated with the position was available when querying CIRADA. Column 1: TNS name. Column 2: redshift of the most probable host. Column 3: Luminosity limits of any PRS at 3\,GHz above $5\sigma$.}
-\label{tab:hostderived}
-\end{threeparttable}
-\end{table}
-
 \begin{table*} 
 \centering
 \caption{A table of FRB localizations and host galaxy associations.}
+\addtolength{\leftskip}{-4cm}
 \input{sample_gold.tex}
+\addtolength{\rightskip}{-4cm}
 \end{table*}
 
 \begin{table*} 
@@ -631,6 +652,7 @@ FRB20230222A & 0.1223 & $< 3 \times10^{29}$ \\
 \input{sample_full.tex}
 \addtolength{\rightskip}{-4cm}
 \end{table*}
+
 \section{Acknowledgments}
 \begin{acknowledgments}
 We acknowledge that CHIME is located on the traditional, 
