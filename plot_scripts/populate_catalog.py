@@ -433,7 +433,7 @@ def dataframe_to_latex_formatted(df, filename):
     ])
 
     # Ensure that only the required columns are kept
-    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_z_spec', 'primary_P_Ox']]
+    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_P_Ox']]
 
 
     # Format specific columns with the desired precision
@@ -449,10 +449,10 @@ def dataframe_to_latex_formatted(df, filename):
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
     #df['primary_z_spec_source'] = df['primary_z_spec_source']
+    #df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
     df['DM'] = df['DM'].map(lambda x: f"{x:.1f}")
     #df['DM_YT20'] = df['DM_YT20'].map(lambda x: f"{x:.1f}")
     #df['DM_NE2001'] = df['DM_NE2001'].map(lambda x: f"{x:.1f}")
-    df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
     # Rename columns to be more LaTeX-friendly
     formatted_columns = {
         'name': r'$\text{Name}$',
@@ -470,7 +470,7 @@ def dataframe_to_latex_formatted(df, filename):
         'primary_ra': r'$\text{RA}_\text{HG}$', 
         'primary_dec': r'$\text{DEC}_\text{HG}$', 
         'primary_P_Ox': r'$\text{P(O} \vert \text{x)}$', 
-        #'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
+        'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
         #'primary_mag': r'$m_r$',
         #'primary_z_phot_median': r'$\text{Primary } z_{\text{phot, median}}$', 
         #'primary_z_phot_l95': r'$\text{Primary } z_{\text{phot, l95}}$', 
