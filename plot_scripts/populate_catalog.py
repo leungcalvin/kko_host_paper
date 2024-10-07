@@ -418,11 +418,11 @@ def dataframe_to_latex_formatted(df, filename):
     # Combine flux and flux_err into a formatted string
     if 'flux' in df.columns:
         #df['flux'] = df.apply(lambda row: f"${row['flux']:.1f} \pm {row['flux_err']:.1f}$ Jy", axis=1)
-        df['flux'] = df.apply(lambda row: f"${row['flux']:.1f}", axis=1)
+        df['flux'] = df.apply(lambda row: f"${row['flux']:.1f}$", axis=1)
     # Combine fluence and fluence_err into a formatted string
     if 'fluence' in df.columns:
         #df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f} \pm {row['fluence_err']:.1f}$ Jy ms", axis=1)
-        df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f}", axis=1)
+        df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f}$", axis=1)
     df['primary_mag'] = df['primary_mag'].map(lambda x: f"{x:.2f}")
 
     # Drop unwanted columns
