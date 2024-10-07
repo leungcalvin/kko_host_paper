@@ -417,10 +417,12 @@ def dataframe_to_latex_formatted(df, filename):
     # Format specific columns
     # Combine flux and flux_err into a formatted string
     if 'flux' in df.columns:
-        df['flux'] = df.apply(lambda row: f"${row['flux']:.1f} \pm {row['flux_err']:.1f}$ Jy", axis=1)
+        #df['flux'] = df.apply(lambda row: f"${row['flux']:.1f} \pm {row['flux_err']:.1f}$ Jy", axis=1)
+        df['flux'] = df.apply(lambda row: f"${row['flux']:.1f}", axis=1)
     # Combine fluence and fluence_err into a formatted string
     if 'fluence' in df.columns:
-        df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f} \pm {row['fluence_err']:.1f}$ Jy ms", axis=1)
+        #df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f} \pm {row['fluence_err']:.1f}$ Jy ms", axis=1)
+        df['fluence'] = df.apply(lambda row: f"${row['fluence']:.1f}", axis=1)
     df['primary_mag'] = df['primary_mag'].map(lambda x: f"{x:.2f}")
 
     # Drop unwanted columns
@@ -431,7 +433,7 @@ def dataframe_to_latex_formatted(df, filename):
     ])
 
     # Ensure that only the required columns are kept
-    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_z_spec', 'primary_P_Ox', 'primary_mag']]
+    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_z_spec', 'primary_P_Ox']]
 
 
     # Format specific columns with the desired precision
@@ -446,7 +448,7 @@ def dataframe_to_latex_formatted(df, filename):
     df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.2f}")
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
-    df['primary_z_spec_source'] = df['primary_z_spec_source']
+    #df['primary_z_spec_source'] = df['primary_z_spec_source']
     df['DM'] = df['DM'].map(lambda x: f"{x:.1f}")
     #df['DM_YT20'] = df['DM_YT20'].map(lambda x: f"{x:.1f}")
     #df['DM_NE2001'] = df['DM_NE2001'].map(lambda x: f"{x:.1f}")
@@ -462,20 +464,20 @@ def dataframe_to_latex_formatted(df, filename):
         #'gal_l': r'$\text{gal\_l}$', 
         'DM_YT20': r'$\text{DM}_{\text{YT20}}$', 
         'DM_NE2001': r'$\text{DM}_{\text{NE2001}}$', 
-        'theta': r'Angle ($\theta$)', 
+        'theta': r'Angle',
         'DM': r'$\text{DM}$', 
         'primary_id': r'$\text{ID}_\text{HG}$',
         'primary_ra': r'$\text{RA}_\text{HG}$', 
         'primary_dec': r'$\text{DEC}_\text{HG}$', 
         'primary_P_Ox': r'$\text{P(O} \vert \text{x)}$', 
         #'primary_z_spec_source': r'$\text{Source of } z_\mathrm{spec}$',
-        'primary_mag': r'$m_r$',
+        #'primary_mag': r'$m_r$',
         #'primary_z_phot_median': r'$\text{Primary } z_{\text{phot, median}}$', 
         #'primary_z_phot_l95': r'$\text{Primary } z_{\text{phot, l95}}$', 
         #'primary_z_phot_u95': r'$\text{Primary } z_{\text{phot, u95}}$', 
-        'primary_z_spec': r'$z_{\text{spec}}$', 
-        'm_r': r'$m_r$',
-        'flux': r'$\text{Peak Burst Flux (Jy)}$',
+        #'primary_z_spec': r'$z_{\text{spec}}$', 
+        #'m_r': r'$m_r$',
+        'flux': r'$\text{Burst Flux (Jy)}$',
         'fluence': r'$\text{Burst Fluence (Jy ms)}$'
         }
     
