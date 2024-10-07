@@ -450,7 +450,7 @@ def dataframe_to_latex_formatted(df, filename):
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
     #df['primary_z_spec_source'] = df['primary_z_spec_source']
     #df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
-    df['DM'] = df['DM'].map(lambda x: f"{x:.1f}")
+    df['DM'] = df['DM'].map(lambda x: f"${x:.1f}$")
     #df['DM_YT20'] = df['DM_YT20'].map(lambda x: f"{x:.1f}")
     #df['DM_NE2001'] = df['DM_NE2001'].map(lambda x: f"{x:.1f}")
     # Rename columns to be more LaTeX-friendly
