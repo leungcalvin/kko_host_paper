@@ -55,6 +55,7 @@ def calculate_halo_dm_yt20(l, b):
 final = pd.read_csv('/arc/home/calvin/kko_host_paper/data_products/kko_ellipse_cat_20240919.csv',
         names = ['name','chime_event_id', 'ra_frb','dec_frb','b_err','a_err','theta','tags','frb_survey','DM','include','locnote', 'hgnote', 'desi_cutout'],skiprows=1)
 final.set_index('chime_event_id',inplace=True)
+final.sort_index(inplace=True)
 final = final[final['include'] == 'yes']
 
 final.keys()
@@ -444,8 +445,8 @@ def dataframe_to_latex_formatted(df, filename):
             return f"{x:.4f}"
     df['ra_frb'] = df['ra_frb'].map(lambda x: f"{x:.5f}")
     df['dec_frb'] = df['dec_frb'].map(lambda x: f"{x:.5f}")
-    df['b_err'] = df['b_err'].map(lambda x: f"{x * 60:.2f}")
-    df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.2f}")
+    df['b_err'] = df['b_err'].map(lambda x: f"{x * 60:.3f}")
+    df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.3f}")
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
     #df['primary_z_spec_source'] = df['primary_z_spec_source']
@@ -477,8 +478,8 @@ def dataframe_to_latex_formatted(df, filename):
         #'primary_z_phot_u95': r'$\text{Primary } z_{\text{phot, u95}}$', 
         #'primary_z_spec': r'$z_{\text{spec}}$', 
         #'m_r': r'$m_r$',
-        'flux': r'$\text{Burst Flux (Jy)}$',
-        'fluence': r'$\text{Burst Fluence (Jy ms)}$'
+        'flux': r'$\text{Flux (Jy)}$',
+        'fluence': r'$\text{Fluence (Jy ms)}$'
         }
     
 
