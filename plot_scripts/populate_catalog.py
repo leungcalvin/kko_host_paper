@@ -496,6 +496,6 @@ def dataframe_to_latex_formatted(df, filename):
     print(f"LaTeX table successfully saved to {filename}")
 
 ### WRITE IT OUT
-dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.9], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
+dataframe_to_latex_formatted(final[(final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
 dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.0], '/arc/home/calvin/kko_host_paper/sample_full.tex')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
