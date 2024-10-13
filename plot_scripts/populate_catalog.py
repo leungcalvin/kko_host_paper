@@ -230,7 +230,7 @@ ffffpz = {
 "FRB20231102A": (0.6878,"V/147/sdss12"),
 "FRB20231123A": (0.0729,"Lick-2024B-1"),
 "FRB20231128A": (0.1079,"Lick-2024A-1"),
-"FRB20231201A": (-2,"Pending"),
+"FRB20231201A": (0.1190,"GN-2024A-3"),
 "FRB20231202A": (-2,"Dusty"),
 "FRB20231204A": (0.0644,"Lick-2024A-1"),
 "FRB20231206A": (0.0659,"2000AJ....120.2338R"),
@@ -253,7 +253,8 @@ import matplotlib.pyplot as plt
 from frb.dm import igm
 z_interp = np.geomspace(0.001,1,num = 30)
 dm_igm_interp = []
-for z_interp_i in z_interp:
+for ii,z_interp_i in enumerate(z_interp):
+    print(f"DM IGM: {ii}/30")
     dm_igm_interp.append(igm.average_DM(z_interp_i).value)
 
 best_redshifts = []
@@ -496,6 +497,7 @@ def dataframe_to_latex_formatted(df, filename):
     print(f"LaTeX table successfully saved to {filename}")
 
 ### WRITE IT OUT
-dataframe_to_latex_formatted(final[(final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
-dataframe_to_latex_formatted(final[final['primary_P_Ox'] > 0.0], '/arc/home/calvin/kko_host_paper/sample_full.tex')
+gold_sample = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')
+dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
+dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
