@@ -488,7 +488,7 @@ def dataframe_to_latex_formatted(df, filename):
     df = df.rename(columns=formatted_columns)
 
     # Convert DataFrame to LaTeX format and save to file
-    latex_code = df.to_latex(index=False, escape=False)
+    latex_code = df.to_latex(index=False, escape=False,longtable=True)
 
     # Write the LaTeX code to the specified file
     with open(filename, 'w') as f:
