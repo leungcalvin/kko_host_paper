@@ -499,5 +499,5 @@ def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
 ### WRITE IT OUT
 gold_sample = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')
 dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = 'FRBs presented in this paper with secure host galaxies.')
-dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\ref{tab:gold_sample}')
+dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
