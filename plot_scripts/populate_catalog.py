@@ -58,7 +58,22 @@ final.set_index('chime_event_id',inplace=True)
 final.sort_index(inplace=True)
 final = final[final['include'] == 'yes']
 
-final.keys()
+# Add DM IGM estimates
+from frb.dm import igm
+PATH_TO_DMIGM = '/arc/home/calvin/kko_host_paper/data_products/dm_igm_interp.npz'
+if os.path.exists(PATH_TO_DMIGM):
+    with np.load(PATH_TO_DMIGM) as data:
+        print(f'Loading from {PATH_TO_DMIGM}')
+        z_interp = data['z_interp']
+        dm_igm_interp = data['dm_igm_interp']
+else:
+    z_interp = np.geomspace(0.001,1,num = 30)
+    dm_igm_interp = []
+    for ii,z_interp_i in enumerate(z_interp):
+        print(f"DM IGM: {ii}/30")
+        dm_igm_interp.append(igm.average_DM(z_interp_i).value)
+    np.savez(PATH_TO_DMIGM,z_interp= z_interp, dm_igm_interp = dm_igm_interp)
+    print(f'Saved to {PATH_TO_DMIGM}')
 
 # Add galactic DM & tau
 
@@ -249,13 +264,6 @@ for ind,row in final.iterrows():
         
 import matplotlib.pyplot as plt
 
-# Add DM IGM estimates
-from frb.dm import igm
-z_interp = np.geomspace(0.001,1,num = 30)
-dm_igm_interp = []
-for ii,z_interp_i in enumerate(z_interp):
-    print(f"DM IGM: {ii}/30")
-    dm_igm_interp.append(igm.average_DM(z_interp_i).value)
 
 best_redshifts = []
 for evid,row in final.iterrows():
@@ -498,6 +506,6 @@ def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
 
 ### WRITE IT OUT
 gold_sample = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')
-dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = 'FRBs presented in this paper with secure host galaxies.')
-dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}')
+dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold\_sample',caption = 'FRBs presented in this paper with secure host galaxies.')
+dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full\_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold\_sample}')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
