@@ -402,7 +402,7 @@ for evid,row in final.iterrows():
     else:
         print(evid)
 
-def dataframe_to_latex_formatted(df, filename):
+def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
     """
     Outputs a formatted pandas DataFrame to a LaTeX file, filtering out rows based on the 'include' column,
     omitting specified columns, formatting specific columns with the desired precision, and including/excluding
@@ -488,7 +488,7 @@ def dataframe_to_latex_formatted(df, filename):
     df = df.rename(columns=formatted_columns)
 
     # Convert DataFrame to LaTeX format and save to file
-    latex_code = df.to_latex(index=False, escape=False,longtable=True)
+    latex_code = df.to_latex(index=False, escape=False,longtable=True,**to_latex_kwargs)
 
     # Write the LaTeX code to the specified file
     with open(filename, 'w') as f:
@@ -498,6 +498,6 @@ def dataframe_to_latex_formatted(df, filename):
 
 ### WRITE IT OUT
 gold_sample = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')
-dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex')
-dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex')
+dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = 'FRBs presented in this paper with secure host galaxies.')
+dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\ref{tab:gold_sample}')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
