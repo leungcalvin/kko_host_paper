@@ -219,6 +219,26 @@ for key in final.index:
             print('no redshift')
 
 # Add (and supersede) specz from FFFFPZ
+
+prs_3ghz = {
+'FRB20230203A': '$<4\\times10^{29}$',
+'FRB20230222B': '$<2\\times10^{29}$',
+'FRB20230703A': '$<2\\times10^{29}$',
+'FRB20230730A': '$<8\\times10^{29}$',
+'FRB20230926A': '$< 5\\times10^{28}$*',
+'FRB20231005A': '$< 7\\times10^{28}$',
+'FRB20231011A': '$<1\\times10^{29}$',
+'FRB20231017A': '$< 1\\times10^{30}$',
+'FRB20231025B': '$<2\\times10^{30}$',
+'FRB20231123A': '$<9\\times10^{28}$',
+'FRB20231128A': '$<2\\times10^{29}$*',
+'FRB20231204A': '$-^\dagger$',
+'FRB20231206A': '$<7\\times10^{28}$*',
+'FRB20231223C': '$<2 \\times10^{29}$',
+'FRB20230222A': '$< 3 \\times10^{29}$',
+'FRB20230311A': '$< 10^{100}$',
+'FRB20231229A': '$< 10^{100}$'}
+
 ffffpz = {
 "FRB20230203A": (0.1464,"Keck-2023B-3"),
 "FRB20230222A": (0.1223,"Lick-2023B-1"),
@@ -253,14 +273,19 @@ ffffpz = {
 "FRB20231223D": (0.1606,"V/147/sdss12"),
 "FRB20231224A": (0.0800,"2015ApJS..218...10V"),
 "FRB20240210C": (0.3658,"V/147/sdss12"),
+"FRB20231229A": (0.0190,"2022ApJS..261...21Y"),
 }
+final['l_prs_3ghz'] = '-'
 for ind,row in final.iterrows():
     if row['name'] in ffffpz.keys():
         final.at[ind,'primary_z_spec'] = ffffpz[row['name']][0]
         final.at[ind,'primary_z_spec_source'] = ffffpz[row['name']][1]
+        if row['name'] in prs_3ghz:
+            final.at[ind,'l_prs_3ghz'] = prs_3ghz[row['name']]
     else:
         final.at[ind,'primary_z_spec'] = -1
         final.at[ind,'primary_z_spec_source'] = "None"
+        final.at[ind,'l_prs_3ghz'] = '-'
         
 import matplotlib.pyplot as plt
 
@@ -410,7 +435,32 @@ for evid,row in final.iterrows():
     else:
         print(evid)
 
-def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
+# Add structure maximizing DM
+struct_dm = {268786306 : 420.05 ,
+272350056 : 706.06 ,
+272367619 : 187.75 ,
+300938875 : 291.27 ,
+306528286 : 312.51 ,
+321977347 : 222.77 ,
+325140573 : 189.39 ,
+325442526 : 202.44 ,
+326456063 : 186.30 ,
+328261629 : 344.19 ,
+330838705 : 510.43 ,
+330976597 : 368.66 ,
+338403209 : 302.06 ,
+339589360 : 331.61 ,
+341477821 : 169.42 ,
+341758878 : 437.71 ,
+342256558 : 220.96 ,
+342760050 : 457.67 ,
+347082860 : 165.77} # Vishwangi slack msg on 10/28
+final['dm_struct'] = '-'
+for evid,row in final.iterrows():
+    if evid in struct_dm.keys():
+        final.at[evid,'dm_struct'] = f"{struct_dm[evid]:.2f}"
+
+def dataframe_to_latex_formatted(df, filename, include_prs = True, **to_latex_kwargs):
     """
     Outputs a formatted pandas DataFrame to a LaTeX file, filtering out rows based on the 'include' column,
     omitting specified columns, formatting specific columns with the desired precision, and including/excluding
@@ -441,9 +491,19 @@ def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
         'secondary_ra', 'secondary_dec', 'secondary_P_Ox', 'secondary_z_phot_median',
         'secondary_z_phot_l95', 'secondary_z_phot_u95', 'secondary_z_spec'
     ])
+    # Use structure maximizing DM
+    old_dm = (df['DM'][df['dm_struct'] != '-']).astype(float)
+    new_dm = (df['dm_struct'][df['dm_struct'] != '-']).astype(float)
+    assert np.max(np.abs(old_dm  - new_dm) < 5), "Different struct & signal DM?"
+    for evid, row in df.iterrows():
+        if df['dm_struct'][evid] != '-':
+            df.at[evid,'DM'] = float(df.at[evid,'dm_struct']) # replace so that it doesn't get removed later
 
     # Ensure that only the required columns are kept
-    df = df[['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_P_Ox']]
+    required_cols = ['name', 'ra_frb', 'dec_frb', 'b_err', 'a_err','theta', 'DM','flux', 'fluence', 'primary_P_Ox']
+    if include_prs:
+        required_cols += ['l_prs_3ghz']
+    df = df[required_cols]
 
 
     # Format specific columns with the desired precision
@@ -474,6 +534,7 @@ def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
         #'gal_l': r'$\text{gal\_l}$', 
         'DM_YT20': r'$\text{DM}_{\text{YT20}}$', 
         'DM_NE2001': r'$\text{DM}_{\text{NE2001}}$', 
+        'l_prs_3ghz' : r'$L_\text{3GHz}$',
         'theta': r'Angle',
         'DM': r'$\text{DM}$', 
         'primary_id': r'$\text{ID}_\text{HG}$',
@@ -505,7 +566,9 @@ def dataframe_to_latex_formatted(df, filename,**to_latex_kwargs):
     print(f"LaTeX table successfully saved to {filename}")
 
 ### WRITE IT OUT
-gold_sample = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A')
-dataframe_to_latex_formatted(final[gold_sample], '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = 'FRBs presented in this paper with secure host galaxies.')
-dataframe_to_latex_formatted(final[~gold_sample], '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}')
+in_table = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A') + (final['name'] == 'FRB20231229A')
+table_caption = 'A table of localizations for FRBs with secure host galaxy association probability ($P(O|x) > 0.9$). We include FRB 20230311A which has a secure redshift, but an ambiguous host (see text). All coordinates are provided in the ICRS frame, and localization contours are provided as ellipses with minor and major axis uncertainties provided as $b_{err}$ and $a_{err}$, measured in arcminutes, and angles measured in degrees east of north. Burst dispersion measures are provided in units of pc cm$^{-3}$ and have negligible uncertainties. The flux is defined as the peak flux of the burst in Janskys after applying the structure-maximizing DM found by DM-phase~\citep{seymour2019dm}; fluxes and fluences (in Jy ms) are quoted to 10\% accuracy, as done in~\citet{chime2024updating}. Upper limits on persistent radio emission are quoted in erg/s/Hz; an asterisk denotes that a fainter ($3\sigma$) source was detected, whereas a dagger indicates that the VLASS cutout was not available.'
+
+dataframe_to_latex_formatted(final[in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = table_caption)
+dataframe_to_latex_formatted(final[~in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}')
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
