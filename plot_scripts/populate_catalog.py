@@ -42,6 +42,7 @@ def calculate_halo_dm_yt20(l, b):
             [0.39346, 0, 0, 0, 0, 0, 0, 0],
         ]
     )
+    l = np.mod(l + 180,360) - 180
     l_absolute = np.abs(np.deg2rad(l))
     b_absolute = np.abs(np.deg2rad(b))
     DM_halo = 0
@@ -568,6 +569,10 @@ def dataframe_to_latex_formatted(df, filename, include_prs = True, **to_latex_kw
 ### WRITE IT OUT
 in_table = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A') + (final['name'] == 'FRB20231229A')
 table_caption = 'A table of localizations for FRBs with secure host galaxy association probability ($P(O|x) > 0.9$). We include FRB 20230311A which has a secure redshift, but an ambiguous host (see text). All coordinates are provided in the ICRS frame, and localization contours are provided as ellipses with minor and major axis uncertainties provided as $b_{err}$ and $a_{err}$, measured in arcminutes, and angles measured in degrees east of north. Burst dispersion measures are provided in units of pc cm$^{-3}$ and have negligible uncertainties. The flux is defined as the peak flux of the burst in Janskys after applying the structure-maximizing DM found by DM-phase~\citep{seymour2019dm}; fluxes and fluences (in Jy ms) are quoted to 10\% accuracy, as done in~\citet{chime2024updating}. Upper limits on persistent radio emission are quoted in erg/s/Hz; an asterisk denotes that a fainter ($3\sigma$) source was detected, whereas a dagger indicates that the VLASS cutout was not available.'
+
+# Fix 20231229A flux issue (PanSTARRS fragmentation); use SIMBAD flux.
+final.at[348285021,'primary_mag'] = 14.27 # Take R band photometry from Simbad...path uses an underestimate of galaxy flux but probably OK
+
 
 dataframe_to_latex_formatted(final[in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = table_caption,include_prs = True)
 dataframe_to_latex_formatted(final[~in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}',include_prs = False)
