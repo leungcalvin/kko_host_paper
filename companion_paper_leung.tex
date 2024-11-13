@@ -143,7 +143,7 @@
 
 \begin{document}
 
-\title{Feedback- and cosmology-insensitive measurement of the host galaxy contribution to the dispersion measure budget of fast radio bursts}
+\title{Cosmology-insensitive constraints on the circumgalactic medium of fast radio burst hosts}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -216,12 +216,12 @@
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Low-redshift host galaxies are crucial components of FRB cosmology, providing the tightest constraints on host-galaxy contributions to the total DM along the sightline of an FRB~\citep{james2021z,jahnsschindler2023how}. We infer the mean and standard deviation of the host contribution for non-dwarf host galaxies ($M_r > -17$) to be $104\pm 16$ and $113\pm12$ pc cm$^{-3}$; this characterization is the most precise to date and is insensitive to galactic feedback models by virtue of the low redshift ($z \sim 0.1$) of our dataset, which minimizes contamination from the intergalactic medium. We provide an analytical expression for incorporating it into global-fit analyses. The weak dependence of \dmh\ on stellar light, which in turn is tightly correlated to halo mass, allows us to conclude that the host DM is not dominated by the haloes of galaxies and instead originates within the ISM of their hosts.
+Low-redshift host galaxies are crucial components of FRB cosmology, providing the tightest and most robust constraints on the circumgalactic medium of FRB hosts via the inferred host component of the dispersion measure (DM) budget. We infer the mean and standard deviation of the host contribution for non-dwarf host galaxies ($M_r > -17$) to be $104\pm 16$ and $113\pm12$ pc cm$^{-3}$; this characterization is the most precise to date and is insensitive to galactic feedback models by virtue of the low redshift ($z \sim 0.1$) of our dataset. We show that our measurement is insensitive to the IGM and cosmological contributions, and present evidence for a weak dependence of \dmh\ over a range of $\approx 100$ in stellar light, which in turn is tightly correlated to halo mass. Comparing our data to predictions from the CAMELS simulations, we rule out models which predict large ($\sim 200$ pc cm$^{-3}$) host contributions.
 \end{abstract}
 \keywords{Very long baseline interferometry (1769), Radio transient sources (2008)}
 
 \section{Introduction}\label{sec:intro}
-The immense potential as cosmological probes of the missing baryons was recognized~\citep{mcquinn2014locating} even before the first repeating fast radio burst was localized to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host}.
+Long before the first repeating fast radio burst (FRB) was localized to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host}, the immense potential of FRBs as cosmological probes of the cosmic baryons was recognized~\citep{mcquinn2014locating}.
 
 Previous observational characterization of the host galaxies of FRBs has followed in the footsteps of the gamma-ray burst (GRB) community~\citep{bloom2002observed,fong2022comprehensive} by focusing primarily on their role in constraining FRB progenitors. In this paper we use the low-redshift catalog of FRBs, presented in a companion work, in order to study the contribution of the host galaxy to the dispersion measure budget: a crucial part of virtually every proposed application of FRBs as cosmological probes.
 
@@ -302,13 +302,15 @@ Finally, we sub-divide the clean sample into ASKAP/ICS, DSA-110, and CHIME/FRB s
     \label{fig:host_dm}
 \end{figure*}
 
-The selection effects relevant to this measurement are likely modest. The CHIME/FRB baseband system directly selects against high DM bursts, but this effect is only present when the total DM $> 1000$ pc cm$^{-3}$, and is unlikely to affect our measurement~\citet{collaboration2021first,shin2023inferring}. The CHIME/FRB real-time search pipeline is strongly affected by nonstationary noise, which translates into an lower detection probability for low-flux, highly-scattered bursts. While this could affect the bursts that are detected, we note that bright, highly-scattered bursts are nevertheless detectable~\citep{shin2024investigating}, and that the bursts bright enough to be detected in VLBI should not be strongly subject to this selection effect. We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. Hence, we caution that our results are only applicable for non-dwarf host galaxies brighter than $M_r < -17$.
+The selection effects relevant to this measurement are likely modest. The CHIME/FRB baseband system directly selects against high DM bursts, but this effect is only present when the total DM $> 1000$ pc cm$^{-3}$, and is unlikely to affect our measurement~\citet{collaboration2021first,shin2023inferring}. The CHIME/FRB real-time search pipeline is strongly affected by non-stationary noise, which translates into an lower detection probability for low-flux, highly-scattered bursts. While this could affect the sample of bursts that are detected, we note that bright, highly-scattered bursts are nevertheless detectable~\citep{shin2024investigating}, and that the bursts bright enough to be detected in VLBI should not be strongly subject to this selection effect. We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. Hence, we caution that our results are only applicable for non-dwarf host galaxies brighter than $M_r < -17$.
 
 %There is a strong selection effect on host redshift, which we don't think should be correlated strongly with DM_h 
 % CL: not much of this...
-\section{Sensitivity to Feedback and Cosmological Parameters}
+\section{Sensitivity to Cosmic Baryons and Cosmological Parameters}
 Here we demonstrate that our measurements are insensitive to galactic feedback. From the estimator in Eq.~\ref{eq:dmh_definition}, we calculate 
 $$\dfrac{d(\langle\dmh\rangle)}{d(\Omega_b f_\text{diffuse} H_0)} = \dfrac{XXXX\textrm{pc cm}^{-3}}{0.05 \times 0.7 \times 70 km/s/Mpc}.$$
+
+\section{Comparison to CAMELS}
 
 \section{Conclusion}
 We have characterized the host contribution of FRB dispersion measures using a large dataset at low redshift. We have found that in many cases, the DM excess can be attributed to a nearby galaxy cluster or an edge-on host geometry. We use this additional statistical power to directly measure the enigmatic host galaxy contribution to FRB dispersion measures in a way that is agnostic to any particular parameterization of feedback and fluctuations in the IGM; we measure $\langle\dmh\rangle = 104\pm16$ and $S_h = 113\pm12$ for non-dwarf hosts with $M_r < -17$. Our measurement represents a significant improvement relative to global fitting methods that use a combination of sources at high and low redshifts to break degeneracies under the assumption of a particular redshift evolution of the host galaxy contribution. Model-insensitive measurements of $\dmh$ like the one here will be a crucial anchor for FRB cosmology at higher redshifts, and contain rich information about the spatial distribution of FRBs within their hosts.} More broadly, the observational techniques for FRB detection and localization, host galaxy association, and follow-up pave the way for upcoming large-scale FRB surveys~\citep{vanderlinde2019canadian,hallinan2019dsa}, which will revolutionize our understanding of FRBs and the universe they illuminate.
