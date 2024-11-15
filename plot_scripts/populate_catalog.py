@@ -237,8 +237,8 @@ prs_3ghz = {
 'FRB20231206A': '$<7\\times10^{28}$*',
 'FRB20231223C': '$<2 \\times10^{29}$',
 'FRB20230222A': '$< 3 \\times10^{29}$',
-'FRB20230311A': '$< 10^{100}$',
-'FRB20231229A': '$< 10^{100}$'}
+'FRB20230311A': '$<5\times 10^{29}$',
+'FRB20231229A': '$< 9\times10^{26}$'}
 
 ffffpz = {
 "FRB20230203A": (0.1464,"Keck-2023B-3"),
@@ -275,6 +275,8 @@ ffffpz = {
 "FRB20231224A": (0.0800,"2015ApJS..218...10V"),
 "FRB20240210C": (0.3658,"V/147/sdss12"),
 "FRB20231229A": (0.0190,"2022ApJS..261...21Y"),
+"FRB20231230A": (0.02981,"2003AJ....126.2152R"),
+
 }
 final['l_prs_3ghz'] = '-'
 for ind,row in final.iterrows():
@@ -324,7 +326,7 @@ for evid,row in final.iterrows():
 import dustmaps
 from dustmaps.sfd import SFDQuery
 import dustmaps.sfd as sfd
-#dustmaps.sfd.fetch()
+dustmaps.sfd.fetch()
 sfd = SFDQuery()
 sources = coord.SkyCoord(final['primary_ra'],final['primary_dec'],unit = 'deg',frame = 'icrs')
 e_b_minus_v = sfd(sources)
