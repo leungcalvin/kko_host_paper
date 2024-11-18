@@ -38,6 +38,7 @@
 \usepackage{placeins}
 \usepackage{siunitx}
 \usepackage[T1]{tipa}
+\usepackage{CJK}
 
 \usepackage{threeparttable}
 \restoresymbol{SIX}{tablenum}
@@ -142,6 +143,7 @@
 %% manuscript itself with \begin{document}.
 
 \begin{document}
+\begin{CJK*}{UTF8}{gbsn}
 
 \title{A Catalog of Local Universe Fast Radio Bursts from CHIME/FRB and the KKO Outrigger}
 
@@ -245,9 +247,11 @@ The morphology of these bursts as revealed by CHIME-only dynamic spectra is qual
 %\setlength{\tabcolsep}{1pt}
 \begin{figure*}
 \centering
+%\includegraphics[width=0.22\textwidth]{FRB 20231230A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231204A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231128A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231206A_wfall.jpg}
+%\includegraphics[width=0.22\textwidth]{FRB 20231229A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20230222A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20230926A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20230703A_wfall.jpg}
@@ -257,9 +261,11 @@ The morphology of these bursts as revealed by CHIME-only dynamic spectra is qual
 \includegraphics[width=0.22\textwidth]{FRB 20231201A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231223C_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231011A_wfall.jpg}
+\includegraphics[width=0.22\textwidth]{FRB 20231025B_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20231005A_wfall.jpg}
 \includegraphics[width=0.22\textwidth]{FRB 20230222B_wfall.jpg}
-
+\includegraphics[width=0.22\textwidth]{FRB 20230730A_wfall.jpg}
+\includegraphics[width=0.22\textwidth]{FRB 20231017A_wfall.jpg}
 \caption{Waterfall plots of bursts with spectroscopic redshifts, ordered by specific peak luminosity (Jy Gpc$^2$) from lowest to highest. We note no obvious trends with increasing isotropic-equivalent burst luminosity, but reserve a detailed analysis for future work. FRB\,20231204A and FRB\,20231128A are repeating sources; of the two, only the former obviously shows downward-drifting burst morphology characteristic of a CHIME/FRB detected repeating source. Each plot is labeled with the time resolution to which we downsample the dynamic spectrum. Masked channels are plotted at the zero point of the colorscale.}
 \label{fig:wfall}
 \end{figure*}
@@ -801,6 +807,7 @@ We provide our full ellipse catalog in Table~\ref{tab:full_sample}, in the same 
 %% commands to see a summary list of all changes at the end of the article.
 %\listofchanges
 
+\end{CJK*}
 \end{document}
 
 % End of file `sample631.tex'.
