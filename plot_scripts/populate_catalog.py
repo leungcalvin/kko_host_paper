@@ -522,6 +522,7 @@ def dataframe_to_latex_formatted(df, filename, include_prs = True, **to_latex_kw
     df['a_err'] = df['a_err'].map(lambda x: f"{x * 60:.3f}")
     df['theta'] = df['theta'].map(lambda x: f"{x:.2f}")
     df['primary_P_Ox'] = df['primary_P_Ox'].map(lambda x: f"{x:.3f}")
+    df['name'] = 'FRB ' + df['name'][3:]
     #df['primary_z_spec_source'] = df['primary_z_spec_source']
     #df['primary_z_spec'] = df['primary_z_spec'].map(zspecformat)
     df['DM'] = df['DM'].map(lambda x: f"${x:.1f}$")
@@ -552,8 +553,8 @@ def dataframe_to_latex_formatted(df, filename, include_prs = True, **to_latex_kw
         #'primary_z_phot_u95': r'$\text{Primary } z_{\text{phot, u95}}$', 
         #'primary_z_spec': r'$z_{\text{spec}}$', 
         #'m_r': r'$m_r$',
-        'flux': r'$\text{Flux (Jy)}$',
-        'fluence': r'$\text{Fluence (Jy ms)}$'
+        'flux': r'$\text{Flux}$',
+        'fluence': r'$\text{Fluence}$'
         }
     
 
@@ -571,12 +572,12 @@ def dataframe_to_latex_formatted(df, filename, include_prs = True, **to_latex_kw
 
 ### WRITE IT OUT
 in_table = (final['primary_P_Ox'] > 0.9) + (final['name'] == 'FRB20230311A') + (final['name'] == 'FRB20231229A')
-table_caption = 'A table of localizations for FRBs with secure host galaxy association probability ($P(O|x) > 0.9$). We include FRB 20230311A which has a secure redshift, but an ambiguous host (see text). All coordinates are provided in the ICRS frame, and localization contours are provided as ellipses with minor and major axis uncertainties provided as $b_{err}$ and $a_{err}$, measured in arcminutes, and angles measured in degrees east of north. Burst dispersion measures are provided in units of pc cm$^{-3}$ and have negligible uncertainties. The flux is defined as the peak flux of the burst in Janskys after applying the structure-maximizing DM found by DM-phase~\citep{seymour2019dm}; fluxes and fluences (in Jy ms) are quoted to 10\% accuracy, as done in~\citet{chime2024updating}. Upper limits on persistent radio emission are quoted in erg/s/Hz; an asterisk denotes that a fainter ($3\sigma$) source was detected, whereas a dagger indicates that the VLASS cutout was not available.'
+table_caption = 'A table of localizations for our gold sample of 21 FRBs which have secure host galaxy associations ($P(O|x) > 0.9$). We include FRB 20230311A which has a secure redshift, but an ambiguous host (see \S\ref{sec:association}). All coordinates are provided in the ICRS frame, and localization contours are provided as ellipses with minor and major axis uncertainties provided as $b_{err}$ and $a_{err}$, measured in arcminutes, and angles measured in degrees east of north. Burst dispersion measures are provided in units of pc cm$^{-3}$ and have negligible uncertainties. The flux is defined as the peak flux of the burst in Janskys after applying the structure-maximizing DM found by DM-phase~\citep{seymour2019dm}; fluxes and fluences (in Jy ms) are quoted to 10\% accuracy, as done in~\citet{chime2024updating}. Upper limits on persistent radio emission are from VLASS at 3\,GHz in erg/s/Hz; a dagger indicates that the VLASS cutout was not available.  Detections of two radio sources are at 3--5$\sigma$ significance. The luminosity of PRS associated with FRBs\,20230926A and 20231128A are derived from fluxes from VLASS at 3\,GHz and FIRST at 1.4\,GHz, respectively.'
 
 # Fix 20231229A flux issue (PanSTARRS fragmentation); use SIMBAD flux.
 final.at[348285021,'primary_mag'] = 14.27 # Take R band photometry from Simbad...path uses an underestimate of galaxy flux but probably OK
 
 
-dataframe_to_latex_formatted(final[in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = table_caption,include_prs = True)
-dataframe_to_latex_formatted(final[~in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Tab.~\\ref{tab:gold_sample}',include_prs = False)
+dataframe_to_latex_formatted(final[in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_gold.tex',label = 'tab:gold_sample',caption = table_caption,column_format = 'lllllllccll', include_prs = True)
+dataframe_to_latex_formatted(final[~in_table].sort_index(inplace=False), '/arc/home/calvin/kko_host_paper/sample_full.tex',label = 'fig:full_sample', caption = 'The remaining FRB localizations, in the same format as Table~\\ref{tab:gold_sample}.',column_format = 'lllllllccll', include_prs = False)
 final.to_csv('/arc/home/calvin/kko_host_paper/data_products/kko_full_cat.csv')
