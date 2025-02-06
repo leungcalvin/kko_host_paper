@@ -126,7 +126,7 @@
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
 \shorttitle{Host DM}
-\shortauthors{CHIME/FRB Collaboration et al.}
+\shortauthors{Leung and the CHIME/FRB Collaboration et al.}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
 %% with this command:
@@ -231,7 +231,12 @@ Recently, the Deep Synoptic Array has detected tens of FRBs and localized them t
 
 However, a study dedicated to FRB host galaxies in the context of FRBs as probes remains unexplored, even though the distribution of the host galaxy DM contribution (hereafter, \dmh) is crucial to virtually all attempts to forward model FRB dispersion measures as probes of ionized gas. For instance, through analyses of the joint probability distribution of extragalactic DM as a function of redshift~\citep{james2021z}, FRBs have been touted as excellent probes of the baryon density $\Omega_b$, the ionization state of the intergalactic medium, and even the Hubble constant; yet these quantities are often degenerate with host galaxy properties in models ~\citep[e.g. Fig. 9 of][]{james2022measurement}. Two-point cross-correlation analyses are also possible; yet these cross-correlation analyses depends on having low levels of contamination from other line-of-sight contributions including residual contamination from the Milky Way, the host galaxy ISM/halo, and circumsource media, e.g., a star-forming region or an HII region~\citep{mcquinn2014locating,rafiei_ravandi2021chime,2019arXiv190102418M}.
 
-Individual DM budgets have been observed to both undershoot ~\citep[FRB 20220319B; see][]{ravi2023deep} and overshoot expectations due to an insufficiently-modeled sightline~\citep[e.g. FRB 20190520A][]{niu2021repeating,lee2023frb}. With every new FRB, observers are motivated to dissect in great detail~\citep{2024arXiv240200505K} the origin of the DM excess after subtracting DM$_\text{cosmic}$: is the remainder dominated by a dense circum-source medium, or could it possibly originate from gas along the line of sight?
+Individual DM budgets have been observed to both undershoot ~\citep[FRB 20220319B; see][]{ravi2023deep} and overshoot expectations due to an insufficiently-modeled sightline~\citep[e.g. FRB 20190520A][]{niu2021repeating,lee2023frb}. With every new FRB, observers are motivated to dissect in great detail~\citep{2024arXiv240200505K} the DM excess, that is,
+\begin{equation}
+\dfrac{\dmh}{1 + z_h} = \textrm{DM}_\mathrm{tot} - \langle \textrm{DM}_\textrm{cosmic}(z_h)\rangle - \textrm{DM}_{\textrm{MW,ISM}} - \textrm{DM}_{\textrm{MW,halo}}.
+\label{eq:dmh_definition}
+\end{equation}
+Is \dmh~dominated by a dense circum-source medium, or could it possibly originate from gas along the line of sight?
 
 At $z \gtrsim 0.2$ this question is difficult to answer because the contribution of large-scale structure to the DM budget -- the overdensities/underdensities relative to $\langle \textrm{DM}_\text{cosmic}\rangle$ -- dominates over smaller-scale contributions from e.g. the host galaxy and circum-source medium. While estimates are highly uncertain,~\citet{walker2024dispersion} estimate an RMS fluctuation in DM$_\textrm{cosmic}$ of $\gtrsim 100$ pc cm$^{-3}$ -- roughly the size of the mean host contribution -- beyond $z = 0.2$. Though notable exceptions exist, this is enough noise to swamp the DM contribution from most circum-source media and Milky Way-like electron disks at most inclination angles. 
 
