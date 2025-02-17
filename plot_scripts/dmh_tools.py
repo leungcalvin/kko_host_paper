@@ -14,6 +14,9 @@ def get_log10_M_star_mahajan_2016(M_r):
     unc = 0.458
     return log10_m_star, unc
 
+def get_log10_M_star_wise_jarrett(log_L_W1):
+    coefficients = [-12.62185, 5.00155, -0.43857, 0.01593]
+    M_star = coefficients[0] + coefficients[1] * log_L_W1 + coefficients[2] * log_L_W2**2 + coefficients[3] * log_L_W2**3
 def mr2ms_mahajan(mr):
     ms, unc = get_log10_M_star_mahajan_2016(mr)
     return ms
@@ -257,3 +260,62 @@ def mvsk_numerical_from_lognormal(m,delta_m_plus,delta_m_minus,w,delta_w_plus,de
     print(f"Skewness: {skew_value:.4f} + {skew_plus - skew_value:.4f} - {skew_value - skew_minus:.4f}")
     print(f"Kurtosis: {kurt_value:.4f} + {kurt_plus - kurt_value:.4f} - {kurt_value - kurt_minus:.4f}")
     return [[mu_value,mu_err],[std_value,std_err],[skew_value,skew_err],[kurt_value,kurt_err],label]
+
+def plot_survey(df,z_max,**errorbar_kwargs):
+    keep = df['primary_z_spec'] < z_max
+    y_err = df['DM_NE2001'][keep] * 0.2
+    if 0: #'extinction_mags' in df.keys():
+        x_err = 0.2 * df['extinction_mags'][keep]
+    else:
+        x_err = 0.0
+    plt.errorbar(x = df['M_r'][keep],xerr = x_err,y = df['DM_host_restframe'][keep],yerr=y_err,**errorbar_kwargs)
+    for name in df.index[keep]:
+        print(f'plotting {name}, {df.loc[name][["M_r","DM_host_restframe"]]}')
+
+def plot_zdm(df,z_max,**errorbar_kwargs):
+    keep = df['primary_z_spec'] < z_max
+    y_err = df['DM_NE2001'][keep] * 0.2
+    plt.errorbar(x = df['primary_z_spec'][keep],
+                 xerr = 0,
+                 y = (df['DM'] - df['DM_YT20'] - df['DM_NE2001'])[keep],
+                 yerr=y_err,
+                 **errorbar_kwargs)
+def label_df(df,name,xoffset=0,yoffset=0,**text_kwargs):
+    plt.text(df[df.index == name]['M_r'].values[0] + xoffset,df[df.index == name]['DM_host_restframe'].values[0] + yoffset,**text_kwargs)
+    if xoffset != 0 or yoffset != 0:
+        plt.arrow(x = df[df.index == name]['M_r'].values[0] + xoffset, dx = -xoffset,
+              y = df[df.index == name]['DM_host_restframe'].values[0] + yoffset, dy = -yoffset,length_includes_head = True,linestyle = '--')
+    print('labeling', name)
+def label_above_dmh(df,thres = 200):
+    for name,row in df.iterrows():
+        if np.abs(row['DM_host_restframe']) > thres:
+            plt.text(x = row['M_r'], y = row['DM_host_restframe'], s = name)
+
+def not_clusters(df):
+    return np.array([n not in ['FRB20231206A','FRB20230203A','FRB20231204A', # CHIME clusters
+                  'FRB20220914A','FRB20220509G' # DSA clusters
+                 ] for n in df.index])
+
+def not_edge_on(df):
+    return np.array([n not in [
+            'FRB20210603A', # Cassanelli
+            'FRB20240201A', # Shannon
+            'FRB20240310A', # Shannon 
+            'FRB20231120A' # Sharma
+            'FRB20220207C', # Law
+            'FRB20230203A', # this work
+            'FRB20231005A', # this work
+            ]
+            for n in df.index
+           ])
+
+def not_low_galb(df):
+    return np.abs(df['gal_b']) > 5
+
+def not_low_dm(df):
+    """Mohit's and DSA's Mark""" 
+    return np.array([n not in ['FRB20181030A', 'FRB20181220A', 'FRB20181223C', 'FRB20190418A',
+       'FRB20190425A','FRB20200120E','FRB20180814A', 'FRB20200223B'
+                               #'FRB20220319D'
+                              ] for n in df.index])
+        
