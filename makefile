@@ -13,3 +13,11 @@ authors:
 github:
 	git commit -am "CL: make push"
 	git push
+
+camels: 
+	curl https://users.flatironinstitute.org/~camels/Pk/Astrid/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/astrid_Pk_m_z=0.05.txt
+	curl https://users.flatironinstitute.org/~camels/Pk/Astrid_DM/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/astrid_DM_Pk_m_z=0.05.txt
+	curl https://users.flatironinstitute.org/~camels/Pk/IllustrisTNG/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/illustrisTNG_Pk_m_z=0.05.txt
+	curl https://users.flatironinstitute.org/~camels/Pk/IllustrisTNG_DM/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/illustrisTNG_DM_Pk_m_z=0.05.txt
+	curl https://users.flatironinstitute.org/~camels/Pk/SIMBA/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/SIMBA_Pk_m_z=0.05.txt
+	curl https://users.flatironinstitute.org/~camels/Pk/SIMBA_DM/L25n256/1P/1P_p7_0/Pk_m_z=0.05.txt > data_products/SIMBA_DM_Pk_m_z=0.05.txt

@@ -194,6 +194,45 @@ def mvsk_bootstrap(dm,dm_err,diagnostic = False):
         
     return [[mm, mm_e], [ss,ss_e], [gg,gg_e], [kk,kk_e]]
 
+def analyze_sample(df,label,diagnostic = None,sigma_igm = 'walker'):
+    """Get moments of DM_host_restframe contained in df.
+    Returns
+    -------
+    mvsk_answer : List
+        Of the form [[mean, mean_err], [std, std_err], [skew, skew_err], [kurt, kurt_err]]
+    label : str
+    a label for the big plot,
+    
+    sample_size : int
+        how many sources were used in the sample.
+    """
+    dm = df['DM_host_restframe']
+    if sigma_igm == "walker":
+        sig_igm = sigma_igm_walker2024(df['primary_z_spec'])**2 
+        sig_igm = 80
+    elif sigma_igm == "none":
+        sig_igm = 0
+    dm_err = np.sqrt(
+        10**2 + (df['DM_NE2001'] * 0.15)**2 + sig_igm**2
+        )
+    isfinite = np.isfinite(dm.values) * np.isfinite(dm_err.values) * (dm_err.values > 0)
+    mvsk_answers =  mvsk_bootstrap(dm.values[isfinite], dm_err.values[isfinite],diagnostic = diagnostic)
+    [[mu,mu_e],[sig,sig_e],[gam,gam_e],[kurt,kurt_e]] = mvsk_answers
+    sample_size = len(df['DM_host_restframe'])
+    label = label + f" ({sample_size:.0f})"
+    
+    if diagnostic:
+        bins = np.linspace(np.min(df['DM_host_restframe']),np.max(df['DM_host_restframe']),num = max(10,int(sample_size / 8)))
+        plt.figure()
+        plt.hist(df['DM_host_restframe'],bins=bins)
+        dumb_mean = np.nanmean(df['DM_host_restframe'])
+        dumb_std = np.nanstd(df['DM_host_restframe'])
+        plt.axvline(dumb_mean,label = f'{dumb_mean:.1f}')
+        plt.axvline(dumb_mean - dumb_std,label = f'mean - {dumb_std:.1f}')
+        plt.axvline(dumb_mean + dumb_std,label = f'mean + {dumb_std:.1f}')
+        plt.legend()
+        plt.title(label)
+    return mvsk_answers,label,sample_size
 
 def mvsk_numerical_from_lognormal(m,delta_m_plus,delta_m_minus,w,delta_w_plus,delta_w_minus,label):
     """mu is in natural DM units. mu_err is also. sigma is in log units (i.e. does not matter log10 or ln). sigma_merr and sigma_perr are also in log units."""
