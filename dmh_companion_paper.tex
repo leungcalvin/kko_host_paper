@@ -77,7 +77,7 @@
 
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
-\submitjournal{ApJS}
+%%\submitjournal{ApJS}
 
 %% For manuscript that include authors in collaborations, AASTeX v6.31
 %% builds on the \collaboration command to allow greater freedom to 
@@ -324,10 +324,19 @@ To compare our data to these theory predictions we use an empirically-determined
     \label{fig:camels}
 \end{figure}
 
-We see in Fig.~\ref{fig:camels} that our predictions from the ASTRID hydrodynamical simulations are challenged at the high-$M^*$ end by our data, which show a qualitatively different behavior. This implies a certain level of suppression of the matter power spectrum shown in Fig.~\ref{fig:sk}, in which we have shown the predictions for the suppression in the matter power spectrum from each of the CAMELS simulations we have used in our \dmh\ measurements.
+We see in Fig.~\ref{fig:camels} that our predictions from the ASTRID hydrodynamical simulations are challenged at the high-$M^*$ end by our data, which show a qualitatively different behavior. Of the three simulation suites considered, ASTRID has the ``weakest'' feedback -- as pointed out in~\citep{ni2023camels}, AGN kinetic feedback in ASTRID is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model.
 
+\subsection{Implications for Weak Lensing}
+ASTRID implies a certain level of suppression of the matter power spectrum shown in Fig.~\ref{fig:sk}, in which we have shown the predictions for the suppression in the matter power spectrum from each of the CAMELS simulations we have used in our \dmh\ measurements.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/sk.pdf}
+    \caption{The implied level of suppression of the matter power spectrum on small scales due to baryonic feedback. We show the predictions from ASTRID, IllustrisTNG, and SIMBA, as well as the official DES Y3 analysis~\citep{chen2023constraining}. Our constraints are complementary: while the FRB-inferred suppression reaches to smaller scales and only accounts for feedback from $L^*$ haloes, the DES Y3 curves represent a direct measurement of the suppression factor from power spectra.}
+    \label{fig:sk}
+\end{figure}
 \section{Conclusion}
-We have characterized the mean host contribution of FRB dispersion measures using the largest uniform sample of low-redshift FRBs. We have found that in many cases, the DM excess can be attributed to a nearby galaxy cluster or an edge-on host geometry. We use this additional statistical power to directly measure the enigmatic host galaxy contribution to FRB dispersion measures in a way that is agnostic to any particular parameterization of feedback and fluctuations in the IGM; we measure $\langle\dmh\rangle = 104\pm16$ and $S_h = 113\pm12$ for non-dwarf hosts with $M_r < -17$. Our measurement represents a significant improvement relative to global fitting methods that use a combination of sources at high and low redshifts to break degeneracies under the assumption of a particular redshift evolution of the host galaxy contribution. Model-insensitive measurements of $\dmh$ like the one here will be a crucial anchor for FRB cosmology at higher redshifts, and contain rich information about the spatial distribution of FRBs within their hosts. More broadly, the observational techniques for FRB detection and localization, host galaxy association, and follow-up pave the way for upcoming large-scale FRB surveys~\citep{vanderlinde2019canadian,hallinan2019dsa}, which will revolutionize our understanding of FRBs and the universe they illuminate.
+We have characterized the mean host contribution of FRB dispersion measures using the largest uniform sample of low-redshift FRBs. We have found that in many cases, the DM excess can be attributed to a nearby galaxy cluster or an edge-on host geometry. We use this additional statistical power to directly measure the enigmatic host galaxy contribution to FRB dispersion measures in a way that is agnostic to any particular parameterization of feedback and fluctuations in the IGM; we measure $\langle\dmh\rangle = 104\pm16$ and $S_h = 113\pm12$ for non-dwarf hosts with $M_r < -17$. Our measurement represents a significant improvement relative to global fitting methods that use a combination of sources at high and low redshifts to break degeneracies under the assumption of a particular redshift evolution of the host galaxy contribution. Model-insensitive measurements of $\dmh$ like the one here will be a crucial anchor for FRB cosmology at higher redshifts, and contain rich information about the spatial distribution of FRBs within their hosts. In addition, we have demonstrated for the first time the use of FRBs to indirectly probe the matter power spectrum at small scales - a frontier where our understanding of baryonic feedback will be of prime importance in the next decade.
 
 \begin{figure*}
     \centering
