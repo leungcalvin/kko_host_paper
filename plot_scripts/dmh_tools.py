@@ -331,8 +331,8 @@ def label_above_dmh(df,thres = 200):
             plt.text(x = row['M_r'], y = row['DM_host_restframe'], s = name)
 
 def not_clusters(df):
-    return np.array([n not in ['FRB20231206A','FRB20230203A','FRB20231204A', # CHIME clusters
-                  'FRB20220914A','FRB20220509G' # DSA clusters
+    return np.array([n not in ['FRB20231206A','FRB20230203A','FRB20231204A','FRB20230703A', # CHIME clusters
+                  'FRB20220914A','FRB20220509G','FRB20220920A' # DSA clusters
                  ] for n in df.index])
 
 def not_edge_on(df):
