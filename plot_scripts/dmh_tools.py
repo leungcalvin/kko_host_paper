@@ -355,6 +355,12 @@ def not_low_dm(df):
     """Mohit's and DSA's Mark""" 
     return np.array([n not in ['FRB20181030A', 'FRB20181220A', 'FRB20181223C', 'FRB20190418A',
        'FRB20190425A','FRB20200120E','FRB20180814A', 'FRB20200223B'
-                               #'FRB20220319D'
+                               'FRB20220319D'
                               ] for n in df.index])
         
+def not_scattered(df):
+    return np.array([name not in  ['FRB20230222A'] for name in df.index])
+
+def not_elliptical(df):
+    # Not elliptical or quiescent
+    return np.array([name not in  ['FRB20240209A','FRB20221012A'] for name in df.index])
