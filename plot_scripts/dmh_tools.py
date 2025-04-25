@@ -23,9 +23,8 @@ def mr2ms_mahajan(mr):
 
 def ms2mr_mahajan(ms):
     M_r = (ms - 0.450) / (-0.464) # NOTE: this is for all galaxies, not just spiral... hence +- 0.46 dex
-
     return M_r
-    
+
 def mh2ms(mh):
     # Use Behroozi
     if (mh > 13).any():
@@ -34,6 +33,14 @@ def mh2ms(mh):
     behroozi_2018_smhr = pd.read_csv('/arc/home/calvin/kko_host_paper/data_products/behroozi_2018_shmr.csv',names = ['M_halo','M_star'])
     log10_m_star = np.interp(x = mh, xp = behroozi_2018_smhr['M_halo'],fp = behroozi_2018_smhr['M_star'])
     return log10_m_star
+
+def best_stellar_mass(df):
+    out = np.zeros_like(df['published_M*'])
+    janky = np.isnan(df['published_M*'])
+    out[janky] = mr2ms_mahajan(df['M_r'])[janky]
+    out[~np.isnan(df['published_M*'])] = df['published_M*'][~np.isnan(df['published_M*'])]
+    print('Still needs M* measurement:',df.index[janky])
+    return out
     
 def get_M_r_mahajan_2016(m_halo):
     # Use Behroozi & Mahajan to convert Mh to Mr
@@ -337,7 +344,6 @@ def not_clusters(df):
 
 def not_edge_on(df):
     return np.array([n not in [
-            'FRB20210603A', # Cassanelli
             'FRB20240201A', # Shannon
             'FRB20240310A', # Shannon 
             'FRB20231120A' # Sharma
@@ -359,8 +365,14 @@ def not_low_dm(df):
                               ] for n in df.index])
         
 def not_scattered(df):
-    return np.array([name not in  ['FRB20230222A'] for name in df.index])
+    return np.array([name not in ['FRB20230222A','FRB20210410D'] for name in df.index])
 
 def not_elliptical(df):
     # Not elliptical or quiescent
-    return np.array([name not in  ['FRB20240209A','FRB20221012A'] for name in df.index])
+    return np.array([name not in ['FRB20240209A','FRB20221012A'] for name in df.index])
+
+def close_in(df):
+    return (0 < df['primary_z_spec']) * (df['primary_z_spec'] < 0.1)
+
+def far_out(df):
+    return (0.1 < df['primary_z_spec']) * (df['primary_z_spec'] < 0.2)

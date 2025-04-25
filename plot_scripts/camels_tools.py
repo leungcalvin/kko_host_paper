@@ -1,13 +1,16 @@
 import os
+import h5py
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from typing import Tuple
 from glob import glob
 from matplotlib.pyplot import cm
+from matplotlib import patches
 
 """Ok, here are the sightlines at z = 0.0 (090), z=0.05 (088), z =0.10 (086),  z =0.15 (084), and z =0.2 (082)"""
 
+ROOT_PATH = os.getcwd() + '/../'
 CAMELS_REDSHIFTS = {'090':0.0,'088':0.05,'086':0.1,'084':0.15,'082':0.2}
 def load_snapshot(filename):
     """Load snapshot and assign a redshift"""
@@ -28,6 +31,7 @@ def analyze_halos(
     M_200_min: float,
     M_200_max: float,
     M_star_range: np.array,
+    width_factor: 2,
     sfr_min: float,
     sfr_max: float,
     out_file: str = None,
@@ -67,9 +71,10 @@ def analyze_halos(
     weighted_mean = np.zeros((4,len(M_star_range)))
     weighted_std = np.zeros_like(weighted_mean)
     M_star_bins = []
+    assert width_factor > 1, "width_dex must be greater than 1!"
     for iibin,M_star in zip(np.arange(n_bins),M_star_range):
-        M_star_min = 0.5 * M_star
-        M_star_max = 2   * M_star
+        M_star_min = M_star / width_factor
+        M_star_max = M_star * width_factor
         filtered_df = df[
             (df['b_val'] >= b_min) & 
             (df['b_val'] <= b_max) & 
@@ -129,31 +134,79 @@ def analyze_halos(
             counts[iiweighting,iibin] = len(sampled_data)
         
     # 5. Compile results
-    results = {
-        'filepath': os.path.split(filepath)[-1],
-        'weighted_mean': weighted_mean,
-        'weighted_std': weighted_std,
-        'M_star_bins': M_star_bins,
-        'num_sampled_halos': counts,
-        'sample_fraction': len(sampled_data) / len(filtered_df),
-        'filter_criteria': {
-            'b_range': (b_min, b_max),
-            'M_200_range': (M_200_min, M_200_max),
-            'sfr_range': (sfr_min, sfr_max)
-        }
-    }
-    # 6. Write back to file system
+    results = {'filepath': filepath,
+            'weighted_mean': weighted_mean,
+            'weighted_std': weighted_std,
+            'M_star_bins': M_star_bins,
+            'num_sampled_sightlines': counts,
+            'b_range': np.array([b_min, b_max]),
+            'M_200_range': np.array([M_200_min, M_200_max]),
+            'sfr_range': np.array([sfr_min, sfr_max])
+                }
     if out_file is not None:
-        np.savez(out_file,
-                 filepath=filepath,
-                 weighted_mean=weighted_mean,
-                 weighted_std=weighted_std,
-                 M_star_bins=M_star_bins,
-                 num_sampled_halos=counts,
-                 b_range = np.array([b_min,b_max])
-                 M_200_range= np.array([M_200_min,M_200_max])
-                sfr_range= np.array([sfr_min, sfr_max])
-    return results,df
+        import h5py
+        with h5py.File(out_file,'w') as f:
+            for key, val in results.items():
+                if key == 'filepath':
+                    f.attrs['filepath'] = filepath
+                else:
+                    f.create_dataset(key,data=val)
+    # 6. Write back to file system
+    return results
+
+def from_file(filename):
+    results = {}
+    with h5py.File(filename,'r') as f:
+        for key in f.keys(): 
+            print(key)
+            if key == 'filepath':
+                results['filepath'] = f.attrs['filepath']
+            else:
+                results[key] = f[key][:].copy()
+    return results
+            
+def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted',one_halo = True,label = None,**rect_kwargs):
+    results = from_file(path_to_file)
+    M_star_bins = np.array(results['M_star_bins'])
+    x_vals = np.sqrt(M_star_bins[:,0] * M_star_bins[:,1])
+    y_vals = results['weighted_mean'][0,:]
+    min_max_cen_std = np.vstack((np.array(results['M_star_bins']).T,results['weighted_mean'][0,:],results['weighted_std'][0,:])).T
+    plot_rectangles(ax,min_max_cen_std,**rect_kwargs)
+    plt.scatter(x_vals,y_vals,**rect_kwargs)
+    return results
+def plot_rectangles(ax,rect_data, **rect_kwargs):
+    """
+    Plot multiple semi-transparent rectangles from a list of tuples.
+    
+    Parameters:
+    ----------
+    rect_data : list of tuples
+        Each tuple contains (x_min, x_max, y_center, y_std)
+    colors : list or None
+        List of colors for each rectangle. If None, uses a color cycle
+    **rect_kwargs : 
+        Goes into patches.Rectangle(...**rect_kwargs)
+    """
+    
+    # Use default color cycle if colors not provided    
+    for i, (x_min, x_max, y_center, y_std) in enumerate(rect_data):
+        # Calculate rectangle parameters
+        width = x_max - x_min
+        height = 2 * y_std
+        y_min = y_center - y_std
+        
+        # Create rectangle patch with cycling colors
+        rect = patches.Rectangle(
+            (x_min, y_min), width, height,
+            **rect_kwargs
+        )
+        
+        # Add rectangle to axis
+        ax.add_patch(rect)
+        
+        # Optional: Add text label in the center of each rectangle
+        # ax.text(x_min + width/2, y_center, f"{i+1}", ha='center', va='center', fontsize=10)
+    return ax
 
 def visualize_results(results: dict, sampled_data: pd.DataFrame) -> None:
     """
@@ -166,6 +219,16 @@ def visualize_results(results: dict, sampled_data: pd.DataFrame) -> None:
     sampled_data : pd.DataFrame
         The sampled data that was used for analysis
     """
+    results = {'filepath': filepath,
+            'weighted_mean': weighted_mean,
+            'weighted_std': weighted_std,
+            'M_star_bins': M_star_bins,
+            'num_sampled_halos': counts,
+            'sampled_': len(sampled_data) / len(filtered_df),
+            'b_range': (b_min, b_max),
+            'M_200_range': (M_200_min, M_200_max),
+                'sfr_range': (sfr_min, sfr_max)
+                }
     # Set up a figure with subplots
     fig, axs = plt.subplots(3,2, figsize=(14, 14))
     
@@ -247,7 +310,7 @@ def visualize_results(results: dict, sampled_data: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
-def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted',one_halo = True,label = None,**rect_kwargs):
+def plot_theory_predictions_deprecated(path_to_file,ax,x_axis = 'M_star',weight = 'weighted',one_halo = True,label = None,**rect_kwargs):
     results_list = np.load(path_to_file,allow_pickle=True)['results']
     x_vals = []
     y_vals = []
