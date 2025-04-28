@@ -365,7 +365,8 @@ def not_low_dm(df):
                               ] for n in df.index])
         
 def not_scattered(df):
-    return np.array([name not in ['FRB20230222A','FRB20210410D'] for name in df.index])
+    """tau > 5 ms at 600 MHz, assuming alpha = -4"""
+    return np.array([name not in ['FRB20230222A','FRB20210410D','FRB20230203A'] for name in df.index])
 
 def not_elliptical(df):
     # Not elliptical or quiescent
