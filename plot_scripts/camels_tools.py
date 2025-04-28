@@ -85,31 +85,14 @@ def analyze_halos(
             (df['M_star'] >= M_star_min) &
             (df['M_star'] <= M_star_max)
         ]
-        
-        # Check if we have enough data after filtering
-        if len(filtered_df) < num_halos:
+        sampled_data = filtered_df.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True)
+        assert len(sampled_data.index) == len(set(sampled_data.index)),'NOT unique!'
+        if len(sampled_data) < num_halos:
             print(
-                f"Not enough halos after filtering. Found {len(filtered_df)}, "
-                f"but requested {num_halos}."
-            )
-        # 1. Randomly sample the desired number of sightlines
-        try:
-            sampled_indices = np.random.choice(
-                filtered_df.index, 
-                size=num_halos, 
-                replace=False
-            )
-        except ValueError:
-            sampled_indices = np.random.choice(
-                filtered_df.index, 
-                size=num_halos, 
-                replace=True
-            )
-            print(f'Not enough halos! {len(filtered_df)} < {num_halos}, falling back on sampling WITH replacement (unphysical)')
-            
+                f"Not enough halos after filtering (bin index={iibin})"
+                )
+            print(f'sightlines within halos: {len(filtered_df)}, unique halos: {len(set(filtered_df['halo_index']))}, sampled sightlines: {len(sampled_data.index)}')
         # 2. Sample: one sightline per halo, not one per unit area.
-        sampled_data = filtered_df.loc[sampled_indices].copy()
-        sampled_data = sampled_data.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True)
         M_star_bins.append([M_star_min,M_star_max])
         # 3. Compute weightings
         # Normalize the weights so they sum to 1
@@ -152,13 +135,12 @@ def analyze_halos(
                 else:
                     f.create_dataset(key,data=val)
     # 6. Write back to file system
-    return results
+    return results,sampled_data
 
 def from_file(filename):
     results = {}
     with h5py.File(filename,'r') as f:
         for key in f.keys(): 
-            print(key)
             if key == 'filepath':
                 results['filepath'] = f.attrs['filepath']
             else:
@@ -169,8 +151,9 @@ def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted
     results = from_file(path_to_file)
     M_star_bins = np.array(results['M_star_bins'])
     x_vals = np.sqrt(M_star_bins[:,0] * M_star_bins[:,1])
-    y_vals = results['weighted_mean'][0,:]
-    min_max_cen_std = np.vstack((np.array(results['M_star_bins']).T,results['weighted_mean'][0,:],results['weighted_std'][0,:])).T
+    y_vals = results['weighted_mean'][0,:] / 2 # factor of 2 for 1 halo term
+    y_errs = results['weighted_std'][0,:] / 2 # factor of 2 for 1 halo term
+    min_max_cen_std = np.vstack((np.array(results['M_star_bins']).T,y_vals, y_errs)).T
     plot_rectangles(ax,min_max_cen_std,**rect_kwargs)
     plt.scatter(x_vals,y_vals,**rect_kwargs)
     return results
