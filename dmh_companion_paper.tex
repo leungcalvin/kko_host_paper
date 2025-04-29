@@ -67,9 +67,17 @@
 \newcommand{\muhost}{\mu_\textrm{host}}
 \newcommand{\remove}[1]{\textcolor{green}{#1}}
 \newcommand{\sighost}{\sigma_\textrm{host}}
-\newcommand{\dmh}{\ensuremath{{\rm DM}_\textrm{h}}}
 \newcommand{\pox}{\ensuremath{P(O|x)}}
+
+\newcommand{\dmmwism}{\ensuremath{\rm DM}
+\newcommand{\dmmwism}{\ensuremath{{\rm DM}_\textrm{mw,ISM}}}
+\newcommand{\dmeg}{\ensuremath{{\rm DM}_\textrm{eg}}}
+\newcommand{\dmcgm}{\ensuremath{{\rm DM}_\textrm{mw,CGM}}}
 \newcommand{\dmcosmic}{\ensuremath{{\rm DM}_{\rm cosmic}}}
+\newcommand{\dmh}{\ensuremath{{\rm DM}_\textrm{h}}}
+\newcommand{\dmhism}{\ensuremath{{\rm DM}_\textrm{h,ISM}}}
+\newcommand{\dmhcgm}{\ensuremath{{\rm DM}_\textrm{h,CGM}}}
+
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{\today}%
 \revised{\today}
@@ -223,13 +231,38 @@ Low-redshift FRBs provide the tightest and most robust constraints on the conten
 
 \section{Introduction}\label{sec:intro}
 Long before the first repeating fast radio burst (FRB) was localized to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host},~\citet{mcquinn2014locating} realized the immense potential of FRBs as cosmological probes of the cosmic baryons.
+This is because FRBs have dispersion measures integrate the column density of electrons between the observer and the FRB source $z_F$.
 
-One of the earliest landmarks in observational FRB science used the Australian Square Kilometre Array Pathfinder (ASKAP)~\citep{macquart2020census} to locate the missing baryons to the intergalactic medium (IGM). That result established that the mean contribution from the intergalactic medium is the dominant contributor to the DM of an FRB for sources beyond $z \sim 0.2$, establishing what FRB astronomers now refer to as the ``Macquart relation''. 
+After subtracging the Milky Way DM, the extragalactic DM can be  its host, and intervening contributions such as diffuse IGM and the CGM of intervening galaxies.
+\begin{equation}
+    \dm = \int_{0}^{z_F} n_e(z)~dz = \dmmwism + \dmmwhalo + \dmcosmic + \underbrace{\dmhhalo + \dmhism + \dmcbm}_{\dmh}
+\end{equation}
 
-An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z_h =  1.3$~\citep{ryder2023luminous,connor2024gas}, is that the contribution from the host galaxy is typically subdominant to that of the IGM. Nevertheless, the host galaxy DM contribution (hereafter, \dmh) is worthy of dedicated study: it is crucial to virtually all attempts to forward model FRB dispersion measures as probes of ionized gas~\citep{james2021z,james2022measurement,rafiei_ravandi2021chime,2019arXiv190102418M}, and contains valuable information about the circumgalactic medium (CGM) of FRB hosts\citep{prochaska2019probing}.
 
-Previous efforts to study galactic halos using FRBs have relied on a ``wedding-cake'' combination of multi-object spectroscopic surveys to decompose the overall DM budget of FRB sightlines into simultaneously solve for the contributions from interlopers and the host galaxy halo to the ~\citep{khrykin2024flimflam}. In this paper, we focus on the latter by selecting empty sightlines towards localized, low-redshift FRBs in the literature, whose total number now exceeds 100. 
-Previous efforts to study galactic halos using FRBs have relied on a ``wedding-cake'' combination of multi-object spectroscopic surveys to decompose the overall DM budget of FRB sightlines into contributions from interlopers and the halo of the host galaxy~\citep{khrykin2024flimflam}. In this paper, we focus only the latter by selecting empty sightlines towards localized, low-redshift FRBs in the literature, whose total number now exceeds 100. 
+Since then, there have emerged two classes of methodologies used to study the diffuse extragalactic baryons using FRBs.
+
+
+The first class studies the diffuse IGM by analyzing the the Australian Square Kilometre Array Pathfinder (ASKAP)~\citep{macquart2020census} to locate the missing baryons to the intergalactic medium (IGM). 
+That result established that the mean contribution from the intergalactic medium is the dominant contributor to the DM of an FRB for sources beyond $z \sim 0.2$, establishing what FRB astronomers now refer to as the ``Macquart relation''. 
+An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the contribution from the host galaxy is typically subdominant to that of the IGM. 
+
+The second class of study traces the residuals after subtracting the mean DM at a certain redshift.
+Nevertheless, the host galaxy DM contribution (hereafter, \dmh) is worthy of dedicated study: it is crucial to virtually all attempts to forward model FRB dispersion measures as probes of ionized gas~\citep{james2021z,james2022measurement,rafiei_ravandi2021chime,2019arXiv190102418M}, and contains valuable information about the circumgalactic medium (CGM) and broader gas ecosystem in which FRB hosts reside\citep{prochaska2019probing}.
+
+The first is forward-modeling of 
+Previous efforts to study galactic halos using FRBs have relied on a ``wedding-cake'' combination of multi-object spectroscopic surveys to decompose the overall DM budget of FRB sightlines into contributions from intervening galaxies and the halo of the host galaxy~\citep{khrykin2024flimflam}.
+Those optical observations are sensitive to both the ``two-halo'' and ``one-halo'' contributions, but the scatter in the total DM due to the large-scale structure adds significant noise which is larger than the signal from individual $L*$ haloes.
+In this paper, we instead focus instead on the latter by stacking a sample of 29 low-redshift FRBs, whose sightlines lack contributions from intervening galaxies.
+
+
+\section{Methodology}
+
+\section{Sample Selection}
+
+\section{Theory Model}
+
+\section{Subgrid Model Selection}
+
 
 Since the vast majority of FRBs originate within the stellar disk of their hosts, the so-called ``host'' contribution \dmh\ (as defined in Eq.~\ref{eq:dmh_definition}) always picks up a contribution from the circumgalactic medium of the host. However, the circumgalactic component is often swamped by other contributions to the DM budget which are hard to independently characterize, similar in size to the CGM contribution, and which likely vary from sightline to sightline. These include contributions from large-scale structure, the circum-source medium, and the ISM of the host galaxy and the Milky Way. We have
 %
@@ -416,7 +449,7 @@ Here we demonstrate that our measurements are insensitive to galactic feedback. 
 $$\dfrac{d(\langle\dmh\rangle)}{d(\Omega_b f_\text{diffuse} H_0)} = \dfrac{XXXX\textrm{pc cm}^{-3}}{0.05 \times 0.7 \times 70 km/s/Mpc}.$$
 
 \bibliographystyle{aasjournal}
-\bibliography{references}
+\bibliography{references,references2}
 
 
 
