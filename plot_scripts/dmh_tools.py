@@ -103,6 +103,65 @@ def plot_sim_direct(ax,Mr_range = np.linspace(-23,-19), which = ['Astrid','Illus
                             _y2_func(Mr_range),
                             label = legend_label,alpha = 0.8)#color = EB.get_edgecolors())
     
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import Normalize
+from matplotlib import cm
+
+# Generate sample log likelihood data (replace this with your actual data)
+# Shape: (3 models, 3 redshifts, 3 impact parameters)
+
+def plot_fig(fig,axes,log_likelihoods,out_file,vmin = -100, vmax = -17):
+    # Define labels
+    model_names = ['SIMBA', 'IllustrisTNG', 'Astrid']
+    redshifts = ['z = 0.0', 'z = 0.1', 'z = 0.2']
+    impact_params = [r'$b_{max}$ = 0.12', r'$b_{min}$ = 0.16', r'$b_{min}$ = 0.20']
+    
+    # Create figure with 3 subplots (one for each model)
+    
+    # Find global min and max for consistent color scale
+    norm = Normalize(vmin=vmin, vmax=vmax)
+    
+    # Loop through models (subplots)
+    for model_idx, ax in enumerate(axes):
+        # Get data for this model
+        model_data = log_likelihoods[model_idx]
+        
+        # Create imshow plot
+        im = ax.imshow(model_data, cmap='inferno', norm=norm)
+        
+        # Add value text to each cell
+        for z_idx in range(3):  # redshift index
+            for b_idx in range(3):  # impact parameter index
+                value = model_data[z_idx, b_idx]
+                ax.text(b_idx, z_idx, f'{value:.2f}', 
+                        ha='center', va='center', 
+                        color='white' if value < (vmin + vmax) / 2 else 'black',
+                        fontweight='bold')
+        
+        # Set title and labels
+        ax.set_title(model_names[model_idx])
+        ax.set_xticks(np.arange(3))
+        ax.set_yticks(np.arange(3))
+        ax.set_xticklabels(impact_params)
+        
+        # Rotate x-axis labels for better readability
+        plt.setp(ax.get_xticklabels(), rotation=0, ha='center', rotation_mode='anchor')
+        
+        # Add grid to make cells more visible
+        ax.grid(False)
+    axes[0].set_yticklabels(redshifts)
+    axes[1].set_yticks([])
+    axes[2].set_yticks([])
+    # Add colorbar
+    cbar_ax = fig.add_axes([0.92, 0.15, 0.02, 0.7])
+    cbar = fig.colorbar(im, cax=cbar_ax)
+    cbar.set_label('Log Likelihood', rotation=270, labelpad=20)
+    
+    # Adjust layout
+    #plt.tight_layout(rect=[0, 0, 0.9, 0.95])
+    plt.subplots_adjust(wspace = 0,hspace = 0)
+    plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
 
     
 def mvsk_lognormal(m,delta_m_plus,delta_m_minus,w,delta_w_plus,delta_w_minus,label):
@@ -360,7 +419,7 @@ def not_low_galb(df):
 def not_low_dm(df):
     """Mohit's and DSA's Mark""" 
     return np.array([n not in ['FRB20181030A', 'FRB20181220A', 'FRB20181223C', 'FRB20190418A',
-       'FRB20190425A','FRB20200120E','FRB20180814A', 'FRB20200223B'
+       'FRB20190425A','FRB20200120E','FRB20180814A', 'FRB20200223B',
                                'FRB20220319D'
                               ] for n in df.index])
         
