@@ -37,6 +37,7 @@
 \savesymbol{tablenum}
 \usepackage{placeins}
 \usepackage{siunitx}
+\usepackage{natbib}
 \usepackage[T1]{tipa}
 
 \usepackage{threeparttable}
@@ -69,14 +70,16 @@
 \newcommand{\sighost}{\sigma_\textrm{host}}
 \newcommand{\pox}{\ensuremath{P(O|x)}}
 
-\newcommand{\dmmwism}{\ensuremath{\rm DM}
+\newcommand{\dm}{\ensuremath{\rm DM}}
 \newcommand{\dmmwism}{\ensuremath{{\rm DM}_\textrm{mw,ISM}}}
+\newcommand{\dmmwcgm}{\ensuremath{{\rm DM}_\textrm{mw,CGM}}}
 \newcommand{\dmeg}{\ensuremath{{\rm DM}_\textrm{eg}}}
 \newcommand{\dmcgm}{\ensuremath{{\rm DM}_\textrm{mw,CGM}}}
 \newcommand{\dmcosmic}{\ensuremath{{\rm DM}_{\rm cosmic}}}
 \newcommand{\dmh}{\ensuremath{{\rm DM}_\textrm{h}}}
 \newcommand{\dmhism}{\ensuremath{{\rm DM}_\textrm{h,ISM}}}
 \newcommand{\dmhcgm}{\ensuremath{{\rm DM}_\textrm{h,CGM}}}
+\newcommand{\dmcbm}{\ensuremath{{\rm DM}_\textrm{h,CBM}}}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{\today}%
@@ -233,9 +236,9 @@ Low-redshift FRBs provide the tightest and most robust constraints on the conten
 Long before the first repeating fast radio burst (FRB) was localized to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host},~\citet{mcquinn2014locating} realized the immense potential of FRBs as cosmological probes of the cosmic baryons.
 This is because FRBs have dispersion measures integrate the column density of electrons between the observer and the FRB source $z_F$.
 
-After subtracging the Milky Way DM, the extragalactic DM can be  its host, and intervening contributions such as diffuse IGM and the CGM of intervening galaxies.
+After subtracting the DM from the Galactic ISM, the extragalactic DM can be its host, and intervening contributions such as diffuse IGM and the CGM of intervening galaxies.
 \begin{equation}
-    \dm = \int_{0}^{z_F} n_e(z)~dz = \dmmwism + \dmmwhalo + \dmcosmic + \underbrace{\dmhhalo + \dmhism + \dmcbm}_{\dmh}
+    \dm = \int_{0}^{z_F} n_e(z)~dz = \dmmwism + \dmmwcgm + \dmcosmic(z) + \underbrace{\dmhcgm + \dmhism + \dmcbm}_{\dmh}
 \end{equation}
 
 
@@ -246,7 +249,7 @@ The first class studies the diffuse IGM by analyzing the the Australian Square K
 That result established that the mean contribution from the intergalactic medium is the dominant contributor to the DM of an FRB for sources beyond $z \sim 0.2$, establishing what FRB astronomers now refer to as the ``Macquart relation''. 
 An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the contribution from the host galaxy is typically subdominant to that of the IGM. 
 
-The second class of study traces the residuals after subtracting the mean DM at a certain redshift.
+The second class of study traces the collapsed baryons by subtracting the estimated average cosmic dispersion measure out to the redshift of the host galaxy of the FRB source.
 Nevertheless, the host galaxy DM contribution (hereafter, \dmh) is worthy of dedicated study: it is crucial to virtually all attempts to forward model FRB dispersion measures as probes of ionized gas~\citep{james2021z,james2022measurement,rafiei_ravandi2021chime,2019arXiv190102418M}, and contains valuable information about the circumgalactic medium (CGM) and broader gas ecosystem in which FRB hosts reside\citep{prochaska2019probing}.
 
 The first is forward-modeling of 
@@ -370,7 +373,7 @@ ASTRID implies a certain level of suppression of the matter power spectrum shown
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/sk.pdf}
+    \includegraphics[width=\linewidth]{figures/sk_frb.pdf}
     \caption{The implied level of suppression of the matter power spectrum on small scales due to baryonic feedback. We show the predictions from ASTRID, IllustrisTNG, and SIMBA, as well as the official DES Y3 analysis~\citep{chen2023constraining}. Our constraints are complementary: while the FRB-inferred suppression reaches to smaller scales and only accounts for feedback from $L^*$ haloes, the DES Y3 curves represent a direct measurement of the suppression factor from power spectra.}
     \label{fig:sk}
 \end{figure}
@@ -449,7 +452,7 @@ Here we demonstrate that our measurements are insensitive to galactic feedback. 
 $$\dfrac{d(\langle\dmh\rangle)}{d(\Omega_b f_\text{diffuse} H_0)} = \dfrac{XXXX\textrm{pc cm}^{-3}}{0.05 \times 0.7 \times 70 km/s/Mpc}.$$
 
 \bibliographystyle{aasjournal}
-\bibliography{references,references2}
+\bibliography{references.}
 
 
 
