@@ -111,11 +111,15 @@ from matplotlib import cm
 # Generate sample log likelihood data (replace this with your actual data)
 # Shape: (3 models, 3 redshifts, 3 impact parameters)
 
-def plot_fig(fig,axes,log_likelihoods,out_file,vmin = -100, vmax = -17):
+def plot_fig(fig,axes,log_likelihoods, out_file,
+    redshifts = ['z = 0.0', 'z = 0.1', 'z = 0.2'],
+    impact_params = [r'$b_{max}$ = 0.12', r'$b_{max}$ = 0.16', r'$b_{max}$ = 0.20'],
+    model_names = ['SIMBA', 'IllustrisTNG', 'Astrid'], cbar_label = 'Ln(posterior)',vmin = None, vmax = None):
     # Define labels
-    model_names = ['SIMBA', 'IllustrisTNG', 'Astrid']
-    redshifts = ['z = 0.0', 'z = 0.1', 'z = 0.2']
-    impact_params = [r'$b_{max}$ = 0.12', r'$b_{min}$ = 0.16', r'$b_{min}$ = 0.20']
+    if vmin is None:
+        vmin = np.min(log_likelihoods)
+    if vmax is None:
+        vmax = np.max(log_likelihoods)
     
     # Create figure with 3 subplots (one for each model)
     
@@ -156,7 +160,7 @@ def plot_fig(fig,axes,log_likelihoods,out_file,vmin = -100, vmax = -17):
     # Add colorbar
     cbar_ax = fig.add_axes([0.92, 0.15, 0.02, 0.7])
     cbar = fig.colorbar(im, cax=cbar_ax)
-    cbar.set_label('Log Likelihood', rotation=270, labelpad=20)
+    cbar.set_label(cbar_label, rotation=270, labelpad=20)
     
     # Adjust layout
     #plt.tight_layout(rect=[0, 0, 0.9, 0.95])

@@ -155,7 +155,7 @@ def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted
     y_errs = results['weighted_std'][0,:] / 2 # factor of 2 for 1 halo term
     min_max_cen_std = np.vstack((np.array(results['M_star_bins']).T,y_vals, y_errs)).T
     plot_rectangles(ax,min_max_cen_std,**rect_kwargs)
-    plt.scatter(x_vals,y_vals,**rect_kwargs)
+    plt.scatter(x_vals,y_vals,**rect_kwargs,label = label)
     return results
 def plot_rectangles(ax,rect_data, **rect_kwargs):
     """
