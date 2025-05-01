@@ -80,6 +80,8 @@
 \newcommand{\dmhism}{\ensuremath{{\rm DM}_\textrm{h,ISM}}}
 \newcommand{\dmhcgm}{\ensuremath{{\rm DM}_\textrm{h,CGM}}}
 \newcommand{\dmcbm}{\ensuremath{{\rm DM}_\textrm{h,CBM}}}
+\newcommand{\dmtot}{\ensuremath{{\rm DM}_\textrm{tot}}}
+\newcommand{\sigmaigm}{\ensuremath{{\sigma}_\textrm{IGM}}}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{\today}%
@@ -233,55 +235,62 @@ Low-redshift FRBs provide the tightest and most robust constraints on the conten
 \keywords{Radio transient sources (2008)}
 
 \section{Introduction}\label{sec:intro}
-Long before the first repeating fast radio burst (FRB) was localized to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host},~\citet{mcquinn2014locating} realized the immense potential of FRBs as cosmological probes of the cosmic baryons.
-This is because FRBs have dispersion measures integrate the column density of electrons between the observer and the FRB source $z_F$.
+Long before the first fast radio burst (FRB) was pinpointed to a cosmologically-distant host galaxy~\citep{chatterjee2017direct,tendulkar2017host},~\citet{mcquinn2014locating} realized the immense potential of FRBs as probes of the cosmic baryons.
+The dispersion measure, or DM, of FRBs can precisely measure the column density of electrons between the observer and the FRB source. 
+This makes FRBs excellent probes of baryons, sensitive to both the baryons in the cosmic web and the collapsed gas overdensities on the outskirts of galaxies and their dark matter halos.
 
-After subtracting the DM from the Galactic ISM, the extragalactic DM can be its host, and intervening contributions such as diffuse IGM and the CGM of intervening galaxies.
+Since then, two classes of methodologies have emerged which use FRBs to probe the extragalactic baryons.
+Using observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} used the DM-redshift relation to locate the so-called ``missing'' baryons to the intergalactic medium (IGM) and constrain the strength of baryonic feedback along each line of sight using an analytical model of the statistics of intercepted halos~\citep{mcquinn2014locating,james2021z}.
+That result established that the cosmic contribution to the DM budget, comprised of diffuse IGM baryons and the collapsed baryons in intervening halos, collectively dominate the total DM for FRB sources beyond $z \sim 0.2$. 
+
+An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that remaining contributions, such as those from the host galaxy, are subdominant to the cosmic components. 
+However, in analogy with the temperature fluctuations of the cosmic microwave background, the fluctuations in the extragalactic DM after removing the mean cosmic contribution still contain a wealth of information.
+Historically, this quantity has been referred to as the ``host contribution'' to the DM budget and is denoted $\dmh$. It is defined as
+
 \begin{equation}
-    \dm = \int_{0}^{z_F} n_e(z)~dz = \dmmwism + \dmmwcgm + \dmcosmic(z) + \underbrace{\dmhcgm + \dmhism + \dmcbm}_{\dmh}
-\end{equation}
-
-
-Since then, there have emerged two classes of methodologies used to study the diffuse extragalactic baryons using FRBs.
-
-
-The first class studies the diffuse IGM by analyzing the the Australian Square Kilometre Array Pathfinder (ASKAP)~\citep{macquart2020census} to locate the missing baryons to the intergalactic medium (IGM). 
-That result established that the mean contribution from the intergalactic medium is the dominant contributor to the DM of an FRB for sources beyond $z \sim 0.2$, establishing what FRB astronomers now refer to as the ``Macquart relation''. 
-An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the contribution from the host galaxy is typically subdominant to that of the IGM. 
-
-The second class of study traces the collapsed baryons by subtracting the estimated average cosmic dispersion measure out to the redshift of the host galaxy of the FRB source.
-Nevertheless, the host galaxy DM contribution (hereafter, \dmh) is worthy of dedicated study: it is crucial to virtually all attempts to forward model FRB dispersion measures as probes of ionized gas~\citep{james2021z,james2022measurement,rafiei_ravandi2021chime,2019arXiv190102418M}, and contains valuable information about the circumgalactic medium (CGM) and broader gas ecosystem in which FRB hosts reside\citep{prochaska2019probing}.
-
-The first is forward-modeling of 
-Previous efforts to study galactic halos using FRBs have relied on a ``wedding-cake'' combination of multi-object spectroscopic surveys to decompose the overall DM budget of FRB sightlines into contributions from intervening galaxies and the halo of the host galaxy~\citep{khrykin2024flimflam}.
-Those optical observations are sensitive to both the ``two-halo'' and ``one-halo'' contributions, but the scatter in the total DM due to the large-scale structure adds significant noise which is larger than the signal from individual $L*$ haloes.
-In this paper, we instead focus instead on the latter by stacking a sample of 29 low-redshift FRBs, whose sightlines lack contributions from intervening galaxies.
-
-
-\section{Methodology}
-
-\section{Sample Selection}
-
-\section{Theory Model}
-
-\section{Subgrid Model Selection}
-
-
-Since the vast majority of FRBs originate within the stellar disk of their hosts, the so-called ``host'' contribution \dmh\ (as defined in Eq.~\ref{eq:dmh_definition}) always picks up a contribution from the circumgalactic medium of the host. However, the circumgalactic component is often swamped by other contributions to the DM budget which are hard to independently characterize, similar in size to the CGM contribution, and which likely vary from sightline to sightline. These include contributions from large-scale structure, the circum-source medium, and the ISM of the host galaxy and the Milky Way. We have
-%
-\begin{equation}
-\dfrac{\dmh}{1 + z_h} = \textrm{DM}_\mathrm{tot} - \langle \textrm{DM}_\textrm{cosmic}(z_h)\rangle - \textrm{DM}_{\textrm{MW}}.
+\dfrac{\dmh}{1 + z} = \textrm{DM}_\mathrm{tot} - \langle \textrm{DM}_\textrm{cosmic}(z)\rangle - \dmmwcgm - \dmmwism. 
 \label{eq:dmh_definition}
 \end{equation}
 
-Here the subscripts ``tot'', ``cosmic'', and ``MW'' indicate the total DM as measured in FRB data, the mean cosmic contribution out to redshift $z_h$, and the Milky Way (disk plus halo) contributions of the DM respectively. Here and throughout this paper, the angle brackets refer to taking an average over all sightlines. 
+Here the subscripts ``tot'', ``cosmic'', and ``MW'' indicate the total DM as measured in FRB data, the mean cosmic contribution out to the host redshift $z$, and the Milky Way (disk plus halo, i.e. CGM) contributions of the DM respectively. 
+Here and throughout this paper, the angle brackets refer to taking an average over all sightlines. 
+However, it contains a wealth of information beyond that the host galaxy, including those from the stellar ``circum-burst'' environment of the FRB~\citep[see e.g.][]{niu2021repeating,caleb2023subarc}, the host-galactic ISM~\citep{cassanelli2024fast}, and the circumgalactic DM of the host galaxy at the endpoint of each FRB sightline~\citep{prochaska2019probing}, groups and clusters~\citep{connor2023deep}, and the baryonic large-scale structure along the line of sight~\citep[see e.g.][]{2019arXiv190102418M,reischke2023calibrating}.
 
-In  \S~\ref{sec:sample} we describe how we minimize the aforementioned sources of contamination in our measurement by selecting a clean sample of FRB sightlines.
-In \S~\ref{sec:moments} we describe our measurement of \dmh\ using our clean sightlines. Finally, in \S~\ref{sec:camels} we introduce for the first time in the literature the \dmh-stellar mass relation and compare it to theoretical predictions from three sub-grid models implemented in the CAMELS suite of hydrodynamical simulations to constrain models for star formation and galactic winds originating from e.g. supernova and AGN feedback in isolated $L^*$ galaxies. This corresponds to a halo mass range inaccessible to traditional gas probes, i.e. X-ray emission and Sunyaev-Zeldovich observations. All quantities in this work are calculated using the \textit{Planck} cosmology for a flat $\Lambda$CDM universe of  $H_0 = 67.7~\mathrm{km~s}^{-1}~\mathrm{Mpc}^{-1}$, $\Omega_m=0.31$ and $\Omega_\Lambda = 0.69$ \citep{collaboration2020planck}. 
+In particular, \dmh\ measurements play a crucial role in understanding the three-way relationship between the stellar populations of galaxies, their circumgalactic gas environments, and their dark matter halos. 
+Understanding the baryon cycle as a function of stellar mass ($M*$) and halo mass ($M_h$) is a major goal of galaxy formation and cosmology, and has implications for Stage IV weak lensing surveys, whose constraining power hinges on an accurate and precise understanding of the impact of baryonic feedback on cosmic shear measurements of the matter power spectrum~\citep[for example]{rudd2008effects,agertz2015interplay}.
+However, current probes mainly target massive halos: X-ray and thermal Sunyaev-Zeldovich observations, for instance, are temperature sensitive and are biased towards groups and clusters ($M_h \sim 10^{14-15}$)~\citep{blanton2010active,harrison2024observational}.  
+While the kinetic Sunyaev-Zeldovich effect lacks this explicit temperature dependence, it is suppressed by a factor of $v/c$, making for a fainter signal that is detected primarily in cross-correlations with massive halos~\citep{schaan2021atacama,hadzhiyska2024evidence}.
 
-\section{Sample Selection}\label{sec:sample}
-We select a subsample of FRBs available in the literature to reduce contaminants for our measurement of \dmh, out of all FRBs in the literature with secure redshifts and publicly-available photometry. We perform a redshift cut, eliminating sources beyond $z > 0.2$. This boundary is chosen to balance a trade off: we have statistics from including more distant sources, but at lower redshifts, we are less subject to optical selection, in which host galaxies significantly less luminous than $L^*$ may remain undetected.~\citep{seebeck2021effects,marnoch2023unseen,jahnsschindler2023how}, and insensitive to the common assumption that $\langle \dmh \rangle$ is constant over cosmic time.
+In this observational landscape, studying the circumgalactic gas surrounding isolated $L^*$ halos ($M_h \sim 10^{12}$) remains challenging.
+In principle, FRB DMs offer a sensitive probe of the circumgalactic gas in $L^*$ halos.
+The challenge in doing so is that FRB DMs are ``confusion-limited'': while the signal from $L^*$ halos is observable, it is difficult to localize any particular DM signal of interest along the line of sight.
+Several methods have been proposed to circumvent this problem, including angular cross-correlations with galaxy surveys~\citep{2019arXiv190102418M} and pencil-beam spectroscopic surveys~\citep{khrykin2024flimflam}.
+The bottleneck is that these approaches either require many FRB sources or are expensive in telescope time.
 
+In this paper, we take a different approach to disentangling the CGM of the host, which refer to as $\dmhcgm$, from $\dmh$.
+We introduce and explore the $M^*-\dmh$ relation for isolated star-forming FRB host galaxies at $z < 0.2$, in analogy to correlations between observables (``cluster scaling relations'') which were predicted and observed in more massive halos~\citep{mushotzky1984xray,bryan2008statistical,markevitch1998lxt}.
+We define a sub-sample of these $z < 0.2$ hosts, constructed to minimize the bias and scatter in $\dmhcgm$, and use the sub-sample to demonstrate the ability of FRBs to constrain feedback models through the $M^*-\dmh$ relation (\S~\ref{sec:sample}).
+We show by ray-tracing snapshots in the CAMELS suite of hydro-simulations that the $M^*-\dmh$ relation is a sensitive probe of stellar and AGN feedback models~\citep{villaescusa_navarro2021camels,ni2023camels}.
+In \S~\ref{sec:camels} we compare our sub-sample to theoretical predictions from three sub-grid models implemented in the CAMELS suite of hydrodynamical simulations to constrain models for star formation and galactic winds originating from e.g. supernova and AGN feedback in isolated $L^*$ galaxies.
+This corresponds to a halo mass range ($M_h \lesssim 10^{13}$) inaccessible to traditional gas probes, i.e. X-ray emission and Sunyaev-Zeldovich observations. 
+
+\section{Constructing the observed $M^*-\dmh$ relation}\label{sec:sample}
+We aggregate all known FRB host galaxies with the goal of exploring the $M^*-\dmh$ relation for isolated, star forming galaxies.
+These include sources from~\citep{macquart2020census,bhandari2020host,lanman2022sudden,leewadell2023host,michilli2023subarcminute,ravi2023deep,gordon2023demographics,bhardwaj2024host,law2024deep,sharma2024preferential,connor2024gas,cassanelli2024fast,shannon2024commensal,chime2025catalog}.
+We impose a redshift cutoff of $z < 0.2$ to balance a trade-off. 
+On one hand, a more distant cutoff adds statistical constraining power from including more distant sources.
+On the other hand, a less distant cutoff adds several advantages.
+It makes our results insensitive to redshift evolution effects and the IGM contribution, whose scatter $\sigmaigm$ will add extra noise in our measurement of $\dmhcgm$ which increases with increasing redshift~\citep{batten2021cosmic,walker2024dispersion}. 
+It also reduces optical selection effects, in which host galaxies significantly less luminous than $L^*$ may remain un-associated or undetected~\citep{seebeck2021effects,marnoch2023unseen,jahnsschindler2023how}.
+
+For each FRB, we calculate $\dmh$ according to Eq.~\ref{eq:dmh_definition}, using the NE2001~\citep{cordes2002ne2001} model to estimate $\dmmwism$ and the~\citet{yamasaki2020galactic} model to estimate $\dmmwcgm$, and the open-source\footnote{\texttt{https://github.com/FRBs}} implementation of $\langle \dmcosmic \rangle$.
+All quantities in this work are calculated using the \textit{Planck} cosmology for a flat $\Lambda$CDM universe of $H_0 = 67.7~\mathrm{km~s}^{-1}~\mathrm{Mpc}^{-1}$, $\Omega_m=0.31$ and $\Omega_\Lambda = 0.69$ \citep{collaboration2020planck}. 
+Where available, we use the published stellar mass measurements derived from spectral energy distribution (SED) fitting.
+For sources which lack published $M^*$ measurements from SED fitting, we aggregate publicly available photometry from GALEX, DECaLS, PanSTARRS, and WISE.
+\textbf{We fit the SED of these sources using CIGALE~\citep{boquien2019cigale} with a Chabrier IMF~\citep{chabrier2003galactic} assuming a delayed-$\tau$ star formation history.}
+Our stellar masses derived using this method are in agreement with the linear relation between $M^*$ and r-band light ($M_r$) defined in~\citet{mahajan2018galaxy}.
+
+\subsection{De-biased sub-sample $\dmhcgm$}
 The \dmh\ distribution of all FRB sightlines at $z < 0.2$ is shown in Fig.~\ref{fig:host_dm}. Each \dmh\ measurement is associated with some uncertainty which is dominated by astrophysical (not measurement) uncertainties. As mentioned earlier, the difficulty in measuring the CGM component of FRB host galaxies comes from unmodeled contributions along the line of sight. We enumerate potential contributions and how we minimized them using our sample selection as follows.
 \begin{enumerate}
     \item The DM from large-scale gas overdensities and underdensities which trace the large scale structure on $\sim$ 100 Mpc scales can contaminate the measurement of the CGM of the FRB host galaxy. While the IGM contribution at low redshift is inhomogeneous, dispersion-measure ray tracing through the Illustris TNG simulation reveals that on average, the root-mean-square contribution from large-scale structure ($\sigma_\textrm{cosmic}$) adds 63.3 pc cm$^{-3}$ of RMS scatter at $z = 0.1$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}. We account for this in each \dmh\ measurement by adding $\sigma_\textrm{IGM}(z_h)$ interpolated between these measurements as a function of redshift, though our results are insensitive to this choice.
@@ -452,7 +461,7 @@ Here we demonstrate that our measurements are insensitive to galactic feedback. 
 $$\dfrac{d(\langle\dmh\rangle)}{d(\Omega_b f_\text{diffuse} H_0)} = \dfrac{XXXX\textrm{pc cm}^{-3}}{0.05 \times 0.7 \times 70 km/s/Mpc}.$$
 
 \bibliographystyle{aasjournal}
-\bibliography{references.}
+\bibliography{references}
 
 
 
