@@ -191,7 +191,7 @@ def plot_rectangles(ax,rect_data, **rect_kwargs):
         # ax.text(x_min + width/2, y_center, f"{i+1}", ha='center', va='center', fontsize=10)
     return ax
 
-def visualize_results(results: dict, sampled_data: pd.DataFrame) -> None:
+def visualize_results_deprecated(results: dict, sampled_data: pd.DataFrame) -> None:
     """
     Visualize the results of the halo analysis.
     
