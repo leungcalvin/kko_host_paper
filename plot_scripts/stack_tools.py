@@ -1,11 +1,13 @@
 from scipy.special import erf
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.colors import Normalize
 from matplotlib import cm
 import numpy as np
 from scipy.special import erfc, erfcx, log_ndtr
 
 def _log_likelihood_ul(x):
+    x /= np.sqrt(2)
     """Corrected stable version"""
     # For positive x, the original expression is generally stable
     if np.isscalar(x):
@@ -27,7 +29,7 @@ def _log_likelihood_ul(x):
         
 def _log_likelihood_ul_ref(argument):
     # reference implementation, not numerically stable though
-    return np.log(0.5 * (1 + erf(argument)))
+    return np.log(0.5 * (1 + erf(argument / np.sqrt(2))))
 
 def _log_likelihood_exact(argument):
     return -0.5 * argument**2
@@ -214,7 +216,7 @@ def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cbar_label = 'Ln
     # Add colorbar
     # Create axis for colorbar with same width as image
     divider = make_axes_locatable(ax)
-    cax = divider.append_axes("bottom", size="1%", pad=0.5)
+    cax = divider.append_axes("bottom", size="5%", pad=0.1)
     cbar = fig.colorbar(im, cax=cax,orientation = 'horizontal')
     cbar.set_ticks(np.linspace(vmin, vmax,num = 5))
     cbar.set_label(cbar_label)
