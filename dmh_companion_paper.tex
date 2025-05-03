@@ -208,12 +208,12 @@
 %% automatically put the author and affiliation information from the manuscript
 %% and save the corresponding author the trouble of entering it by hand.
 
-\correspondingauthor{CHIME}%Calvin Leung}
-\email{calvin\_leung@berkeley.edu}
+%\correspondingauthor{CHIME}%Calvin Leung}
+%\email{calvin\_leung@berkeley.edu}
 
 
-\author[0000-0002-4209-7408]{C.~Leung}
-\affiliation{UC Berkeley}
+%\author[0000-0002-4209-7408]{C.~Leung}
+%\affiliation{UC Berkeley}
 
 \collaboration{99}{(CHIME/FRB Collaboration)}
 
@@ -231,7 +231,17 @@
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Low-redshift FRBs provide the tightest and most robust constraints on the contents of the circumgalactic medium of $L^*$ galaxies via the inferred host component of the dispersion measure (DM) budget. There are now over 100 FRB host galaxies in the literature, we  discarding FRBs in groups and clusters, edge-on host galaxy systems, dwarf galaxy hosts, hosts beyond $z > 0.2$, and FRBs selected on the basis of their low total dispersion measure, we infer the mean and standard deviation of the host contribution for star-forming FRB host galaxies to be $104\pm 16$ and $113\pm12$ pc cm$^{-3}$. This characterization agrees with others in the literature, but is the most robust to date by virtue of the low redshift ($z \sim 0.1$) of our sample, which minimizes redshift evolution and contamination from large-scale structure and reduced contamination from the host ISM. In addition, we present evidence for a weak dependence of \dmh\ over a range of host galaxy stellar masses, as traced by r-band light ($M_r = -17$ to $-22$). Comparing our data to predictions for the \dmh\-stellar mass relation from the CAMELS simulations, our results challenge sub-grid models for star formation, galactic winds, and AGN feedback which predict large ($\sim 200$ pc cm$^{-3}$) mean host contributions at larger stellar masses. More broadly, the ability of FRBs to probe the gas content of $\sim L^*$ haloes makes then complementary to other gas probes.
+Low-redshift FRBs provide the tightest and most robust constraints on the contents of the circumgalactic medium of $L^*$ galaxies via the inferred host component of the dispersion measure (DM) budget. 
+We study the relationship between FRB hosts and their host dispersion measures, and use the $M^*-\dmh$ relation to constrain models for feedback in isolated galaxies as implemented in the CAMELS suite of hydrodynamical simulations.
+We stack a sample of 24 FRBs with robust host associations, selected from publicly-available catalogs to minimize all contributions to \dmh\ except for that from their circumgalactic medium.
+When considering only the three fiducial models available within CAMELS, our results are in statistical tension with Astrid, with IllustrisTNG and SIMBA being preferred contingent on whether \dmh\ is interpreted as an upper limit or an unbiased estimator of \dmhcgm respectively. 
+We show that this conclusion is robust to a wide range of assumptions, such as the offset distribution of FRBs from their hosts, and the relative occurrence of FRBs in e.g. star forming versus massive galaxies.
+Our results directly probe baryonic feedback in star forming galaxies in the Local Universe $(z < 0.2)$, and indirectly imply a lower limit on the strength of feedback as quantified by the suppression of the matter power spectrum due to baryonic feedback.
+This reaches halo masses inaccessible by X-ray and Sunyaev-Zeldovich CMB distortions, demonstrating the unique complementarity of FRBs to other gas probes.
+%There are now over 100 FRB host galaxies in the literature, we  discarding FRBs in groups and clusters, edge-on host galaxy systems, dwarf galaxy hosts, hosts beyond $z > 0.2$, and FRBs selected on the basis of their low total dispersion measure, we infer the mean and standard deviation of the host contribution for star-forming FRB host galaxies to be $104\pm 16$ and $113\pm12$ pc cm$^{-3}$. 
+%This characterization agrees with others in the literature, but is the most robust to date by virtue of the low redshift ($z \sim 0.1$) of our sample, which minimizes redshift evolution and contamination from large-scale structure and reduced contamination from the host ISM. 
+%In addition, we present evidence for a weak dependence of \dmh\ over a range of host galaxy stellar masses, as traced by r-band light ($M_r = -17$ to $-22$). 
+%Comparing our data to predictions for the \dmh\-stellar mass relation from the CAMELS simulations, our results challenge sub-grid models for star formation, galactic winds, and AGN feedback which predict large ($\sim 200$ pc cm$^{-3}$) mean host contributions at larger stellar masses. 
 
 \end{abstract}
 \keywords{Radio transient sources (2008)}
@@ -405,15 +415,56 @@ If \dmh\ is an unbiased estimator, then a Gaussian likelihood is most appropriat
 \begin{align}
     \mathcal{L}^\mathrm{gauss}_{ij} &= \exp\left[ -\dfrac{1}{2}\dfrac{(\dm_{\mathrm{h,i}} - \widehat{\dm}_j)^2}{\sigma_i^2 + S_j^2} \right]\\
     \intertext{If $\dmh$ is a biased estimator of $\dmhcgm$, then we use a Gaussian likelihood integrated over all values of $\dmhcgm$ compatible with the data.}
-    \mathcal{L}^\mathrm{ul}_{ij} &= \dfrac{1}{2}\left(1 + \mathrm{erf}\left(\dfrac{\dm_\mathrm{h,i} - \widehat{\dm}_j}{(\sigma_i^2 + S_j^2)^{1/2}} \right)\right)
+    \mathcal{L}^\mathrm{ul}_{ij} &= \dfrac{1}{2}\left(1 + \mathrm{erf}\left(\dfrac{\dm_\mathrm{h,i} - \widehat{\dm}_j}{2(\sigma_i^2 + S_j^2)^{1/2}} \right)\right)
 \end{align}
-The likelihood from each individual FRB and mass bin is combined via $\log \mathcal{L} = \sum_{i,j} \log\mathcal{L}_{ij}$. 
-We calculate the likelihood for each feedback model under our fiducial model parameters.
-Also, we vary parameters including $b_{min},b_{max}$, the redshift of our snapshot $(z = 0.0,0.1,0.2)$, and the halo weights $w_k$. 
+We calculate both likelihoods for each feedback model under our fiducial model parameters.
+Then for each likelihood individually, we combine posteriors from each individual FRB and mass bin via $\log \mathcal{L} = \sum_{i,j} \log\mathcal{L}_{ij}$. 
 
-\subsection{Implications for Weak Lensing}
-Of the three simulation suites considered, ASTRID has the ``weakest'' feedback -- as pointed out in~\citet{ni2023camels}, AGN kinetic feedback in ASTRID is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model.
-ASTRID implies a certain level of suppression of the matter power spectrum shown in Fig.~\ref{fig:sk}, in which we have shown the predictions for the suppression in the matter power spectrum from each of the CAMELS simulations we have used in our \dmh\ measurements.
+\begin{figure*}
+    \includegraphics[width=0.49\textwidth]{model_selection_ul.pdf}
+    \includegraphics[width=0.49\textwidth]{model_selection_gauss.pdf}
+    \caption{We print the summed log-likelihood for the fiducial analysis and several variants thereof in Fig.~\ref{fig:posterior}. 
+In addition, to guide the eye, we color each analysis variant (row in Fig~\ref{fig:model}) according to $\log_{10}(K)$, where $K$ compares each of the three models with the most probable of the three feedback models.
+    }
+    \label{fig:model}
+\end{figure*}
+
+With the underlying assumption that one of the three fiducial CAMELS models accurately captures the impact of feedback in $L^*$ halos, our observations and characterization of the $M^*-\dmh$ relation provide strong evidence against the feedback model implemented in Astrid, with Bayes factors well in excess of the threshold needed to rule out a model.
+To ensure that our results are robust, we vary the parameters used to make our model predictions relative to our fiducial model one at a time.
+Our fiducial results use the $z = 0.1$ snapshot, with sightlines selected between $0.13 < b < 0.20$, followed by calculation of the weighted mean and scatter of \dmhcgm\ in several mass bins, where the weights for each sightline in a mass bin are proportional to the star formation rate of that halo.
+To ensure that our results are insensitive to redshift evolution, we repeat the analysis with the same snapshots at different redshifts ($z = 0$ and $0.2$).
+To verify that we are avoiding the host galaxy ISM, we vary $b_{min}$.
+To verify that our results are agnostic to the FRB-host galaxy offset distribution, we increase $b_{max}$ to 0.2.
+We explore different weighting schemes, allowing FRBs to trace either star formation rate, stellar mass ($w_h \propto M^*$), both ($w_h \propto \mathrm{SFR} M^*$), or neither (uniform weights).
+Finally, our selection of isolated host galaxies leaves open the possibility that we have selected underdense sightlines.
+In this scenario, $\dmcosmic(z)$ towards our specific host galaxies may not be well-predicted by its all-sky mean value $\langle\dmcosmic(z)\rangle$.
+The median sightline is underdense relative to the mean sightline, as the latter gets skewed by the contributions from intervening halos.
+The fractional discrepancy between the mean and median value of $\dmcosmic(z)$ is $\approx25\%$ at these redshifts, so we vary the amount of $\langle\dmcosmic\rangle$ subtracted by $25\%$ in either direction.
+Even this modification does not change our results.
+This is consistent with the low redshift of our sample, which guarantees that the Poisson rate of intervening $L^*$ halos is $<<1$~\citep{mcquinn2014locating}.
+
+\section{Discussion and Conclusion}
+We have explored the $M^*-\dmh$ relation for the first time, and have used the CAMELS simulations to demonstrate its potency in constraining the gas environments of $L^*$ halos.
+FRB sightlines constrain feedback in isolated galaxies with active stellar feedback: a region of parameter space which is difficult to access with microwave and X-ray gas probes.
+Of the three fiducial simulation suites considered, ASTRID has the ``weakest'' feedback.
+As pointed out in~\citet{ni2023camels}, AGN kinetic feedback in ASTRID is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model.
+
+It is possible to compare our results on equal footing with existing measurements of baryonic feedback from weak lensing analyses such as cosmic shear. 
+We can do so by plot the implied matter power spectrum suppression factor $S(k)$ implied by Astrid, IllustrisTNG, and SIMBA evaluated at $z = 0$ in Fig.~\ref{fig:sk}, as well as the baryonic suppression factor~\cite{chisari2018impact} measured directly~\citep{chen2023constraining,terasawa2025exploring} in cosmic shear evolved to $z = 0$.
+At face value, our results rule out weak feedback (ASTRID) and favor the stronger feedback seen in IllustrisTNG and SIMBA (depending on whether \dmh\ is interpreted as a measurement or an upper limit on \dmhcgm).
+
+However, this comparison is subject to several major caveats. 
+First, our measurements are sensitive to star forming galaxies at $z = 0$ and $M_h \sim 10^{12}$; FRB hosts show little to no sign of AGN activity.  
+This makes our data very complementary to weak lensing.
+DES weak lensing, for instance, is sensitive to $z \sim 0.5$ and $M_h \sim 10^{14}$, whereas Subaru-HSC reaches $z \sim 1$.
+At those halo masses, gas expulsion at low redshifts is unlikely to be driven by stellar feedback alone.
+Instead it is thought that stellar feedback modulates the efficiency of AGN feedback; together they drive the expulsion of gas from intermediate-mass $\sim 10^{13.5} M_\odot$ halos.
+
+This motivates the need for a detailed understanding of AGN and stellar feedback over cosmic time.
+Future work along this direction using FRBs can extend this ``one-halo stacking'' analysis to higher halo masses, using groups and cluster FRBs like those presented in~\cite{connor2023deep,chime2025catalog}. 
+It can also be extended to higher redshifts to study the evolution of feedback over cosmic time, although the foreground posed by the IGM will demand larger number of sources ($\sigmaigm$ increases).
+Finally, all-sky FRB telescopes~\citep{lin2022burstt} can deliver a large number of FRBs at distances of $<$ 400 Mpc.
+This will extend the $M^*-\dmh$ relation downwards in stellar and halo mass, which can allow baryonic feedback to be explored in dark-matter dominated systems like dwarf galaxies, opening up the field of ``near-field FRB cosmology''. 
 
 \begin{figure}
     \centering
@@ -422,8 +473,14 @@ ASTRID implies a certain level of suppression of the matter power spectrum shown
     \label{fig:sk}
 \end{figure}
 
-\section{Conclusion}
-We have characterized the mean host contribution of FRB dispersion measures using the largest uniform sample of low-redshift FRBs. We have found that in many cases, the DM excess can be attributed to a nearby galaxy cluster or an edge-on host geometry. We use this additional statistical power to directly measure the enigmatic host galaxy contribution to FRB dispersion measures in a way that is agnostic to any particular parameterization of feedback and fluctuations in the IGM; we measure $\langle\dmh\rangle = 104\pm16$ and $S_h = 113\pm12$ for non-dwarf hosts with $M_r < -17$. Our measurement represents a significant improvement relative to global fitting methods that use a combination of sources at high and low redshifts to break degeneracies under the assumption of a particular redshift evolution of the host galaxy contribution. Model-insensitive measurements of $\dmh$ like the one here will be a crucial anchor for FRB cosmology at higher redshifts, and contain rich information about the spatial distribution of FRBs within their hosts. In addition, we have demonstrated for the first time the use of FRBs to indirectly probe the matter power spectrum at small scales - a frontier where our understanding of baryonic feedback will be of prime importance in the next decade.
+%\section{Conclusion}
+%We have characterized the mean host contribution of FRB dispersion measures using the largest uniform sample of low-redshift FRBs. 
+%We have found that in many cases, the DM excess can be attributed to a nearby galaxy cluster or an edge-on host geometry. 
+%We use this additional statistical power to directly measure the enigmatic host galaxy contribution to FRB dispersion measures in a way that is agnostic to any particular parameterization of feedback and fluctuations in the IGM; we measure $\langle\dmh\rangle = 104\pm16$ and $S_h = 113\pm12$ for non-dwarf hosts with $M_r < -17$. 
+%Our measurement represents a significant improvement relative to global fitting methods that use a combination of sources at high and low redshifts to break degeneracies under the assumption of a particular redshift evolution of the host galaxy contribution. 
+%Model-insensitive measurements of $\dmh$ like the one here will be a crucial anchor for FRB cosmology at higher redshifts, and contain rich information about the spatial distribution of FRBs within their hosts. 
+%In addition, we have demonstrated for the first time the use of FRBs to indirectly probe the matter power spectrum at small scales - a frontier where our understanding of baryonic feedback will be of prime importance in the next decade.
+
 \section{Acknowledgments}
 We would like to thank Alexa Gordon for providing inclination measurements for FRB 20240201A and 20240310A.
 We acknowledge that CHIME and~\kkoname\ are located on the traditional, 
