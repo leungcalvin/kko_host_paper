@@ -266,11 +266,11 @@ Historically, this quantity has been referred to as the ``host contribution'' to
 
 Here the subscripts ``tot'', ``cosmic'', and ``MW'' indicate the total DM as measured in FRB data, the mean cosmic contribution out to the host redshift $z$, and the Milky Way (disk plus halo, i.e. CGM) contributions of the DM respectively. 
 Here and throughout this paper, the angle brackets refer to taking an average over all sightlines. 
-However, it contains a wealth of information beyond that the host galaxy, including those from the stellar ``circum-burst'' environment of the FRB~\citep[see e.g.][]{niu2021repeating,caleb2023subarc}, the host-galactic ISM~\citep{cassanelli2024fast}, and the circumgalactic DM of the host galaxy at the endpoint of each FRB sightline~\citep{prochaska2019probing}, groups and clusters~\citep{connor2023deep}, and the baryonic large-scale structure along the line of sight~\citep[see e.g.][]{2019arXiv190102418M,reischke2023calibrating}.
+However, it contains a wealth of information beyond that the host galaxy, including those from the stellar ``circum-burst'' environment of the FRB~\citep[see e.g.][]{niu2021repeating,caleb2023subarc}, the host-galactic ISM~\citep{cassanelli2024fast}, and the circumgalactic DM of the host galaxy at the endpoint of each FRB sightline~\citep{prochaska2019probing,medlock2024probing}, groups and clusters~\citep{connor2023deep}, and the baryonic large-scale structure along the line of sight~\citep[see e.g.][]{2019arXiv190102418M,reischke2023calibrating,medlock2025constraining}.
 
 In particular, \dmh\ measurements play a crucial role in understanding the three-way relationship between the stellar populations of galaxies, their circumgalactic gas environments, and their dark matter halos. 
 Understanding the baryon cycle as a function of stellar mass ($M*$) and halo mass ($M_h$) is a major goal of galaxy formation and cosmology, and has implications for Stage IV weak lensing surveys, whose constraining power hinges on an accurate and precise understanding of the impact of baryonic feedback on cosmic shear measurements of the matter power spectrum~\citep[for example]{rudd2008effects,agertz2015interplay}.
-However, current probes mainly target massive halos: X-ray and thermal Sunyaev-Zeldovich observations, for instance, are temperature sensitive and are biased towards groups and clusters ($M_h \sim 10^{14-15}$)~\citep{blanton2010active,harrison2024observational}.  
+However, current probes mainly target massive halos: X-ray and thermal Sunyaev-Zeldovich observations, for instance, are temperature sensitive and are biased towards groups and clusters ($M_h \sim 10^{14-15}$)~\citep[e.g.][]{harrison2024observational}.  
 While the kinetic Sunyaev-Zeldovich effect lacks this explicit temperature dependence, it is suppressed by a factor of $v/c$, making for a fainter signal that is detected primarily in cross-correlations with massive halos~\citep{schaan2021atacama,hadzhiyska2024evidence}.
 
 In this observational landscape, studying the circumgalactic gas surrounding isolated $L^*$ halos ($M_h \sim 10^{12}$) remains challenging.
@@ -345,7 +345,7 @@ In this way, the stacked sample provides robust upper limits on the average circ
 %We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. 
 %However, this is mitigated by our host luminosity cut. 
 
-\section{Constructing the Simulated $M^*-DM_{CGM}$ relation}
+\section{Constructing the Simulated $M^*-DM_{CGM}$ relation}\label{sec:camels}
 To connect the observed $M^*-\dmh$ distribution to galaxy formation sub-grid models, we compare the \dmh-stellar mass relation to predictions from the CAMELS suite of hydrodynamical simulations \citep{camels_data_release, camels_presentation, camels_data_release2}. 
 CAMELS is a suite of small-volume (25 Mpc/h)$^3$ hydrodynamical simulations implementing three distinct subgrid ``prescriptions'' for the unresolved small-scale physics that regulates galaxy formation and evolution, such as star formation and AGN feedback, as implemented in SIMBA, IllustrisTNG, and Astrid suites of hydrodynamical simulations.
 One major goal of the CAMELS project is to produce theory predictions to independently constrain the suppression of the matter power spectrum induced by baryonic feedback relative to a dark-matter only simulation, as measured in current and next-generation weak lensing surveys such as the Dark Energy Survey~\citep{chen2023constraining,aric_o2023des} and LSST/Rubin. 
@@ -449,16 +449,16 @@ FRB sightlines constrain feedback in isolated galaxies with active stellar feedb
 Of the three fiducial simulation suites considered, ASTRID has the ``weakest'' feedback.
 As pointed out in~\citet{ni2023camels}, AGN kinetic feedback in ASTRID is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model.
 
-It is possible to compare our results on equal footing with existing measurements of baryonic feedback from weak lensing analyses such as cosmic shear. 
-We can do so by plot the implied matter power spectrum suppression factor $S(k)$ implied by Astrid, IllustrisTNG, and SIMBA evaluated at $z = 0$ in Fig.~\ref{fig:sk}, as well as the baryonic suppression factor~\cite{chisari2018impact} measured directly~\citep{chen2023constraining,terasawa2025exploring} in cosmic shear evolved to $z = 0$.
-At face value, our results rule out weak feedback (ASTRID) and favor the stronger feedback seen in IllustrisTNG and SIMBA (depending on whether \dmh\ is interpreted as a measurement or an upper limit on \dmhcgm).
+It is possible to compare our results with existing measurements of baryonic feedback from weak lensing analyses such as cosmic shear. 
+We can do so by plotting the implied matter power spectrum suppression factor $S(k)$ implied by Astrid, IllustrisTNG, and SIMBA evaluated at $z = 0$ in Fig.~\ref{fig:sk}, as well as the baryonic suppression factor~\cite{chisari2018impact} measured directly~\citep{chen2023constraining,terasawa2025exploring} in cosmic shear evolved to $z = 0$.
+At face value, our results rule out weak feedback (Astrid) and favor the stronger feedback seen in IllustrisTNG and SIMBA (depending on whether \dmh\ is interpreted as a measurement or an upper limit on \dmhcgm respectively).
 
 However, this comparison is subject to several major caveats. 
-First, our measurements are sensitive to star forming galaxies at $z = 0$ and $M_h \sim 10^{12}$; FRB hosts show little to no sign of AGN activity.  
+First, our measurements are from star forming galaxies at $z = 0$ and $M_h \sim 10^{12}$, and FRB hosts show little to no sign of AGN activity -- therefore our measurements  primarily probe the impact of stellar feedback.
 This makes our data very complementary to weak lensing.
 DES weak lensing, for instance, is sensitive to $z \sim 0.5$ and $M_h \sim 10^{14}$, whereas Subaru-HSC reaches $z \sim 1$.
 At those halo masses, gas expulsion at low redshifts is unlikely to be driven by stellar feedback alone.
-Instead it is thought that stellar feedback modulates the efficiency of AGN feedback; together they drive the expulsion of gas from intermediate-mass $\sim 10^{13.5} M_\odot$ halos.
+Instead it is thought that stellar feedback modulates the efficiency of AGN feedback~\citep{medlock2025constraining}; together they drive the expulsion of gas from intermediate-mass $\sim 10^{13.5} M_\odot$ halos.
 
 This motivates the need for a detailed understanding of AGN and stellar feedback over cosmic time.
 Future work along this direction using FRBs can extend this ``one-halo stacking'' analysis to higher halo masses, using groups and cluster FRBs like those presented in~\cite{connor2023deep,chime2025catalog}. 
