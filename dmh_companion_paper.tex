@@ -360,7 +360,7 @@ Doing so allows us to conclude that for a given feedback model $\mathcal{M}$ tha
 We follow the procedure developed in~\citet{medlock2024probing}, slightly modified to guarantee that $\dmhcgm > \widehat{\dm}_\mathcal{M}$.
 
 We start with both halo catalogs and simulation snapshots from the the \texttt{1P\_p7\_0} set of simulations in CAMELS, corresponding to the fiducial models of the original simulations. 
-We use \texttt{yt}\citep{yt} to interpolate the electron density field onto a regular grid. 
+We use \texttt{yt}\citep{turk2011yt} to interpolate the electron density field onto a regular grid. 
 The electron density field is then integrated along one of the grid axes to make two-dimensional maps of the DM integrated through the snapshot.
 After removing sightlines intercepting more than one halo within its $R_{200c}$, like in criteria 2 in \S\ref{sec:debias},
 these sightlines may be indexed by their closest halo in the snapshot, which we denote $k$.
@@ -392,7 +392,7 @@ We define given a sub-grid model $\mathcal{M}$ the averaged (or ``stacked'') pre
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{msdm_0.10_086.pdf}
+    \includegraphics[width=\linewidth]{msdm.pdf}
     \caption{The \dmh-$M^*$ relation for isolated FRB host galaxies, compared against simulation results from ASTRID, IllustrisTNG, and CAMELS. Box widths indicate bin widths, whereas box centers and heights indicate the unweighted standard deviation in each bin. A stark visual difference between the mass scalings of the three model predictions can be seen.}
     \label{fig:camels}
 \end{figure}
@@ -425,7 +425,7 @@ Then for each likelihood individually, we combine the posteriors of each individ
     \includegraphics[width=0.49\textwidth]{model_selection_ul.pdf}
     \includegraphics[width=0.49\textwidth]{model_selection_gauss.pdf}
     \caption{We print the summed log-likelihood for the fiducial analysis and several variants thereof.
-In addition, to guide the eye, we color each analysis variant (row in Fig~\ref{fig:model}) according to $\log_{10}(K)$, where $K$ compares each of the three models with the most probable of the three feedback models. The odds ratios suggest that the fiducial model of Astrid is ruled out.
+    In addition, to guide the eye, we color each analysis variant (row in Fig~\ref{fig:model}) according to $\log_{10}(K)$, where $K$ compares each of the three models with the most probable of the three feedback models.
     }
     \label{fig:model}
 \end{figure*}
