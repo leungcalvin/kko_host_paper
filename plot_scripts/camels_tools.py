@@ -118,8 +118,8 @@ def analyze_halos(
         
     # 5. Compile results
     results = {'filepath': filepath,
-            'weighted_mean': weighted_mean,
-            'weighted_std': weighted_std,
+            'weighted_mean': weighted_mean / 2, # divide by 2 for one halo term
+            'weighted_std': weighted_std / 2, # divide by 2 for one halo term 
             'M_star_bins': M_star_bins,
             'num_sampled_sightlines': counts,
             'b_range': np.array([b_min, b_max]),
@@ -151,8 +151,8 @@ def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted
     results = from_file(path_to_file)
     M_star_bins = np.array(results['M_star_bins'])
     x_vals = np.sqrt(M_star_bins[:,0] * M_star_bins[:,1])
-    y_vals = results['weighted_mean'][0,:] / 2 # factor of 2 for 1 halo term
-    y_errs = results['weighted_std'][0,:] / 2 # factor of 2 for 1 halo term
+    y_vals = results['weighted_mean'][0,:] 
+    y_errs = results['weighted_std'][0,:] 
     min_max_cen_std = np.vstack((np.array(results['M_star_bins']).T,y_vals, y_errs)).T
     plot_rectangles(ax,min_max_cen_std,**rect_kwargs)
     plt.scatter(x_vals,y_vals,**rect_kwargs,label = label)
