@@ -36,6 +36,7 @@ def analyze_halos(
     sfr_max: float,
     out_file: str = None,
     random_seed: int = 42,
+    oversample: int = 0,
     ):
     """
     Analyze halos from a CSV file with filtering and weighting.
@@ -86,12 +87,17 @@ def analyze_halos(
             (df['M_star'] <= M_star_max)
         ]
         sampled_data = filtered_df.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True)
-        assert len(sampled_data.index) == len(set(sampled_data.index)),'NOT unique!'
+        oversamples = []
+        if oversample:
+            for iisample in range(oversample):
+                oversamples.append(filtered_df.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True))
+            sampled_data = pd.concat(oversamples,ignore_index=True,sort = False)
+
         if len(sampled_data) < num_halos:
             print(
                 f"Not enough halos after filtering (bin index={iibin})"
                 )
-            print(f'sightlines within halos: {len(filtered_df)}, unique halos: {len(set(filtered_df['halo_index']))}, sampled sightlines: {len(sampled_data.index)}')
+        print(f'sightlines within halos: {len(filtered_df)}, unique halos: {len(set(filtered_df['halo_index']))}, sampled sightlines: {len(sampled_data.index)}')
         # 2. Sample: one sightline per halo, not one per unit area.
         M_star_bins.append([M_star_min,M_star_max])
         # 3. Compute weightings
@@ -322,3 +328,10 @@ def plot_theory_predictions_deprecated(path_to_file,ax,x_axis = 'M_star',weight 
     print('_'.join([str(results['num_filtered_halos']) for results in results_list]))
 
     ax.scatter(x_vals,y_vals,label = label,color = rect.get_facecolor(),alpha = 1,linestyle = '-')
+
+
+def append_fill_between(x,y1,y2,xa,**kwargs):
+    y1 = np.concatenate((y1,np.atleast_1d(y1[-1])))
+    y2 = np.concatenate((y2,np.atleast_1d(y2[-1])))
+    x = np.concatenate((x,np.atleast_1d(xa)))
+    plt.fill_between(x,y1,y2,**kwargs)
