@@ -303,9 +303,9 @@ All quantities in this work are calculated using the \textit{Planck} cosmology f
 Where available, we used the published stellar mass measurements derived from the spectral energy distribution (SED) fitting.
 For sources that lack published $M^*$ measurements from the SED fitting, we aggregate publicly available photometry from GALEX, DECaLS, PanSTARRS, and WISE.
 Where available we use published dust corrections; otherwise we use published r-band photometry ($i$-band for some sources of~\citet{shannon2024commensal} and J-band for FRB 20190520B) and the~\citet{fitzpatrick2007analysis} model to correct for Galactic extinction. 
-We fit the SED of these sources using CIGALE~\citep{boquien2019cigale} with a Chabrier IMF~\citep{chabrier2003galactic} \textbf{assuming a delayed-$\tau$ star formation history.}
-Our stellar masses derived using this method agree with the linear relation between $M^*$ and r-band light ($M_r$) characterized in~\citet{mahajan2018galaxy} deviate at most by 0.5 dex over the range $10^8 < M^*/M_\odot < 10^{11}$. This is consistent with the scatter on that relation ($\pm 0.45$ dex at 1$\sigma$).
-The $M^*-\dmh$ relation for all FRB sightlines at $z < 0.2$ is shown in Fig.~\ref{fig:host_dm}.
+We fit the SED of these sources using CIGALE~\citep{boquien2019cigale} assuming a~\citet{chabrier2003galactic} IMF \msbold{assuming a delayed-$\tau$ star formation history.}
+We have validated that the stellar masses derived using this method are consistent with the linear relation between $M^*$ and r-band light ($M_r$) characterized in~\citet{mahajan2018galaxy}. They differ by at most 0.5 dex over the range $10^8 < M^*/M_\odot < 10^{11}$, which is consistent with the scatter on that relation ($\pm 0.45$ dex at 1$\sigma$).
+The $M^*-\dmh$ relation for all FRB sightlines at $z < 0.2$ is shown in Fig.~\ref{fig:host_dm}. 
 
 \begin{figure*}
     \centering
@@ -315,8 +315,7 @@ The $M^*-\dmh$ relation for all FRB sightlines at $z < 0.2$ is shown in Fig.~\re
 \end{figure*}
 
 \subsection{Defining a de-biased sample}\label{sec:debias}
-The difficulty in measuring the CGM component of FRB host galaxies comes from unmodeled contributions along the line of sight. 
-Each \dmh\ measurement is associated with some uncertainty which is dominated by astrophysical (not measurement) uncertainties. 
+The difficulty in measuring the CGM component of FRB host galaxies using \dmh\ comes from unmodeled contributions along the line of sight that get absorbed into the definition of \dmh, with their respective modeling uncertainties. 
 In other words, for an FRB chosen at random, $\dmh$ is a biased and noisy estimator of $\dmhcgm$.
 We now enumerate reasons why (also labeled in Fig.~\ref{fig:host_dm}), and how we mitigate these issues by applying cuts to our dataset.
 \begin{enumerate}
@@ -354,7 +353,7 @@ One major goal of the CAMELS project is to produce theory predictions to indepen
 Cosmological inference from weak lensing will likely need independent gas probes to simultaneously constrain the suppression factor $S(k,z)$. \citet{medlock2025constraining} recently showed with CAMELS that FRB statistics can indeed predict the degree of suppression of the matter power spectrum due to baryonic feedback. We extend~\citet{medlock2024probing} by measuring the $M^*-\dmh$ relation and comparing it to theory predictions as implemented in SIMBA, IllustrisTNG, and Astrid as implemented with CAMELS.
 
 From each simulation snapshot, it is possible to make theory predictions for the $M^*-\dmh$ relation.
-We denote this theory prediction as $\widehat{\dm}(M^*,\mathcal{M})$ as a function of feedback model $\mathcal{M}$.
+We denote this theory prediction as $\widehat{\dm}_\mathcal{M}$ as a function of feedback model $\mathcal{M}$.
 Since we expect that our measurements (\dmh) slightly overestimate the CGM contribution, \dmh > \dmhcgm\ for the sub-sample described in \S\ref{sec:debias}, 
 our model predictions must be constructed to \emph{underestimate} \dmhcgm in order to derive robust constraints.
 Doing so allows us to conclude that for a given feedback model $\mathcal{M}$ that is no value of \dmhcgm\ which satisfies $\dmh > \dmhcgm > \widehat{\dm}_\mathcal{M}$.
@@ -375,11 +374,13 @@ We select sightlines whose impact parameters lie within some annulus $b_{\rm min
 Many one-halo sightlines pass through the same halo, so we select at random one sightline per distinct halo in the catalog, discarding all the rest.
 This corrects for a preferential sampling of massive halos proportional to their 2d-projected area.
 
-In reality, most FRBs are found to lie within the stellar disk of their host galaxies~\citep[$b \lesssim 0.05$;][]{heintz2020host}.
-Therefore, we choose $b_{\rm min} = 0.13$ in our fiducial analysis to avoid the \dmhism\ contribution entirely on the inner side, and choose $b_{\rm max} = 0.2$.
-Our fiducial choice of $b_{\rm min}$ and $b_{\rm max}$ is conservative in the sense that larger values of $b_{\rm min}$ and $b_{\rm max}$ decrease $\widehat{\dm}_\mathcal{M}$.
+We choose $b_{\rm min} = 0.13$ in our fiducial analysis to avoid the \dmhism\ contribution, and choose $b_{\rm max} = 0.2$. 
+Our fiducial choices of $b_{\rm min}$ and $b_{\rm max}$ are conservative in the sense that larger values of $b_{\rm min}$ and $b_{\rm max}$ decrease $\widehat{\dm}_\mathcal{M}$. 
 However, we will later explore variations in both $b_{\rm min}$ and $b_{\rm max}$.
-After restricting sightlines to a range of $b$ values, $\dmsnap$ values are binned by stellar mass and divided by two to account for the fact that on average, sightlines only measure half of the host CGM.
+\msbold{Our choice of $b_{\rm min}$ is chosen to exclude the possibility that the DM excess in \dmhcgm\ as calculated from our rays is contaminated by the ISM of the host.}
+Our \dmhcgm\ predictions are slightly sensitive to the host offset distribution of FRBs: FRB sources highly offset from their gas halos $(\langle b^2 \rangle \gtrsim 0.5)$ may exclude a portion of \dmcgm\ from their sightlines. Though high-offset exceptions are known to exist~\citep{kirsten2022repeating,shah2024repeating,eftekhari2024massive}, it is thought that this does not happen for the majority of FRB sources which are robustly associated with their hosts~\citep[$b \lesssim 0.05$;][]{heintz2020host}.
+
+After restricting sightlines to a range of $b$ values, $\dmsnap$ values are binned by stellar mass and divided by two to account for the fact that observed FRB sightlines traverse half of the host CGM on average.
 
 For each sub-grid model, we take a weighted average of $\dmsnap$ over all sightlines $k$ whose associated halos lie in stellar mass bin $j$.
 Our fiducial analysis has weights $w_k \propto \mathrm{SFR}$ of the halo associated with simulated halo $h$, which reflect the observed occurrence of FRB sources within star-forming galaxies~\citep{bhandari2020host,loudas2025unveiling}.
