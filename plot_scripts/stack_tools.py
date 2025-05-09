@@ -6,7 +6,8 @@ from matplotlib import cm
 import numpy as np
 from scipy.special import erfc, erfcx, log_ndtr
 
-def _log_likelihood_ul(x):
+def _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
+    x = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     x /= np.sqrt(2)
     """Corrected stable version"""
     # For positive x, the original expression is generally stable
@@ -27,11 +28,25 @@ def _log_likelihood_ul(x):
         result[~pos_mask] = log_ndtr(x[~pos_mask] * np.sqrt(2))
         return result
         
-def _log_likelihood_ul_ref(argument):
+def _log_likelihood_ul_ref(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
+    argument = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     # reference implementation, not numerically stable though
     return np.log(0.5 * (1 + erf(argument / np.sqrt(2))))
 
-def _log_likelihood_exact(argument):
+def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
+    """Integrates over the width parameter, not just location parameter"""
+    sigma_e = np.linspace(0,200,num = 50)
+    dsigma_e = np.diff(sigma_e)[0]
+    ll_per_burst_per_sigma = np.zeros((len(dm_data),len(sigma_e)))
+    prior_vs_sigma = np.log(sigma_e[None,:] * ((sigma_data**2 + sigma_model**2)[:,None] + sigma_e[None,:]**2)**-1) # shape: (n_bursts, n_sigma_e)
+    for iie, se in enumerate(sigma_e):
+        ll_per_burst_per_sigma[:,iie] = _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = se)
+    ll_per_burst_per_sigma = ll_per_burst_per_sigma + prior_vs_sigma
+    return np.log(dsigma_e * np.sum(np.exp(ll_per_burst_per_sigma),axis = -1)) 
+
+
+def _log_likelihood_exact(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
+    argument = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     return -0.5 * argument**2
 
 def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'):
@@ -49,13 +64,22 @@ def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'
         print(model_err)
         print(res['num_sampled_sightlines'])
         model_err[np.isnan(model_err)] = np.inf
-    argument = (dm - model) / np.sqrt(model_err**2 + dm_err**2) # argument of the erf. Likelihood large (model allowed) when argument > 0
-    
     if mode == 'ul':
         _log_likelihood = _log_likelihood_ul
     elif mode == 'exact':
         _log_likelihood = _log_likelihood_exact
-    indices_weird = np.where(argument < -5)
+    elif mode == 'nuisance':
+        _log_likelihood = _log_likelihood_ul_nuisance
+    dm = np.array(dm)
+    dm_err = np.array(dm_err)
+    model = np.array(model)
+    model_err = np.array(model_err)
+
+    log_ell = _log_likelihood(dm_data = dm,
+                              sigma_data = dm_err,
+                              dm_model = model,
+                              sigma_model = model_err)
+    indices_weird = np.where(log_ell < -20)
     if verbose:
         print('Double check these:',indices_weird)
         print(argument)
@@ -67,7 +91,6 @@ def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'
         add_secondary_yaxis(plt.gca(),_log_likelihood,lambda x: f"{x:.2f}",label = 'ln(P)')
         plt.tight_layout()
     
-    log_ell = _log_likelihood(argument)
 
     return log_ell
     
@@ -115,9 +138,18 @@ def add_secondary_yaxis(ax, conversion_func, format_func, label=None, color="tab
     ax2.tick_params(axis='y', labelcolor=color)
     
     return ax2
-
-good = _log_likelihood_ul(np.linspace(-10,10))
-bad = _log_likelihood_ul_ref(np.linspace(-10,10))
+good = _log_likelihood_ul(
+    dm_data = np.linspace(-10,10), 
+    dm_model = 0, 
+    sigma_data=  1,
+    sigma_model = 0 
+    )
+bad = _log_likelihood_ul_ref(
+    dm_data = np.linspace(-10,10), 
+    dm_model = 0, 
+    sigma_data =  1,
+    sigma_model = 0 
+    )
 assert np.sum(np.abs(good - bad) > 0.01) < 12
 
 def plot_fig(fig,axes,log_likelihoods, out_file,
