@@ -309,16 +309,34 @@ def mvsk_numerical_from_lognormal(m,delta_m_plus,delta_m_minus,w,delta_w_plus,de
     print(f"Kurtosis: {kurt_value:.4f} + {kurt_plus - kurt_value:.4f} - {kurt_value - kurt_minus:.4f}")
     return [[mu_value,mu_err],[std_value,std_err],[skew_value,skew_err],[kurt_value,kurt_err],label]
 
-def plot_survey(df,z_max,**errorbar_kwargs):
-    keep = df['primary_z_spec'] < z_max
-    y_err = df['DM_NE2001'][keep] * 0.2
+def plot_survey(ax,df,z_max,**errorbar_kwargs):
+    """Apply redshift cutoff, then plot keepers and non-keepers"""
+    keep = (df['primary_z_spec'] < z_max) 
+    keep *= not_clusters(df) 
+    keep *= not_edge_on(df)
+    keep *= not_scattered(df)
+    keep *= not_elliptical(df)
+    keep *= not_low_galb(df)
+    keep *= not_low_dm(df)
+    keep *= not_low_galb(df)
+    grayed_out = (df['primary_z_spec'] < z_max) * ~keep
+    y_err = df['DM_NE2001'] * 0.4
     if 0: #'extinction_mags' in df.keys():
-        x_err = 0.2 * df['extinction_mags'][keep]
+        x_err = 0.2 * df['extinction_mags']
     else:
         x_err = 0.0
-    plt.errorbar(x = df['M_r'][keep],xerr = x_err,y = df['DM_host_restframe'][keep],yerr=y_err,**errorbar_kwargs)
-    for name in df.index[keep]:
-        print(f'plotting {name}, {df.loc[name][["M_r","DM_host_restframe"]]}')
+    ax.errorbar(x = df['M_r'][keep],
+                 xerr = x_err,
+                 y = df['DM_host_restframe'][keep],yerr=y_err[keep],
+                 mfc = 'C0',mec = 'C0',ecolor = 'C0',
+                 **errorbar_kwargs)
+    ax.errorbar(x = df['M_r'][grayed_out],
+                 xerr = x_err,y = df['DM_host_restframe'][grayed_out],
+                 yerr=y_err[grayed_out],
+                 mfc = 'gray',mec = 'gray',ecolor = 'gray',
+                 **errorbar_kwargs)
+    print(f'Plotting {np.sum(keep)}, graying out {np.sum(grayed_out)}')
+
 
 def plot_zdm(df,z_max,**errorbar_kwargs):
     keep = df['primary_z_spec'] < z_max
@@ -334,36 +352,47 @@ def label_df(df,name,xoffset=0,yoffset=0,**text_kwargs):
         plt.arrow(x = df[df.index == name]['M_r'].values[0] + xoffset, dx = -xoffset,
               y = df[df.index == name]['DM_host_restframe'].values[0] + yoffset, dy = -yoffset,length_includes_head = True,linestyle = '--')
     print('labeling', name)
-def label_above_dmh(df,thres = 200):
-    for name,row in df.iterrows():
-        if np.abs(row['DM_host_restframe']) > thres:
+def label_above_dmh(df,amax = 200,z_max = 0.2):
+    keep = (df['primary_z_spec'] < z_max) 
+    for name,row in df[keep].iterrows():
+        if np.abs(row['DM_host_restframe']) < amax:
             plt.text(x = row['M_r'], y = row['DM_host_restframe'], s = name)
 
 def not_clusters(df):
     return np.array([n not in ['FRB20231206A','FRB20230203A','FRB20231204A','FRB20230703A', # CHIME clusters
-                  'FRB20220914A','FRB20220509G','FRB20220920A' # DSA clusters
+                  'FRB20220914A','FRB20220509G', #DSA clusters
+                  #'FRB20220920A' # why is this here? removing 05/10/2025
                  ] for n in df.index])
 
 def not_edge_on(df):
     return np.array([n not in [
             'FRB20240201A', # Shannon
             'FRB20240310A', # Shannon 
-            'FRB20231120A' # Sharma
+            'FRB20231120A', #  Sharma
             'FRB20220207C', # Law
             'FRB20230203A', # this work
             'FRB20231005A', # this work
+            'FRB20210603A', # Cassanelli 2023
             ]
             for n in df.index
            ])
 
 def not_low_galb(df):
-    return np.abs(df['gal_b']) > 5
+    keep = np.ones(len(df)) > 0
+    if 'gal_b' in df.keys():
+        keep *= np.abs(df['gal_b']) > 5
+    keep *= np.array([n not in [
+            'FRB20210405I'
+            ]
+         for n in df.index
+          ])
+    return keep
 
 def not_low_dm(df):
     """Mohit's and DSA's Mark""" 
     return np.array([n not in ['FRB20181030A', 'FRB20181220A', 'FRB20181223C', 'FRB20190418A',
        'FRB20190425A','FRB20200120E','FRB20180814A', 'FRB20200223B',
-                               'FRB20220319D'
+                               #'FRB20220319D'
                               ] for n in df.index])
         
 def not_scattered(df):
