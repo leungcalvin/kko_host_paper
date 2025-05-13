@@ -35,7 +35,7 @@ def _log_likelihood_ul_ref(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 
 
 def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
     """Integrates over the width parameter, not just location parameter"""
-    sigma_e = np.linspace(0,200,num = 50)
+    sigma_e = np.linspace(0,300,num = 50)
     dsigma_e = np.diff(sigma_e)[0]
     ll_per_burst_per_sigma = np.zeros((len(dm_data),len(sigma_e)))
     prior_vs_sigma = np.log(sigma_e[None,:] * ((sigma_data**2 + sigma_model**2)[:,None] + sigma_e[None,:]**2)**-1) # shape: (n_bursts, n_sigma_e)
@@ -65,10 +65,13 @@ def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'
         print(res['num_sampled_sightlines'])
         model_err[np.isnan(model_err)] = np.inf
     if mode == 'ul':
+        "Using UL likelihood, not marginalizing over sigma_source"
         _log_likelihood = _log_likelihood_ul
     elif mode == 'exact':
+        "Using Gaussian likelihood"
         _log_likelihood = _log_likelihood_exact
     elif mode == 'nuisance':
+        "Using UL likelihood, marginalizing over sigma_source"
         _log_likelihood = _log_likelihood_ul_nuisance
     dm = np.array(dm)
     dm_err = np.array(dm_err)
@@ -208,13 +211,14 @@ def plot_fig(fig,axes,log_likelihoods, out_file,
     plt.subplots_adjust(wspace = 0,hspace = 0)
     plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
 
-def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cbar_label = 'Ln(posterior)',vmin = None, vmax = None):
+def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cmap = 'inferno',cbar_label = 'Ln(posterior)',vmin = None, vmax = None):
     # Find global min and max for consistent color scale
-    log_likelihoods_norm = log_likelihoods - np.max(log_likelihoods,axis = 0)
+    log_likelihoods = log_likelihoods - np.max(log_likelihoods,axis = 0)[None,:] # -1 -> Simba; 0 -> fiducial analysis
+    log_likelihoods_norm = log_likelihoods # what you color (log_likelihoods_norm) is what you print (log_likelihoods)
     if vmin is None:
         vmin = np.clip(np.min(log_likelihoods_norm),a_min = -100, a_max = 0)
     if vmax is None:
-        vmax = np.clip(np.max(log_likelihoods_norm),a_min = vmin, a_max = 0)
+        vmax = np.clip(np.max(log_likelihoods_norm),a_min = vmin, a_max = 3)
     
     norm = Normalize(vmin=vmin, vmax=vmax)
     shape = (3,int(log_likelihoods_norm.size // 3))
@@ -222,7 +226,7 @@ def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cbar_label = 'Ln
     model_data = log_likelihoods.reshape(shape)
     ynames = ynames.flatten()
     # Create imshow plot
-    im = ax.imshow(model_data_norm.T, cmap='inferno', norm=norm,aspect = 'auto')
+    im = ax.imshow(model_data_norm.T, cmap=cmap, norm=norm,aspect = 'auto')
     
     for iimodel in range(3):
         for jjrow in range(shape[1]):
