@@ -332,7 +332,6 @@ The difficulty in measuring the CGM component of FRB host galaxies using \dmhm\ 
 In other words, for an FRB chosen at random, $\dmhm$ is not only a noisy estimator of $\dmhcgm$, but it is likely biased as well.
 We mitigate these issues by applying cuts to our dataset (Fig.~\ref{fig:host_dm}). 
 \begin{enumerate}
-    \item Large-scale gas overdensities and underdensities which trace the large scale structure on $\sim$ 100 Mpc scales adds scatter but not bias to the CGM of the FRB host galaxy. While the cosmic contribution at low redshift is inhomogeneous, dispersion-measure ray tracing through the Illustris TNG simulation reveals that on average, the root-mean-square contribution from large-scale structure ($\sigma_\textrm{cosmic}$) adds $\approx 60$ pc cm$^{-3}$ of RMS scatter at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}. We account for this in each \dmh\ measurement by adding $\sigma_\textrm{IGM}(z_h)$ interpolated between these measurements as a function of redshift, though our results are insensitive to this choice.
     \item Host galaxies which are embedded in groups and clusters have contributions to the total DM on $\sim$ Mpc scales which add a large positive bias to \dmhm which may contribute several hundred pc cm$^{-3}$. Galaxy cluster FRBs have significant contamination to \dmh\ which are not associated with the circumgalactic medium of their hosts. Galaxy cluster FRBs include FRB 20220914A and FRB 20220509G~\citep{connor2023deep}, FRBs 20231206A, 20230203A, and 20231204A~\citep{chime2025catalog}. These account for some of the largest $\dmh$ data points in Fig.~\ref{fig:host_dm} and are thus excluded from our analysis.
     he halo mass function predicts that the rate of intervening halos within their $R_{200c}$ is $< 1$ per sightline at $z < 0.2$ for halos more massive than $10^{12} M_\odot$ ~\citep{mcquinn2014locating}. 
     \item The host 
@@ -341,23 +340,25 @@ We mitigate these issues by applying cuts to our dataset (Fig.~\ref{fig:host_dm}
     \item The Milky Way ISM adds scatter due to the 20\% uncertainty on the DM$_\mathrm{NE2001}$ estimate of the DM. We exclude sources at Galactic latitudes below $|b| < 6^\circ$, excluding FRB 20210405I~\citep{driessen2024frb}. 
     \item The circum-source medium of the FRB on potentially $\sim$ parsec scales. This contribution is the least constrained but even for sources considered to be extreme, it is partially explained by H$\alpha$-based estimation of the DM from the circum-source environment~\citep{tendulkar2017host, ocker2022large,caleb2023subarc,bernalescortes2025empirical}. However, it is thought that the presence of a large circum-burst contribution may be indicated by the FRB scattering timescale~\citep{cordes2016radio} and in some cases the rotation measures as well~\citep{michilli2018extreme,mannings2023}. We exclude FRBs whose scattering timescales at 600 MHz exceed 5 ms to reduce the bias from the circumburst medium, excluding FRB 20230222A~\citep{chime2025catalog} from our sample.
     \item So-called ``low-DM'' FRB sightlines. For surveys with large ($\gtrsim 1'$) localization regions, the low total DM can be used to make a host galaxy association, but only by imposing a distance cutoff. However, these associations bias the sample because of the explicit selection bias on DM$_{tot}$ and therefore $\dmh$. To estimate the host CGM contribution, which is upper bounded by~\dmh, it is essential to exclude low-DM selected sightlines from the clean sample, since they are not representative estimates of $\langle \dmh \rangle$. There are nine FRB hosts identified this way described in~\citet{bhardwaj2024host,michilli2023subarcminute,Ibik2024host}: They include FRBs 20180814A, 20181030A, 20181220A, 20181223C, 20190418A, 20190110C, 20190425A, 20200223B, as well as 20190303A (note its repeat burst FRB 20231204A). Analyzing this sub-sample separately confirms that these bursts are drawn from the low-\dmhm\ tail of the FRB population.
-    \item Similarly, FRBs 20200120E~\citep{bhardwaj2021nearby, kirsten2022repeating} and 20240209A\citep{shah2024repeating}, which have among the largest host-galaxy offsets within the FRB population, are excluded from our measurement since they systematically underestimate the average host galaxy CGM (large offset and elliptical, gas-poor host).
+    \item Similarly, FRBs 20200120E~\citep{bhardwaj2021nearby, kirsten2022repeating} and 20240209A\citep{shah2024repeating}, which have among the largest host-galaxy normalized offsets within the FRB population, are excluded from our measurement since they systematically underestimate the average host galaxy CGM (large offset and elliptical, gas-poor host).
 \end{enumerate}
 
-Applying these cuts leaves 24 bursts (12 in the range $z < 0.1$, 12 in the range $0.1 < z < 0.2$) (Table~\ref{tab:clean}).
-For these bursts, \dmh\ is a less-biased estimator of \dmhcgm. 
-We estimate the uncertainty of each estimate to be
-\begin{equation}
-    \sigma_{i}^2 = \sigmacosmic^2 + (0.2 \dm^2_\mathrm{i,NE2001})
-\end{equation}
-where we take $\sigma_{\mathrm{IGM}}^2 = $(80 pc cm$^{-3})^2$, motivated by measurements in individual IllustrisTNG snapshots~\citep{walker2024dispersion}.
-
-It is likely that $\dmhm$ overestimates -- i.e., is a biased estimator of -- $\dmhcgm$.
+Applying these cuts leaves 24 bursts (12 in the range $z < 0.1$, 12 in the range $0.1 < z < 0.2$) (Table~\ref{tab:sample}).
+For these bursts, a less-biased estimator of \dmhcgm. 
 In this way, the stacked sample provides robust upper limits on the average circumgalactic dispersion measure of isolated star-forming, $\sim L^*$ FRB hosts in the local Universe. 
+We estimate the uncertainty of each individual estimate to be
+\begin{equation}
+    \sigma_{i}^2 = \sigmacosmic(z)^2 + (0.2 \dm^2_\mathrm{i,NE2001}).
+\end{equation}
+In our analysis we use values of \sigmacosmic(z) measured from snapshots taken from large-volume hydrodynamic simulations which more accurately model large-scale fluctuations not captured in the small CAMELS volumes.
+In general, \sigmacosmic(z) varies as a function of feedback model, which we are trying to constrain.
+For example, IllustrisTNG implements a feedback model stronger than Astrid and weaker than SIMBA, resulting in $\sigma_\textrm{cosmic} \approx 60$ pc cm$^{-3}$ at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}, whereas the original Illustris simulation finds $\approx15\%$ lower values for \sigmacosmic due to its more extreme feedback~\citealp[see Fig. 2 of]{jaroszynski2019fast}.
+We use the IllustrisTNG values to define our fiducial uncertainties, but we test the impact of varying \sigmacosmic\ as a function of feedback model.
+%We only account for the mean and scatter here, but simulations suggest that \dmh\ has substantial positive skew~\citep{medlock2024probing,theis2024galaxy}. 
+
 %The selection effects relevant to this measurement are likely modest. 
 %The CHIME/FRB baseband system directly selects against high DM bursts, but this effect is only present when the total DM $> 1000$ pc cm$^{-3}$, and is unlikely to affect our measurement~\citep{collaboration2021first,shin2023inferring}. 
-%The CHIME/FRB real-time search pipeline is strongly affected by non-stationary noise, which translates into an lower detection probability for low-flux, highly-scattered bursts. While this could affect the sample of bursts that are detected, we note that bright, highly-scattered bursts are nevertheless detectable~\citep{shin2024investigating}, and that the $\sim 10^{1-3}$ Jy bursts detected in VLBI should not be strongly subject to this selection effect. 
-%We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. 
+%The CHIME/FRB real-time search pipeline is strongly affected by non-stationary noise, which translates into an lower detection probability for low-flux, highly-scattered bursts. While this could affect the sample of bursts that are detected, we note that bright, highly-scattered bursts are nevertheless detectable~\citep{shin2024investigating}, and that the $\sim 10^{1-3}$ Jy bursts detected in VLBI should not be strongly subject to this selection effect.  %We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. 
 %However, this is mitigated by our host luminosity cut. 
 
 \section{Constructing the Simulated $M^*-DM_{CGM}$ relation}\label{sec:camels}
@@ -413,6 +414,7 @@ We define given a sub-grid model $\mathcal{M}$ the averaged (or ``stacked'') pre
     \label{fig:camels}
 \end{figure}
 
+\input{dmh_table.tex}
 \section{Model Selection}
 In Fig.~\ref{fig:camels} we have plotted the measured $M^*-\dmh$ relation over the fiducial model predictions, which stacks FRB sources between $0.13 < b < 0.20$ in the $z = 0.1$ snapshot for each sub-grid model with $w_k \propto$ SFR. 
 Even though our sample was constructed to satisfy $\dmh > \dmhcgm > \langle \dmsnap \rangle$, we see the opposite behavior in the ASTRID simulations at $M^* \sim 10^{10-11}$, where $\langle \dmsnap \rangle > \dmh$.
