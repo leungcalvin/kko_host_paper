@@ -320,7 +320,7 @@ def plot_survey(ax,df,z_max,**errorbar_kwargs):
     keep *= not_low_dm(df)
     keep *= not_low_galb(df)
     grayed_out = (df['primary_z_spec'] < z_max) * ~keep
-    y_err = df['DM_NE2001'] * 0.4
+    y_err = sigma_tot(df)
     if 0: #'extinction_mags' in df.keys():
         x_err = 0.2 * df['extinction_mags']
     else:
