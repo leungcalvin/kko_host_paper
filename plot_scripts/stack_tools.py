@@ -1,4 +1,5 @@
 from scipy.special import erf
+from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.colors import Normalize
@@ -264,3 +265,65 @@ def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cmap = 'inferno'
     # Adjust layout
     plt.tight_layout(rect=[0, 0, 0.9, 0.95])
     plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
+
+import dmh_tools
+def fit_linear_with_uncertainties(df):
+    """
+    Fit a linear model to data with uncertainties in y.
+    
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        Dataframe containing the data to fit
+    dmh_tools : module
+        Module containing the sigma_tot function for error calculation
+    
+    Returns:
+    --------
+    tuple
+        (slope, slope_err, intercept, intercept_err)
+    """
+    # Extract x and y data
+    x_data = df['published_M*'].values
+    x_mean = np.mean(x_data)
+    print('Subtracting mean:',x_mean)
+    x_data -= x_mean
+    y_data = df['DM_host_restframe'].values
+    
+    # Calculate y uncertainties using provided function
+    y_errors = dmh_tools.sigma_tot(df)
+    
+    # Define linear model
+    def linear_model(x, slope, intercept):
+        return slope * x + intercept
+    
+    # Perform the weighted fit using scipy.optimize.curve_fit
+    # absolute_sigma=True ensures proper error propagation
+    params, covariance = curve_fit(
+        linear_model, 
+        x_data, 
+        y_data, 
+        sigma=y_errors, 
+        absolute_sigma=True
+    )
+    
+    # Extract the parameters and their uncertainties
+    slope, intercept = params
+    slope_err, intercept_err = np.sqrt(np.diag(covariance))
+    
+    # Return the results
+    return {
+        'slope': slope,
+        'slope_err': slope_err,
+        'intercept': intercept,
+        'intercept_err': intercept_err,
+        'x_mean' : x_mean,
+    }
+
+def get_eqn_string(mxpb):
+    eqn_string = f"\\dmhm = ({mxpb['slope']:.0f} \pm {mxpb['slope_err']:.0f})"
+    eqn_string += f"\\log(M^*/10^" + '{'
+    eqn_string += f"{mxpb['x_mean']:.1f}" + '})'
+    eqn_string += f"({mxpb['intercept']:.0f} \pm {mxpb['intercept_err']:.0f})"
+    return eqn_string
+    

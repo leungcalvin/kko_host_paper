@@ -365,6 +365,8 @@ def not_clusters(df):
                   'FRB20230311A', 'FRB20190303A', 'FRB20231203A', # double galaxies!
                  ] for n in df.index])
 
+
+
 def not_edge_on(df):
     return np.array([n not in [
             'FRB20240201A', # Shannon
@@ -411,4 +413,4 @@ def far_out(df):
     return (0.1 < df['primary_z_spec']) * (df['primary_z_spec'] < 0.2)
 
 def not_dwarf(df):
-    return (9 < df['published_M*'])
+    return (9 < df['published_M*']) * (-17 > df['M_r'])
