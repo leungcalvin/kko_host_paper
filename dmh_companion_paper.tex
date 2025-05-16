@@ -432,9 +432,11 @@ The Bayes factor $K$ that compares feedback models $\mathcal{A}$ and $\mathcal{B
 \end{equation}
 
 In turn, $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}}) = \Pi_{i} P_{i}$ is a product of the posteriors from every sightline $i$. If the data $\dm^\mathrm{Macquart}_\mathrm{h,i}$ (hereafter $\dm_i$) were an unbiased estimator, then a Gaussian likelihood with width $\sigma^2_\mathrm{tot,i} = \sigma_\mathrm{cosmic,i}^2 + S_i^2 + \sigma_\mathrm{CBM}^2$ for uncertainties due to large-scale structure $\sigma_\mathrm{cosmic,i}$, halo-to-halo scatter in the model prediction for that sightline $S_i$, and uncertainty from the circumburst contribution $\sigma_\mathrm{CBM}$ would be most appropriate. 
+\begin{equation}
+    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_i^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \widehat{\dm}_i)^2}{2\sigma_\mathrm{tot,i}^2} \right]
+\end{equation}
+However, more realistically, $\dm_i$ should be seen as an an upper limit on \dmhcgm because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as \dmhcbm. In this case the posterior probability of model prediction $\widehat{\dm}_i$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbm > 0$ and $\sigma_\mathrm{CBM}$ compatible with that particular \dmhm\ value. We use uninformative priors (uniform in $\dm_\mathrm{CBM}$ for $\dm_\mathrm{CBM} > 0$ and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$) and calculate
 \begin{align}
-\mathcal{L}_{i} = &\dfrac{1}{\sqrt{2\pi\sigma_i^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \widehat{\dm}_i)^2}{2\sigma_\mathrm{tot,i}^2} \right]\\
-\intertext{However, more realistically, $\dm_i$ should be seen as an an upper limit on \dmhcgm because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as \dmhcbm. In this case the posterior probability of model prediction $\widehat{\dm}_i$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbm > 0$ and $\sigma_\mathrm{CBM}$ compatible with that particular \dmhm\ value. We use uninformative priors (uniform in $\dm_\mathrm{CBM}$ for $\dm_\mathrm{CBM} > 0$ and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$) and calculate}
 P_{i} &= \int ~\pi(\sigma_\mathrm{CBM}) \pi(\dm_\mathrm{CBM}) \mathcal{L}_{i} \\
 &= \int_0^\infty \pi(\sigma_\mathrm{CBM}) \dfrac{1}{2}\left(1 +\mathrm{erf}\left(\dfrac{\dm_i - \widehat{\dm}_i}{2\sigma_\mathrm{tot,i}^2} \right)\right)~d\sigma \label{eq:marginalizedpi}
 \end{align}
