@@ -345,15 +345,21 @@ We mitigate these issues by applying cuts to our dataset (Fig.~\ref{fig:host_dm}
 \end{enumerate}
 
 Applying these cuts leaves 24 bursts (Table~\ref{tab:sample}).
-In this way, the stacked sample provides robust upper limits on the average circumgalactic dispersion measure of isolated star-forming, $\sim L^*$ FRB hosts in the local Universe. 
-We estimate the uncertainty of each individual estimate to be
+We estimate the uncertainty of each individual \dmhm\ estimate to be
 \begin{equation}
     \sigma_{i}^2 = \sigmacosmic(z)^2 + (0.2 \dm_\mathrm{i,NE2001})^2.
 \end{equation}
+In addition, for convenience we fit an analytical formula to the data:
+\begin{align}
+\input{linfit_ci} \\
+\input{linfit_fo}
+\end{align}
+
 In our analysis we use values of \sigmacosmic(z) measured from snapshots taken from large-volume hydrodynamic simulations which more accurately model large-scale fluctuations not captured in the small CAMELS volumes.
 The choice of \sigmacosmic(z) is important: on one hand it is desirable to define our uncertainties agnostic of feedback; however, \sigmacosmic(z) varies as a function of feedback model, which we are trying to constrain.
 For example, IllustrisTNG implements a feedback model stronger than Astrid and weaker than SIMBA, resulting in $\sigma_\textrm{cosmic} \approx 60$ pc cm$^{-3}$ at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}, whereas the original Illustris simulation finds $\approx15\%$ lower values for \sigmacosmic due to its more extreme feedback~\citealp[see Fig. 2 of]{jaroszynski2019fast}.
 We use the IllustrisTNG values in our fiducial analysis (i.e. feedback-independent uncertainties), but we test the impact of varying \sigmacosmic~ according to the three feedback models being evaluated.
+
 %We only account for the mean and scatter here, but simulations suggest that \dmh\ has substantial positive skew~\citep{medlock2024probing,theis2024galaxy}. 
 
 %The selection effects relevant to this measurement are likely modest. 
