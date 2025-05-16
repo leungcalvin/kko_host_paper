@@ -10,28 +10,31 @@ def _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
     x = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     x /= np.sqrt(2)
     """Corrected stable version"""
+    unc = (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     # For positive x, the original expression is generally stable
     if np.isscalar(x):
         if x > 0:
-            return np.log(0.5 * (1 + erf(x)))
+            return np.log(0.5 * (1 + erf(x))) - np.log(2 * np.pi * unc)
         else:
             # For negative x, use the relationship between erf and standard normal CDF
             # Φ(x) = 0.5 * (1 + erf(x/√2))
             # So 0.5 * (1 + erf(x)) = Φ(x√2)
             # Therefore log(0.5 * (1 + erf(x))) = log_ndtr(x√2)
-            return log_ndtr(x * np.sqrt(2))
+            return log_ndtr(x * np.sqrt(2)) - np.log(2 * np.pi * unc)
     else:
         # Handle array input
         result = np.zeros_like(x, dtype=float)
         pos_mask = x > 0
         result[pos_mask] = np.log(0.5 * (1 + erf(x[pos_mask])))
-        result[~pos_mask] = log_ndtr(x[~pos_mask] * np.sqrt(2))
+        result[~pos_mask] = log_ndtr(x[~pos_mask] * np.sqrt(2)) 
+        result -= np.log(2 * np.pi * unc)
         return result
         
 def _log_likelihood_ul_ref(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
     argument = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
+    unc = (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     # reference implementation, not numerically stable though
-    return np.log(0.5 * (1 + erf(argument / np.sqrt(2))))
+    return np.log(0.5 * (1 + erf(argument / np.sqrt(2)))) - np.log(2 * np.pi * unc)
 
 def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
     """Integrates over the width parameter, not just location parameter"""
@@ -153,7 +156,8 @@ bad = _log_likelihood_ul_ref(
     sigma_data =  1,
     sigma_model = 0 
     )
-assert np.sum(np.abs(good - bad) > 0.01) < 12
+keep = np.isnan(good + bad)
+assert np.isclose(good[keep],bad[keep]).all()
 
 def plot_fig(fig,axes,log_likelihoods, out_file,
     redshifts = ['z = 0.0', 'z = 0.1', 'z = 0.2'],
