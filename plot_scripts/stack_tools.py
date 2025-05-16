@@ -14,13 +14,13 @@ def _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
     # For positive x, the original expression is generally stable
     if np.isscalar(x):
         if x > 0:
-            return np.log(0.5 * (1 + erf(x))) - np.log(2 * np.pi * unc)
+            return np.log(0.5 * (1 + erf(x))) - np.log(2 * np.pi * unc**2)
         else:
             # For negative x, use the relationship between erf and standard normal CDF
             # Φ(x) = 0.5 * (1 + erf(x/√2))
             # So 0.5 * (1 + erf(x)) = Φ(x√2)
             # Therefore log(0.5 * (1 + erf(x))) = log_ndtr(x√2)
-            return log_ndtr(x * np.sqrt(2)) - np.log(2 * np.pi * unc)
+            return log_ndtr(x * np.sqrt(2)) - np.log(2 * np.pi * unc**2)
     else:
         # Handle array input
         result = np.zeros_like(x, dtype=float)
@@ -34,7 +34,7 @@ def _log_likelihood_ul_ref(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 
     argument = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     unc = (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     # reference implementation, not numerically stable though
-    return np.log(0.5 * (1 + erf(argument / np.sqrt(2)))) - np.log(2 * np.pi * unc)
+    return np.log(0.5 * (1 + erf(argument / np.sqrt(2)))) - np.log(2 * np.pi * unc**2)
 
 def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
     """Integrates over the width parameter, not just location parameter"""

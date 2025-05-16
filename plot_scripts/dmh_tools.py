@@ -362,6 +362,7 @@ def not_clusters(df):
     return np.array([n not in ['FRB20231206A','FRB20230203A','FRB20231204A','FRB20230703A', # CHIME clusters
                   'FRB20220914A','FRB20220509G', #DSA clusters
                   #'FRB20220920A' # why is this here? removing 05/10/2025
+                  'FRB20230311A', 'FRB20190303A', 'FRB20231203A', # double galaxies!
                  ] for n in df.index])
 
 def not_edge_on(df):
