@@ -321,9 +321,9 @@ def fit_linear_with_uncertainties(df):
     }
 
 def get_eqn_string(mxpb):
-    eqn_string = f"\\dmhm = ({mxpb['slope']:.0f} \pm {mxpb['slope_err']:.0f})"
+    eqn_string = f"\\dmhm &= ({mxpb['slope']:.0f} \pm {mxpb['slope_err']:.0f})"
     eqn_string += f"\\log(M^*/10^" + '{'
-    eqn_string += f"{mxpb['x_mean']:.1f}" + '})'
-    eqn_string += f"({mxpb['intercept']:.0f} \pm {mxpb['intercept_err']:.0f})"
+    eqn_string += f"{mxpb['x_mean']:.1f}" + '} M_\odot)'
+    eqn_string += f" + ({mxpb['intercept']:.0f} \pm {mxpb['intercept_err']:.0f})"
     return eqn_string
     
