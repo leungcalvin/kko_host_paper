@@ -344,28 +344,24 @@ We mitigate these issues by applying cuts to our dataset (Fig.~\ref{fig:host_dm}
     \item Similarly, FRBs 20200120E~\citep{bhardwaj2021nearby, kirsten2022repeating} and 20240209A\citep{shah2024repeating}, which have $b \sim 5 R_\mathrm{eff}$, are excluded from our measurement since they may systematically underestimate the average host galaxy CGM (large offset and elliptical, gas-poor host).
 \end{enumerate}
 
-Applying these cuts leaves 24 bursts (Table~\ref{tab:sample}).
+Applying these cuts leaves 24 estimates of \dmhm (Table~\ref{tab:sample}).
 We estimate the uncertainty of each individual \dmhm\ estimate to be
 \begin{equation}
     \sigma_{i}^2 = \sigmacosmic(z)^2 + (0.2 \dm_\mathrm{i,NE2001})^2.
+    \label{eq:sigma_i_def}
 \end{equation}
-In addition, for convenience we fit an analytical formula to the data:
-\begin{align}
-\input{linfit_ci} \\
-\input{linfit_fo}
-\end{align}
 
 In our analysis we use values of \sigmacosmic(z) measured from snapshots taken from large-volume hydrodynamic simulations which more accurately model large-scale fluctuations not captured in the small CAMELS volumes.
 The choice of \sigmacosmic(z) is important: on one hand it is desirable to define our uncertainties agnostic of feedback; however, \sigmacosmic(z) varies as a function of feedback model, which we are trying to constrain.
 For example, IllustrisTNG implements a feedback model stronger than Astrid and weaker than SIMBA, resulting in $\sigma_\textrm{cosmic} \approx 60$ pc cm$^{-3}$ at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}, whereas the original Illustris simulation finds $\approx15\%$ lower values for \sigmacosmic due to its more extreme feedback~\citealp[see Fig. 2 of]{jaroszynski2019fast}.
 We use the IllustrisTNG values in our fiducial analysis (i.e. feedback-independent uncertainties), but we test the impact of varying \sigmacosmic~ according to the three feedback models being evaluated.
 
-%We only account for the mean and scatter here, but simulations suggest that \dmh\ has substantial positive skew~\citep{medlock2024probing,theis2024galaxy}. 
+Our data are summarized in Tab.~\ref{tab:sample}, and are plotted in Fig.~\ref{fig:host_dm}. For convenience, using the uncertainties defined in Eq.~\ref{eq:sigma_i_def}, we provide analytical fits to the data broken up into two bins ($z < 0.1$ and $0.1 < z < 0.2$). However, we caution that while a linear fit to the data allows our data to be compared to other empirical measurements in a similarly curated sample, the fits cannot directly be used to compare \dmhm to model predictions for \dmhcgm, since \dmhm is an upper limit rather than an unbiased estimate of \dmhcgm.
+\begin{align}
+\input{linfit_ci} \\
+\input{linfit_fo}
+\end{align}
 
-%The selection effects relevant to this measurement are likely modest. 
-%The CHIME/FRB baseband system directly selects against high DM bursts, but this effect is only present when the total DM $> 1000$ pc cm$^{-3}$, and is unlikely to affect our measurement~\citep{collaboration2021first,shin2023inferring}. 
-%The CHIME/FRB real-time search pipeline is strongly affected by non-stationary noise, which translates into an lower detection probability for low-flux, highly-scattered bursts. While this could affect the sample of bursts that are detected, we note that bright, highly-scattered bursts are nevertheless detectable~\citep{shin2024investigating}, and that the $\sim 10^{1-3}$ Jy bursts detected in VLBI should not be strongly subject to this selection effect.  %We strongly select on host luminosity, because of our localization region, which is usually larger than typical FRB host galaxies. 
-%However, this is mitigated by our host luminosity cut. 
 
 \section{Constructing the Simulated $M^*-\mathrm{DM}_\mathrm{CGM}$ relation}\label{sec:camels}
 To connect the observed $M^*-\dmh$ distribution to galaxy formation sub-grid models, we compare the \dmh-stellar mass relation to predictions from the CAMELS suite of hydrodynamical simulations \citep{camels_presentation, camels_data_release,  camels_data_release2}. 
@@ -416,7 +412,7 @@ We explore alternative weightings with uniform weighting over all simulated halo
 \begin{figure}
     \centering
     \includegraphics[width=1.08\linewidth]{msdm.pdf}
-    \caption{The \dmh-$M^*$ relation for isolated FRB host galaxies, compared against simulation results from ASTRID, IllustrisTNG, and CAMELS. Box widths indicate bin widths, whereas box centers and heights indicate the unweighted standard deviation in each bin. A stark visual difference between the mass scalings of the three model predictions can be seen.}
+    \caption{The \dmh-$M^*$ relation for isolated FRB host galaxies, compared against simulation results from ASTRID, IllustrisTNG, and CAMELS (blue, orange, and green traces) with our fiducial model predictions highlighted as hollow upwards triangles. Model predictions for our simulation variants are plotted as additional lines connecting the mean value in each bin. Translucent boxes are drawn to indicate the scatter in the model prediction $S_j$ over halos sampled from each mass bin $j$. The data (red and purple downward triangles) and their best-fit lines show a stark visual difference with the model predictions.}
     \label{fig:camels}
 \end{figure}
 
