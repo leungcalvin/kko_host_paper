@@ -83,7 +83,8 @@
 \newcommand{\dmhm}{\ensuremath{{\rm DM}_\textrm{host}^\textrm{Macquart}}}
 \newcommand{\dmhism}{\ensuremath{{\rm DM}_\textrm{h,ISM}}}
 \newcommand{\dmhcgm}{\ensuremath{{\rm DM}_\textrm{h,CGM}}}
-\newcommand{\dmhcbm}{\ensuremath{{\rm DM}_\textrm{h,CBM}}}
+\newcommand{\dmhcbm}{\ensuremath{{\rm DM}_\textrm{CBM}}}
+\newcommand{\dmhcbmi}{\ensuremath{{\rm DM}_\textrm{CBM,i}}}
 \newcommand{\dmtot}{\ensuremath{{\rm DM}_\textrm{FRB}}} % Let's use FRB here
 \newcommand{\dmhalos}{\ensuremath{{\rm DM}_\textrm{halos}}}
 \newcommand{\sigmaigm}{\ensuremath{{\sigma}_\textrm{IGM}}}
@@ -146,7 +147,7 @@
 %%
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
-\shorttitle{Tau of Galaxies: host DM constrains feedback}
+\shorttitle{The Tau of Galaxies: host DM constrains feedback}
 \shortauthors{Leung and the CHIME/FRB Collaboration et al.}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
@@ -164,7 +165,7 @@
 
 \begin{document}
 
-\title{The tau of galaxies: Constraining Baryonic Feedback in $L^*$ Galaxies through Fast Radio Burst Hosts}
+\title{The Tau of Galaxies: Constraining Baryonic Feedback in $L^*$ Galaxies using Star-Forming Fast Radio Burst Hosts}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -239,9 +240,9 @@
 \begin{abstract}
 Fast radio bursts (FRBs) at $\lesssim 400$ Mpc provide robust constraints on the contents of the circumgalactic medium of $L^*$ galaxies via the inferred host component of the dispersion measure (DM) budget. 
 We study the relationship between FRB host stellar masses \mstar\ and the dispersion measures \dmhm\ left after subtracting the average cosmic contribution out to the redshift of the host. We use the resulting $M^*-\dmh$ relation to constrain models for feedback in isolated galaxies as implemented in the CAMELS suite of hydrodynamical simulations.
-We stack a sample of 22 FRBs with robust host associations, selected from publicly-available FRBs to minimize all contributions to \dmh\ except for that from their circumgalactic medium.
-When considering only the three fiducial models available within CAMELS, our results are in statistical tension with Astrid when compared to either IllustrisTNG or SIMBA when interpreted as upper limit on the host CGM contribution. 
-We show that this conclusion is robust to a wide range of assumptions, such as the offset distribution of FRBs from their hosts, and the relative rates of FRBs in e.g. star-forming versus massive galaxies.
+We use a sample of 22 FRBs with robust host associations selected from publicly-available FRBs to minimize all contributions to \dmh\ except for that from their circumgalactic medium.
+Considering only the three fiducial models available within CAMELS, our results are in statistical tension with Astrid when compared to either IllustrisTNG or SIMBA when interpreted as an upper limit on the host CGM contribution. 
+We show that this conclusion is robust to a wide range of assumptions, such as the offset distribution of FRBs from their hosts, the relative rates of FRBs in e.g. star-forming versus massive galaxies, 
 Our results directly probe baryonic feedback in star-forming galaxies in the Local Universe $(z < 0.2)$, and indirectly imply a lower limit on the strength of feedback as quantified by the suppression of the matter power spectrum due to baryonic feedback.
 This reaches halo masses that are inaccessible by X-ray and Sunyaev-Zeldovich CMB distortions, demonstrating the unique complementarity of FRBs to other gas probes.
 %There are now over 100 FRB host galaxies in the literature, we  discarding FRBs in groups and clusters, edge-on host galaxy systems, dwarf galaxy hosts, hosts beyond $z > 0.2$, and FRBs selected on the basis of their low total dispersion measure, we infer the mean and standard deviation of the host contribution for star-forming FRB host galaxies to be $104\pm 16$ and $113\pm12$ pc cm$^{-3}$. 
@@ -257,15 +258,15 @@ Long before the first fast radio burst (FRB) was pinpointed to a cosmologically-
 The dispersion measure, or DM, of FRBs can precisely measure the column density of electrons between the observer and the FRB source. 
 This makes FRBs excellent probes of baryons, sensitive to both the baryons in the cosmic web and the collapsed gas overdensities on the outskirts of galaxies and their dark matter halos.
 
-Since then, two classes of methodologies have emerged that use FRBs to probe extragalactic baryons.
-Using observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} used the DM-redshift relation to locate the so-called ``missing'' baryons to the intergalactic medium (IGM) and constrain the strength of baryonic feedback along each line of sight using an analytical model of the statistics of intercepted halos~\citep{mcquinn2014locating,james2021z}.
+Since then, two classes of methodologies have emerged that use FRBs to probe extragalactic baryons: one using the relation of the mean extragalactic DM versus redshift, and a second using the variations in the mean.
+Using observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} used the mean extragalactic DM \avgdmcosmic as a function of redshift to locate the so-called ``missing'' baryons to the intergalactic medium (IGM) and constrain the strength of baryonic feedback along each line of sight using an analytical model of the statistics of intercepted halos~\citep{mcquinn2014locating,james2021z}.
 That result established that the cosmic contribution to the DM budget, comprised of diffuse IGM baryons and the collapsed baryons in the intervening halos, collectively dominate the total DM for FRB sources beyond $z \sim 0.2$. 
 
 An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the remaining contributions, such as those from the host galaxy, are subdominant to the cosmic components beyond $z \gtrsim 0.5$.
-However, the fluctuations in the extragalactic DM after removing the mean cosmic contribution, \avgdmcosmic, which includes the dispersion measure from the intergalactic medium and intervening halos along the line of sight.
-Historically, this quantity has been referred to as the ``host contribution'' to the DM budget and is denoted \dmh. It may be estimated by subtracting estimates for the the Galaxy (\dmmw=\dmmwcgm + \dmmwism) and cosmic web
-(\avgdmcosmic=$\dm_\mathrm{intervening~halos} + \dm_\mathrm{IGM}$)
-from the observed FRB dispersion measure \dmtot. We adopt the convention of~\citet{bernalescortes2025empirical}, defining
+However, the fluctuations in the extragalactic DM after removing \avgdmcosmic\ contain their own wealth of information.
+Historically, this residual has been referred to as the ``host contribution'' to the DM budget and is denoted \dmh. It may be estimated by subtracting estimates for the the Galaxy (\dmmw=\dmmwcgm + \dmmwism). In addition, it requires an estimate of the contribution from the cosmic web: calculated either from auxiliary observations~\citep{simha2020disentangling} along that sightline or simply based on the mean cosmic contribution out to the redshift of the host
+(\avgdmcosmic=$\dm_\mathrm{intervening~halos} + \dm_\mathrm{IGM}$).
+Using the observed FRB dispersion measure \dmtot, we take the latter approach, defining %We adopt the convention of~\citet{bernalescortes2025empirical}, defining
 %is defined as
 
 \begin{equation}
@@ -285,7 +286,7 @@ For each observed sightline, these correspond to the CGM of the host galaxy at t
 In particular, if the circumgalactic contribution can be isolated from the others, it could play a crucial role in understanding the three-way relationship between the stellar populations of galaxies, their circumgalactic gas environments, and their dark matter halos. 
 Understanding the baryon cycle as a function of stellar mass ($M*$) and halo mass ($M_h$) is a major goal of galaxy formation and cosmology, and has implications for nascent weak lensing surveys, whose constraining power hinges on an accurate and precise understanding of the impact of baryonic feedback on the matter power spectrum~\citep[for example]{white2004baryons, zhan2004effect, rudd2008effects}.
 
-Existing efforts to constrain sub-grid models of baryonic feedback using observational gas probes have focused on the thermal and kinetic Sunyaev-Zeldovich (tSZ and kSZ) effects, which are readily observable only in $M_h \sim 10^{13-15}$ halos~\citep[e.g.][]{battaglia2016tau,hadzhiyska2023interpreting,schaan2021atacama,hadzhiyska2024evidence}. 
+Existing efforts to constrain sub-grid models of baryonic feedback using observational gas probes have focused on X-ray and thermal and kinetic Sunyaev-Zeldovich (tSZ and kSZ) observations, which are readily observable only in $M_h \sim 10^{13-15}$ halos~\citep[e.g.][]{nagai2007effects,tanimura2021direct,battaglia2016tau,hadzhiyska2023interpreting,schaan2021atacama,hadzhiyska2024evidence,braspenning2024flamingo}. 
 For lower-mass halos, such as those of isolated star-forming galaxies ($M_h \sim 10^{12}$), the circumgalactic medium was primarily studied using quasar absorption spectroscopy~\citep{ tumlinson2011large,prochaska2011probing,werk2016coshalos,chen2024circumgalactic}, using metal lines to study the kinematics, temperature, and baryonic mass of the circumgalactic medium.
 
 In principle, FRBs offer a complementary probe of the circumgalactic gas in $L^*$ halos, by virtue of being insensitive to temperatures and metallicities.
@@ -365,7 +366,7 @@ These fitted trends are complementary to those reported in~\citet{bernalescortes
 
 \section{Constructing the Simulated $M^*-\mathrm{DM}_\mathrm{CGM}$ relation}\label{sec:camels}
 To connect the observed $M^*-\dmh$ distribution to galaxy formation sub-grid models, we compare the \dmh-stellar mass relation to predictions from the CAMELS suite of hydrodynamical simulations \citep{camels_presentation, camels_data_release,  camels_data_release2}. 
-CAMELS is a suite of small-volume (25 Mpc/h)$^3$ hydrodynamical simulations implementing several distinct subgrid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations. These prescriptions describe the unresolved small-scale physics that regulate galaxy formation and evolution, such as star formation and feedback and AGN activity. 
+CAMELS is a suite of small-volume (25 Mpc/h)$^3$ hydrodynamical simulations implementing several distinct sub-grid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations. These prescriptions describe the unresolved small-scale physics that regulate galaxy formation and evolution, such as star formation and feedback and AGN activity. 
 One major goal of the CAMELS project is to produce theory predictions to independently constrain the suppression of the matter power spectrum induced by baryonic feedback relative to a dark-matter only simulation, as measured in current and next-generation weak lensing surveys such as the Dark Energy Survey~\citep{chen2023constraining,aric_o2023des} and LSST/Rubin. 
 Cosmological inference from weak lensing will likely need independent gas probes to simultaneously constrain the suppression factor $S(k,z)$. \citet{medlock2025constraining} recently showed with CAMELS that FRB statistics can indeed predict the degree of suppression of the matter power spectrum due to baryonic feedback. We extend~\citet{medlock2024probing} by measuring the $M^*-\dmh$ relation and comparing it to theory predictions as implemented in SIMBA, IllustrisTNG, and Astrid as implemented with CAMELS.
 
@@ -398,11 +399,11 @@ Our choice of $b_{\rm min}$ is chosen to exclude the possibility that the DM exc
 Our \dmhcgm\ predictions are slightly sensitive to the host offset distribution of FRBs: FRB sightlines highly offset from their gas halos may exclude a portion of \dmhcgm\ from their sightlines~\citealp[see Fig. 5 in]{medlock2024probing}. Though high-offset FRB sightlines are known to exist~\citep{kirsten2022repeating,shah2024repeating,eftekhari2024massive}, it is thought that this does not happen for the majority of FRB sources which are robustly associated with their hosts, whose impact parameter never exceeds 5 $R_\mathrm{eff}$\citep{heintz2020host,shah2024repeating}. Given that the half-light radius $R_\mathrm{eff} \sim 0.015 R_{vir}$\citep{kravtsov2013size}, we may conclude that $b \lesssim 0.1 R_{vir}$ for real FRB sightlines in our sample, even though the projected offset of some sources is not well-constrained by the highly elongated localization ellipse~\citep{chime2025catalog}.
 
 After restricting the simulation sightlines to a range of $b$ values, the values of the DM integrated through the snapshot ($\dmsnap$) are binned by stellar mass and divided by two to account for the fact that observed FRB sightlines skewer halfway through their host halos on average. Then we take a weighted average of $\dmsnap$ over all sightlines $k$ whose associated halos lie in stellar mass bin $j$.
-The model predictions are the mean and variance of \dmhcgm. These are referred to as $\widehat{\dm}$ and $S^2$ and are dependent on feedback model $\mathcal{M}$. Since each FRB sightline $i$ falls into a mass bin $j$, we may index our model predictions either as a function of $i$ or $j$.
+The model predictions are the mean and variance of \dmhcgm. These are referred to as $\widehat{\dm}$ and $S^2$ and are dependent on feedback model $\mathcal{M}$. For convenience, since each FRB sightline $i$ falls into a mass bin $j$, we may index our model predictions either as a function of $i$ or $j$; we also suppress the dependence on $\mathcal{M}$ for clarity.
 
 \begin{align} 
-    \widehat{\dm}_{j,\mathcal{M}} &= \widehat{\dm}_j = \sum_{k \in j} w_k \dmsnap^{\mathcal{M}} \\
-    S^2_{j,\mathcal{M}} &= S^2_{j} = \sum_{k \in j} w_k (\dmsnap^{\mathcal{M}} - \widehat{\dm}_{j,\mathcal{M}})^2.
+    \widehat{\dm} &= \widehat{\dm}_{j,\mathcal{M}} = \sum_{k \in j} w_k \dmsnap^{\mathcal{M}} \\
+    S^2 &= \sum_{k \in j} w_k (\dmsnap^{\mathcal{M}} - \widehat{\dm}_{j,\mathcal{M}})^2.
 \end{align}
 
 
@@ -411,14 +412,14 @@ We explore alternative weightings with uniform weighting over all simulated halo
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.08\linewidth]{msdm.pdf}
+    \includegraphics[width=1.0\linewidth]{msdm.pdf}
     \caption{The \dmh-$M^*$ relation for isolated FRB host galaxies, compared against simulation results from ASTRID, IllustrisTNG, and CAMELS (blue, orange, and green traces) with our fiducial model predictions highlighted as hollow upwards triangles. Model predictions for our simulation variants are plotted as additional lines connecting the mean value in each bin. Translucent boxes are drawn to indicate the scatter in the model prediction $S_j$ over halos sampled from each mass bin $j$. The data (red and purple downward triangles) and their best-fit lines show a stark visual difference with the model predictions.}
     \label{fig:camels}
 \end{figure}
 
 \input{dmh_table.tex}
 \section{Model Selection}
-In Fig.~\ref{fig:camels} we have plotted the measured $M^*-\dmh$ relation over the fiducial model predictions, which stacks FRB sources between $0.13 < b < 0.20$ in the $z = 0.1$ snapshot for each sub-grid model with $w_k \propto$ SFR. 
+In Fig.~\ref{fig:camels} we have plotted the measured $M^*-\dmh$ relation over the fiducial model predictions, which averages FRB sightlines between $0.13 < b < 0.20$ in the $z = 0.1$ snapshot for each sub-grid model with $w_k \propto$ SFR. 
 Even though our sample was constructed to satisfy $\dmh > \dmhcgm > \langle \dmsnap \rangle$, we see the opposite behavior in the ASTRID simulations at $M^* \sim 10^{10-11}$, where $\langle \dmsnap \rangle > \dmh$.
 Using Bayesian model selection, we show that this discrepancy between ASTRID and our observational data is statistically significant over a wide range of model assumptions.
 
@@ -431,14 +432,18 @@ The Bayes factor $K$ that compares feedback models $\mathcal{A}$ and $\mathcal{B
     \label{eq:kdef}
 \end{equation}
 
-In turn, $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}}) = \Pi_{i} P_{i}$ is a product of the posteriors from every sightline $i$. If the data $\dm^\mathrm{Macquart}_\mathrm{h,i}$ (hereafter $\dm_i$) were an unbiased estimator, then a Gaussian likelihood with width $\sigma^2_\mathrm{tot,i} = \sigma_\mathrm{cosmic,i}^2 + S_i^2 + \sigma_\mathrm{CBM}^2$ for uncertainties due to large-scale structure $\sigma_\mathrm{cosmic,i}$, halo-to-halo scatter in the model prediction for that sightline $S_i$, and uncertainty from the circumburst contribution $\sigma_\mathrm{CBM}$ would be most appropriate. 
+In turn, $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})$ can be calculated from the joint posterior combining all sightlines $i$, marginalized over nuisance parameters. If the data $\dm^\mathrm{Macquart}_\mathrm{h,i}$ (hereafter $\dm_i$) were an unbiased estimator of the quantity $\widehat{\dm}_i$ predicted by our model for the $i$th sightline, then a Gaussian likelihood with width $\sigma^2_\mathrm{tot,i} = \sigma_\mathrm{cosmic,i}^2 + S_i^2 + \sigma_\mathrm{CBM}^2$ for uncertainties due to large-scale structure $\sigma_\mathrm{cosmic,i}$, halo-to-halo scatter in the model prediction for that sightline $S_i$, and uncertainty from the circumburst contribution $\sigma_\mathrm{CBM}$ would be appropriate. However, more realistically, $\dm_i$ should be seen as an an upper limit on $\widehat{\dm}_{i}$ because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as $\dmhcbmi$. 
 \begin{equation}
-    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_i^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \widehat{\dm}_i)^2}{2\sigma_\mathrm{tot,i}^2} \right]
+    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_\mathrm{tot,i}^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \dmhcbmi - \widehat{\dm}_i)^2}{2\sigma_\mathrm{tot,i}^2} \right] \label{eq:logl}
 \end{equation}
-However, more realistically, $\dm_i$ should be seen as an an upper limit on \dmhcgm because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as \dmhcbm. In this case the posterior probability of model prediction $\widehat{\dm}_i$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbm > 0$ and $\sigma_\mathrm{CBM}$ compatible with that particular \dmhm\ value. We use uninformative priors (uniform in $\dm_\mathrm{CBM}$ for $\dm_\mathrm{CBM} > 0$ and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$) and calculate
+In this case the posterior probability of model prediction $\widehat{\dm}_i$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbmi > 0$. We use uninformative priors (uniform for each $\dmhcbmi > 0$) and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$). Starting with Eq.~\ref{eq:logl}, we first marginalize over $\dmhcbmi$ for each sightline:
+
 \begin{align}
-P_{i} &= \int ~\pi(\sigma_\mathrm{CBM}) \pi(\dm_\mathrm{CBM}) \mathcal{L}_{i} \\
-&= \int_0^\infty \pi(\sigma_\mathrm{CBM}) \dfrac{1}{2}\left(1 +\mathrm{erf}\left(\dfrac{\dm_i - \widehat{\dm}_i}{2\sigma_\mathrm{tot,i}^2} \right)\right)~d\sigma \label{eq:marginalizedpi}
+P&(\mathcal{M}|\sigma_\mathrm{CBM},\mathrm{each~}\dm_i,) = \int \pi(\dmhcbmi)\mathcal{L}_{i}(\dmhcbmi,\sigma_\mathrm{CBM}) \\
+&= \dfrac{1}{2}\left(1 +\mathrm{erf}\left(\dfrac{\dm_i - \widehat{\dm}_i}{2\sigma_\mathrm{tot,i}^2} \right)\right)
+\intertext{combine the probabilities over sightlines, and then marginalize over $\sigma_\mathrm{CBM}$:}
+P&(\mathcal{M}|\mathrm{all~}\dm_i)= \int_0^\infty \pi(\sigma_\mathrm{CBM}) \prod_i P(\mathcal{M}|\dm_i,\sigma_h) ~d\sigma_\mathrm{CBM}.
+\label{eq:marginalizedpi}
 \end{align}
 
 \begin{figure}
@@ -466,7 +471,7 @@ The ``Low-end only'' and ``High-end only'' analysis variants split our sample in
 We check that our results are also insensitive to the results of our SED fitting by decreasing all the stellar masses by $0.3$ dex (``All $M^*-0.3$ dex'' variant).
 
 It is also robust to the threshold adopted for host associations as computed by the PATH algorithm~\citep{aggarwal2021probabilistic}, by tightening the association criteria from the industry standard ($P(O|x) > 0.90$) to $P(O|x) > 0.95$, where $P(O|x)$ is the posterior probability that the FRB is associated with its putative host.
-Finally, we explore the effect of changing \sigmacosmic on our results. Ideally, \sigmacosmic could be measured from a large simulation volume employing the same subgrid model in which the model predictions were generated. However, the small-volume CAMELS run of Astrid has a different mass resolution from the large-volume production run of Astrid and puts a direct calculation of $\sigmacosmic$ out of the scope of this work. We check that doubling \sigmacosmic with respect to the fiducial analysis reduces our statistical significance from $\log_{10}K = -5.4 \to -3.8$, but does not affect the qualitative interpretation of our results. In addition, we explore the effect of a feedback-dependent \sigmacosmic\ in the ``Varying \sigmacosmic'' analysis. 
+Finally, we explore the effect of changing \sigmacosmic on our results. Ideally, \sigmacosmic could be measured from a large simulation volume employing the same sub-grid model in which the model predictions were generated. However, the small-volume CAMELS run of Astrid has a different mass resolution from the large-volume production run of Astrid and puts a direct calculation of $\sigmacosmic$ out of the scope of this work. We check that doubling \sigmacosmic with respect to the fiducial analysis reduces our statistical significance from $\log_{10}K = -5.4 \to -3.8$, but does not affect the qualitative interpretation of our results. In addition, we explore the effect of a feedback-dependent \sigmacosmic\ in the ``Varying \sigmacosmic'' analysis. 
 Given that changing the feedback prescription from IllustrisTNG (weaker feedback) to Illustris (stronger feedback) decreases \sigmacosmic\ by $\sim 15\%$, we generously scale $\sigmacosmic \to 1.5\sigmacosmic$ to calculate the posterior in the weak feedback scenario (Astrid) and $\sigmacosmic \to 0.8\sigmacosmic$ for the strong feedback scenario (Astrid). We find that our conclusions remain affected, and that the statistical significance of our conclusions is increased. 
 
 \section{Discussion}
