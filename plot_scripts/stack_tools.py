@@ -37,7 +37,7 @@ def _log_likelihood_ul_ref(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 
     # reference implementation, not numerically stable though
     return np.log(0.5 * (1 + erf(argument / np.sqrt(2)))) - np.log(2 * np.pi * unc**2)
 
-def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
+def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model,first = 'sigma'):
     """Integrates over the width parameter, not just location parameter"""
     sigma_e = np.linspace(0,300,num = 50)
     dsigma_e = np.diff(sigma_e)[0]
@@ -46,10 +46,15 @@ def _log_likelihood_ul_nuisance(dm_data, dm_model,sigma_data, sigma_model):
     for iie, se in enumerate(sigma_e):
         ll_per_burst_per_sigma[:,iie] = _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = se)
     ll_per_burst_per_sigma = ll_per_burst_per_sigma + prior_vs_sigma
-    return np.log(dsigma_e * np.sum(np.exp(ll_per_burst_per_sigma),axis = -1)) 
-
+    norm = np.max(ll_per_burst_per_sigma)
+    if first == 'sigma': # marginalize over sigma first, on a per-burst level
+        return np.log(dsigma_e * np.sum(np.exp(ll_per_burst_per_sigma),axis = -1)) 
+    elif first == 'burst': # combine likelihoods over bursts first, then marginalize over sigma.
+        likelihood_per_sigma = np.exp(np.sum(ll_per_burst_per_sigma,axis = 0))
+        return np.log(np.sum(dsigma_e * likelihood_per_sigma))
 
 def _log_likelihood_exact(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
+    """Returns np.array of shape (n_frb,) of log-liklihoods"""
     argument = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     return -0.5 * argument**2
 
@@ -64,6 +69,10 @@ def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'
         indices[ii] = np.argmin(np.abs(bin_centers - _ms))
     model = res['weighted_mean'][weight_index,[indices]].squeeze() # fix model weighting scheme, then choose correct bin to compare each data point against
     model_err = res['weighted_std'][weight_index,[indices]].squeeze() # fix model weighting scheme, then choose correct bin to compare each data point against
+    dm = np.array(dm)
+    dm_err = np.array(dm_err)
+    model = np.array(model)
+    model_err = np.array(model_err)
     if np.isnan(model_err).any():
         print(model_err)
         print(res['num_sampled_sightlines'])
@@ -71,23 +80,33 @@ def log_likelihood(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'ul'
     if mode == 'ul':
         "Using UL likelihood, not marginalizing over sigma_source"
         _log_likelihood = _log_likelihood_ul
-    elif mode == 'exact':
-        "Using Gaussian likelihood"
-        _log_likelihood = _log_likelihood_exact
-    elif mode == 'nuisance':
-        "Using UL likelihood, marginalizing over sigma_source"
-        _log_likelihood = _log_likelihood_ul_nuisance
-    dm = np.array(dm)
-    dm_err = np.array(dm_err)
-    model = np.array(model)
-    model_err = np.array(model_err)
-
-    log_ell = _log_likelihood(dm_data = dm,
+        log_ell = _log_likelihood_ul(dm_data = dm,
                               sigma_data = dm_err,
                               dm_model = model,
                               sigma_model = model_err)
-    indices_weird = np.where(log_ell < -20)
+    elif mode == 'exact':
+        "Using Gaussian likelihood"
+        _log_likelihood = _log_likelihood_exact
+        log_ell = _log_likelihood_exact(dm_data = dm,
+                              sigma_data = dm_err,
+                              dm_model = model,
+                              sigma_model = model_err)
+    elif mode == 'nuisance':
+        "Using UL likelihood, marginalizing over sigma_source"
+        log_ell = _log_likelihood_ul_nuisance(dm_data = dm,
+                              sigma_data = dm_err,
+                              dm_model = model,
+                              sigma_model = model_err,
+                              first=  'sigma')
+    elif mode == 'nuisance2':
+        "Using UL likelihood, NOT marginalizing over sigma_source"
+        log_ell = _log_likelihood_ul_nuisance(dm_data = dm,
+                              sigma_data = dm_err,
+                              dm_model = model,
+                              sigma_model = model_err,
+                              first=  'burst')
     if verbose:
+        indices_weird = np.where(log_ell < -20)
         print('Double check these:',indices_weird)
         print(argument)
         plt.figure()
