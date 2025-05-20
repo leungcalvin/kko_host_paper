@@ -7,7 +7,29 @@ from matplotlib import cm
 import numpy as np
 from scipy.special import erfc, erfcx, log_ndtr
 
+
+
+
+
+
 def _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
+    """Returns log likelihood marginalized over DM_cbm uniform over [0,inf).
+    
+    Assumes Gaussian likelihood in DM_cbm.
+
+    Parameters
+    ----------
+    dm_data : np.array of shape (n_frb),
+    dm_model : np.array of shape (n_frb),
+    sigma_data : np.array of shape (n_frb),
+    sigma_model : np.array of shape (n_frb),
+    sigma_e : float or np.array of shape (n_frb),
+
+    Returns
+    -------
+    result : np.array of shape (n_frb,)
+        the natural log likelihood, marginalized over dm_cbm.
+    """
     x = (dm_data - dm_model) / (sigma_data**2 + sigma_model**2 + sigma_e**2)**0.5
     x /= np.sqrt(2)
     """Corrected stable version"""
