@@ -380,10 +380,10 @@ def not_edge_on(df):
             for n in df.index
            ])
 
-def not_low_galb(df):
+def not_low_galb(df,galb_cut = 10):
     keep = np.ones(len(df)) > 0
     if 'gal_b' in df.keys():
-        keep *= np.abs(df['gal_b']) > 5
+        keep *= np.abs(df['gal_b']) > galb_cut
     keep *= np.array([n not in [
             'FRB20210405I'
             ]
