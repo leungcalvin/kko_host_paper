@@ -8,9 +8,99 @@ import numpy as np
 from scipy.special import erfc, erfcx, log_ndtr
 
 
+import numpy as np
+from scipy.special import log_ndtr
+import scipy.stats as stats
 
+def _compute_log_integral_result(a, b, w_i, w_c_array, d_array):
+    """
+    Computes the natural logarithm of the integral result in a vectorized way.
 
+    Here the integral is
 
+    int from c=0 to c=infinity of:
+    ******
+    exp(- 0.5 * wi**2 * (a - b - c)**2 - 0.5 * wc**2 * (c - d)**2)
+    ******
+
+    Parameters:
+    -----------
+    a : float
+        Parameter a in the integral
+    b : float
+        Parameter b in the integral
+    w_i : float
+        Parameter w_i in the integral (fixed value)
+    w_c_array : numpy.ndarray
+        Array of w_c values
+    d_array : numpy.ndarray
+        Array of d values
+
+    Returns:
+    --------
+    numpy.ndarray
+        2D array of shape (len(w_c_array), len(d_array)) containing log of integral results
+    """
+    # Reshape arrays for broadcasting
+    w_c = w_c_array.reshape(-1, 1)  # Shape: (n_w_c, 1)
+    d = d_array.reshape(1, -1)      # Shape: (1, n_d)
+
+    # Pre-calculate common terms
+    ab_diff = a - b
+    w_i_sq = w_i**2
+    w_c_sq = w_c**2
+
+    # Calculate terms for the exponent
+    term1 = -0.5 * w_i_sq * ab_diff**2
+    term2 = -0.5 * w_c_sq * d**2
+
+    # Calculate the numerator for term3
+    numerator = (w_i_sq * ab_diff + w_c_sq * d)**2
+
+    # Calculate the denominator for term3
+    denominator = 2 * (w_i_sq + w_c_sq)
+
+    # Calculate term3
+    term3 = numerator / denominator
+
+    # Combined exponent
+    exponent = term1 + term2 + term3
+
+    # Calculate the error function argument
+    erf_arg = (w_i_sq * ab_diff + w_c_sq * d) / np.sqrt(w_i_sq + w_c_sq)
+    #erf_arg = (ab_diff + d) / np.sqrt(w_i_sq**-1 + w_c_sq**-1)
+
+    # For numerical stability, we use the log of the CDF of the normal distribution
+    # which is related to erf by: erf(x/sqrt(2)) = 2*CDF(x) - 1
+    # So log(0.5 + 0.5*erf(x)) = log(CDF(x*sqrt(2)))
+    scaled_erf_arg = erf_arg * np.sqrt(2)
+
+    # Use log_ndtr for numerical stability (log of normal CDF)
+    log_erf_term = log_ndtr(scaled_erf_arg)
+
+    # Calculate the logarithm of the coefficient
+    log_coef = 0.5 * np.log(np.pi) - 0.5 * np.log(w_i_sq + w_c_sq) + 0.5 * np.log(w_i_sq) + 0.5 * np.log(w_c_sq)
+
+    # Combine all terms to get the final logarithm of the result
+    # log(exp(exponent) * coefficient * (0.5 + 0.5*erf(...)))
+    # For log(0.5 + 0.5*erf(...)), we use the approach from above
+    result = exponent + log_coef + log_erf_term
+
+    return result
+
+def log_likelihood_mgaussian(dm_host_restframe,
+        sigma_i,
+        dm_model,
+        sigma_cbm_arr,
+        dm_cbm_arr,
+):
+    """Returns np.log(P(DM_i | <DM>, <sigma_cosmic>)) as a np.array of shape (n_<dm>, n_<sigmacosmic>) """
+    return _compute_log_integral_result(a = dm_host_restframe,
+                                        b = dm_model,
+                                        w_i = sigma_i**-1,
+                                        w_c_array = sigma_cbm_arr**-1,
+                                        d_array = dm_cbm_arr,
+                                       )
 
 def _log_likelihood_ul(dm_data, dm_model,sigma_data, sigma_model, sigma_e = 0):
     """Returns log likelihood marginalized over DM_cbm uniform over [0,inf).
@@ -190,16 +280,75 @@ good = _log_likelihood_ul(
     dm_data = np.linspace(-10,10), 
     dm_model = 0, 
     sigma_data=  1,
-    sigma_model = 0 
+    sigma_model = 1 
     )
 bad = _log_likelihood_ul_ref(
     dm_data = np.linspace(-10,10), 
     dm_model = 0, 
     sigma_data =  1,
-    sigma_model = 0 
+    sigma_model = 1 
     )
-keep = np.isnan(good + bad)
-assert np.isclose(good[keep],bad[keep]).all()
+_keep = np.isnan(good + bad)
+assert np.isclose(good[_keep],bad[_keep]).all()
+
+def log_likelihood_hp_gauss(ms,dm,dm_err,res,weight_index = 0,verbose = False,mode = 'g2',sigma_cbm_arr = np.linspace(1,100,num = 10),
+                                dm_cbm_arr = np.linspace(0,200, num = 30)):
+    """Computes log likelihood with proper treatment of the hyperparameters (hence, 'hp' in the name).
+
+    Returns an array whose shape is the same as ms."""
+    msb = np.array(res['M_star_bins'])
+    bin_centers = np.sqrt(msb[:,0] * msb[:,1])
+    indices = np.zeros_like(ms,dtype = int)
+    for ii,_ms in enumerate(ms):
+        indices[ii] = np.argmin(np.abs(bin_centers - _ms))
+    model = res['weighted_mean'][weight_index,[indices]].squeeze() # fix model weighting scheme, then choose correct bin to compare each data point against
+    model_err = res['weighted_std'][weight_index,[indices]].squeeze() # fix model weighting scheme, then choose correct bin to compare each data point against
+    dm = np.array(dm)
+    dm_err = np.array(dm_err)
+    model = np.array(model)
+    model_err = np.array(model_err)
+    ll_per_burst_gaussian = np.zeros((len(dm),len(sigma_cbm_arr),len(dm_cbm_arr)))
+    for (ii,_dm,_dme,_m,_me) in zip(np.arange(dm.size),dm,dm_err,model,model_err):
+        ll_per_burst_gaussian[ii] = log_likelihood_mgaussian(
+            dm_host_restframe = _dm,
+            sigma_i = (_me**2 + _dme**2)**0.5,
+            dm_model = _m,
+            sigma_cbm_arr = sigma_cbm_arr,
+            dm_cbm_arr = dm_cbm_arr,
+        )
+    return ll_per_burst_gaussian
+
+def marginalize_ll_hp(ll,prior,dm_cbm_arr,sigma_cbm_arr):
+    """Combines likelihoods over bursts, then integrates over hyperparameter priors (sigma_cbm_arr,dm_cbm_arr)
+
+    Parameters
+    ----------
+    ll : np.array of shape (n_bursts, n_sigma_cbm_arr, n_dm_cbm_arr)
+        The natural log likelihood
+    prior : np.array of shape (n_sigma_cbm_arr, n_dm_cbm_arr)
+
+    keep : np.array of bools of shape (n_bursts,)
+
+    Returns
+    -------
+    marg : np.array of shape (ll.shape[0],), usually (3,)
+        Marginalized log-likelihood
+    """
+    ddm = np.abs(np.diff(dm_cbm_arr,append = dm_cbm_arr[-1]))
+    dsigma = np.abs(np.diff(sigma_cbm_arr,append = sigma_cbm_arr[-1]))
+    norm = np.max(ll)
+    ll_norm = ll - norm
+    if ll_norm.ndim == 2:
+        ll_norm.shape = (1,ll_norm.shape[0],ll_norm.shape[1])
+
+    marg = np.sum(np.exp(np.sum(
+                 ll_norm,axis = -3) # sum log-likelihoods over all (n_model, n_bursts, n_sigma, n_dm) -> (n_model, n_sigma, n_dm)
+                        ) * #
+                 prior[...,None,:,:] *
+                 ddm[...,None,None,:] * dsigma[...,None,:,None],
+                 axis = (-2,-1),
+                 )
+    return np.log(marg) + norm
 
 def plot_fig(fig,axes,log_likelihoods, out_file,
     redshifts = ['z = 0.0', 'z = 0.1', 'z = 0.2'],
@@ -257,10 +406,10 @@ def plot_fig(fig,axes,log_likelihoods, out_file,
     plt.subplots_adjust(wspace = 0,hspace = 0)
     plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
 
-def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cmap = 'inferno',cbar_label = 'Ln(posterior)',vmin = None, vmax = None):
+def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file = None, cmap = 'inferno',cbar_label = 'Ln(posterior)',vmin = None, vmax = None):
     # Find global min and max for consistent color scale
-    log_likelihoods = log_likelihoods - np.max(log_likelihoods,axis = 0)[None,:] # -1 -> Simba; 0 -> fiducial analysis
-    log_likelihoods_norm = log_likelihoods # what you color (log_likelihoods_norm) is what you print (log_likelihoods)
+    log_likelihoods = log_likelihoods - np.max(log_likelihoods,axis = 0)[None,:] # could also normalize to log_likelihoods[-1,0] # -1 -> Simba; 0 -> fiducial analysis
+    log_likelihoods_norm = log_likelihoods - np.max(log_likelihoods,axis = 0)[None,:] # what you color (log_likelihoods_norm) 
     if vmin is None:
         vmin = np.clip(np.min(log_likelihoods_norm),a_min = -100, a_max = 0)
     if vmax is None:
@@ -305,7 +454,8 @@ def plot_fig2(fig,ax,log_likelihoods, xnames, ynames ,out_file, cmap = 'inferno'
     
     # Adjust layout
     plt.tight_layout(rect=[0, 0, 0.9, 0.95])
-    plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
+    if out_file is not None:
+        plt.savefig(out_file,dpi = 110,bbox_inches= 'tight')
 
 import dmh_tools
 def fit_linear_with_uncertainties(df):
@@ -362,9 +512,9 @@ def fit_linear_with_uncertainties(df):
     }
 
 def get_eqn_string(mxpb):
-    eqn_string = f"\\dmhm &= ({mxpb['slope']:.0f} \pm {mxpb['slope_err']:.0f})"
+    eqn_string = f"\\dmhm &= ({mxpb['slope']:.0f}"+ " \\pm" + f"{mxpb['slope_err']:.0f})"
     eqn_string += f"\\log(M^*/10^" + '{'
     eqn_string += f"{mxpb['x_mean']:.1f}" + '} M_\odot)'
-    eqn_string += f" + ({mxpb['intercept']:.0f} \pm {mxpb['intercept_err']:.0f})"
+    eqn_string += f" + ({mxpb['intercept']:.0f}" + "\\pm" + f"{mxpb['intercept_err']:.0f})"
     return eqn_string
     
