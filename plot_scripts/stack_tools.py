@@ -52,7 +52,7 @@ def _compute_log_integral_result(a, b, w_i, w_c_array, d_array):
 
     # Calculate terms for the exponent
     term1 = -0.5 * w_i_sq * ab_diff**2
-    term2 = -0.5 * w_c_sq * d**2
+    term2 = -0.5 * w_c_sq * d**2 
 
     # Calculate the numerator for term3
     numerator = (w_i_sq * ab_diff + w_c_sq * d)**2
