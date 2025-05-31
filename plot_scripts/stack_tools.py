@@ -509,6 +509,8 @@ def fit_linear_with_uncertainties(df):
         'intercept': intercept,
         'intercept_err': intercept_err,
         'x_mean' : x_mean,
+        'params' : params,
+        'covariance' : covariance
     }
 
 def get_eqn_string(mxpb):
@@ -518,3 +520,4 @@ def get_eqn_string(mxpb):
     eqn_string += f" + ({mxpb['intercept']:.0f}" + "\\pm" + f"{mxpb['intercept_err']:.0f})"
     return eqn_string
     
+from scipy.special import erf
