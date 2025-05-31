@@ -400,7 +400,12 @@ def not_low_dm(df):
         
 def not_scattered(df):
     """tau > 5 ms at 600 MHz, assuming alpha = -4"""
-    return np.array([name not in ['FRB20230222A','FRB20210410D','FRB20230203A'] for name in df.index])
+    return np.array([name not in ['FRB20230222A', # 9 ms at 600 MHz assuming 4.0 from /arc/projects/chime_frb/knimmo/fitburst_results/event_268786306/scat/results_fitburst_input_dsamp_32_268786306.json
+
+                                  'FRB20210410D', # Caleb 2023 29.4 ms at 1 GHz
+                                  'FRB20230203A', # Vishwangi: 16 ms at 600 MHz assuming 4.0
+                                  'FRB20190608B' # Chittidi + 2021 says 3.3 ms at 1.28 GHz
+                                  ] for name in df.index])
 
 def not_elliptical(df):
     # Not elliptical or quiescent
