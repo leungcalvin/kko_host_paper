@@ -12,13 +12,15 @@ from matplotlib import patches
 
 ROOT_PATH = os.getcwd() + '/../'
 CAMELS_REDSHIFTS = {'090':0.0,'088':0.05,'086':0.1,'084':0.15,'082':0.2}
-def load_snapshot(filename):
+APRIL_HEADER = ['x_pos', 'y_pos', 'dm_total', 'b_val', 'halo_index', 'M_star', 'M_200', 'sfr']
+MAY_HEADER = ['dm_total', 'b_val', 'halo_index', 'M_star', 'M_200', 'sfr'] # from Isabel May 8 2025 email
+def load_snapshot(filename,names = APRIL_HEADER):
     """Load snapshot and assign a redshift"""
     def get_redshift(filename):
         for key in CAMELS_REDSHIFTS:
             if key in filename:
                 return CAMELS_REDSHIFTS[key]
-    df = pd.read_csv(filename,names=['x_pos', 'y_pos', 'dm_total', 'b_val', 'halo_index', 'M_star', 'M_200', 'sfr'])
+    df = pd.read_csv(filename,names=names)
     df['z'] = get_redshift(filename) + np.zeros_like(len(df))
     return df
         
@@ -37,6 +39,7 @@ def analyze_halos(
     out_file: str = None,
     random_seed: int = 42,
     oversample: int = 0,
+    verbose = True
     ):
     """
     Analyze halos from a CSV file with filtering and weighting.
@@ -71,9 +74,16 @@ def analyze_halos(
     counts = np.zeros((4,len(M_star_range)))
     weighted_mean = np.zeros((4,len(M_star_range)))
     weighted_std = np.zeros_like(weighted_mean)
+    logn_mu = np.zeros_like(weighted_mean)
+    logn_sigma = np.zeros_like(weighted_mean)
+    logn_bins = np.linspace(0,500,num = 40)
+    logn_bin_counts = np.zeros(tuple(list(logn_sigma.shape) + [logn_bins.size-1,]))
     M_star_bins = []
     assert width_factor > 1, "width_dex must be greater than 1!"
     for iibin,M_star in zip(np.arange(n_bins),M_star_range):
+        if verbose:
+            plt.figure()
+            plt.title(filepath)
         M_star_min = M_star / width_factor
         M_star_max = M_star * width_factor
         filtered_df = df[
@@ -87,15 +97,15 @@ def analyze_halos(
             (df['M_star'] <= M_star_max)
         ]
         sampled_data = filtered_df.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True)
-        oversamples = []
         if oversample:
+            oversamples = []
             for iisample in range(oversample):
                 oversamples.append(filtered_df.set_index('halo_index').groupby('halo_index').apply(lambda x: x.sample(n=1,)).reset_index(drop=True))
             sampled_data = pd.concat(oversamples,ignore_index=True,sort = False)
 
         if len(sampled_data) < num_halos:
             print(
-                f"Not enough halos after filtering (bin index={iibin})"
+                f"Not enough halos after filtering! {len(sampled_data)} < {num_halos}"
                 )
         print(f'sightlines within halos: {len(filtered_df)}, unique halos: {len(set(filtered_df['halo_index']))}, sampled sightlines: {len(sampled_data.index)}')
         # 2. Sample: one sightline per halo, not one per unit area.
@@ -103,6 +113,9 @@ def analyze_halos(
         # 3. Compute weightings
         # Normalize the weights so they sum to 1
         weightings = ['uniform','M_star','sfr','both']
+        # 4. First, divide by 2 to account for the one-halo-ness of the data.
+        sampled_data['dm_total'] = sampled_data['dm_total'] / 2
+        # 5. Apply weights to the DM distribution
         for iiweighting, weighting in enumerate(weightings):
             if weighting == 'uniform':
                 weights = np.ones_like( sampled_data['M_star']) / len( sampled_data['M_star'])
@@ -113,7 +126,7 @@ def analyze_halos(
             if weighting == 'both':
                 weights = sampled_data['sfr'] * sampled_data['M_star'] / (sampled_data['sfr'] * sampled_data['M_star']).sum()
     
-            # 4. Apply weights to the DM distribution
+            # 6. Then post process:
             # For weighted mean: sum(weight * value) / sum(weights)
             # For weighted variance: sum(weight * (value - weighted_mean)^2) / sum(weights)
             _weighted_mean = np.sum(weights * sampled_data['dm_total'])
@@ -121,17 +134,29 @@ def analyze_halos(
             weighted_mean[iiweighting,iibin] = _weighted_mean
             weighted_std[iiweighting,iibin] = np.sqrt(_weighted_var)
             counts[iiweighting,iibin] = len(sampled_data)
+            # For log-normal mu and sigma: use fit_lognormal_to_histogram.
+            bin_counts, bin_edges = np.histogram(sampled_data['dm_total'],weights = weights, bins = logn_bins)
+            dist_fit_result = fit_lognormal_to_histogram(bin_edges,bin_counts,method = 'mle') 
+            logn_mu[iiweighting, iibin] = dist_fit_result['mu']
+            logn_sigma[iiweighting, iibin] = dist_fit_result['sigma']
+            logn_bin_counts[iiweighting, iibin] = dist_fit_result['expected_counts']
+            if verbose and iiweighting == 2:
+                hh = plt.stairs(bin_counts, bin_edges,label = f'M*={iibin:.1f}',alpha = 0.3)
+                plt.stairs(dist_fit_result['expected_counts'], bin_edges,alpha = 1, color = hh.get_edgecolor(),linewidth = 2)
+    plt.legend()
         
     # 5. Compile results
     results = {'filepath': filepath,
-            'weighted_mean': weighted_mean / 2, # divide by 2 for one halo term
-            'weighted_std': weighted_std / 2, # divide by 2 for one halo term 
+            'weighted_mean': weighted_mean,
+            'weighted_std': weighted_std,
+            'logn_mu': logn_mu,
+            'logn_sigma': logn_sigma,
             'M_star_bins': M_star_bins,
             'num_sampled_sightlines': counts,
             'b_range': np.array([b_min, b_max]),
             'M_200_range': np.array([M_200_min, M_200_max]),
             'sfr_range': np.array([sfr_min, sfr_max])
-                }
+    }
     if out_file is not None:
         import h5py
         with h5py.File(out_file,'w') as f:
@@ -143,14 +168,146 @@ def analyze_halos(
     # 6. Write back to file system
     return results,sampled_data
 
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats, optimize
+
+def fit_lognormal_to_histogram(bin_edges, counts, method='mle'):
+    """
+    Fit a log-normal distribution to histogram data.
+
+    Parameters:
+    -----------
+    bin_edges : array-like
+        Bin edges from numpy.histogram (length n+1 for n bins)
+    counts : array-like
+        Bin counts from numpy.histogram (length n)
+    method : str
+        Fitting method: 'mle' (maximum likelihood) or 'moments'
+
+    Returns:
+    --------
+    dict : Contains fitted parameters and goodness-of-fit statistics
+    """
+
+    # Convert to numpy arrays
+    bin_edges = np.asarray(bin_edges)
+    counts = np.asarray(counts)
+
+    # Calculate bin centers and widths
+    bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+    bin_widths = np.diff(bin_edges)
+
+    # Remove bins with zero counts for fitting
+    mask = counts > 0
+    if not np.any(mask):
+        raise ValueError("All bins have zero counts")
+
+    bin_centers_fit = bin_centers[mask]
+    counts_fit = counts[mask]
+    bin_widths_fit = bin_widths[mask]
+
+    if method == 'mle':
+        # Maximum likelihood estimation
+        def neg_log_likelihood(params):
+            mu, sigma = params
+            if sigma <= 0:
+                return np.inf
+
+            # Calculate expected counts for each bin
+            expected_counts = []
+            total_count = np.sum(counts)
+
+            for i in range(len(bin_edges) - 1):
+                # CDF difference gives probability mass in bin
+                p_lower = stats.lognorm.cdf(bin_edges[i], s=sigma, scale=np.exp(mu))
+                p_upper = stats.lognorm.cdf(bin_edges[i+1], s=sigma, scale=np.exp(mu))
+                p_bin = p_upper - p_lower
+                expected_counts.append(total_count * p_bin)
+
+            expected_counts = np.array(expected_counts)
+
+            # Avoid log(0) by adding small epsilon
+            expected_counts = np.maximum(expected_counts, 1e-10)
+
+            # Poisson likelihood for each bin
+            log_likelihood = np.sum(counts * np.log(expected_counts) - expected_counts)
+            return -log_likelihood
+
+        # Initial guess: method of moments on bin centers
+        weights = counts_fit / np.sum(counts_fit)
+        log_mean = np.sum(weights * np.log(bin_centers_fit))
+        log_var = np.sum(weights * (np.log(bin_centers_fit) - log_mean)**2)
+
+        mu_init = log_mean
+        sigma_init = np.sqrt(log_var)
+
+        # Optimize
+        try:
+            result = optimize.minimize(neg_log_likelihood, [mu_init, sigma_init],
+                                     method='L-BFGS-B',
+                                     bounds=[(-np.inf, np.inf), (1e-6, np.inf)])
+            mu_fit, sigma_fit = result.x
+        except:
+            # Fallback to moments method
+            mu_fit, sigma_fit = mu_init, sigma_init
+
+    elif method == 'moments':
+        # Method of moments using bin centers weighted by counts
+        weights = counts_fit / np.sum(counts_fit)
+        log_mean = np.sum(weights * np.log(bin_centers_fit))
+        log_var = np.sum(weights * (np.log(bin_centers_fit) - log_mean)**2)
+
+        mu_fit = log_mean
+        sigma_fit = np.sqrt(log_var)
+
+    else:
+        raise ValueError("Method must be 'mle' or 'moments'")
+
+    # Calculate goodness of fit statistics
+    total_count = np.sum(counts)
+    expected_counts = []
+
+    for i in range(len(bin_edges) - 1):
+        p_lower = stats.lognorm.cdf(bin_edges[i], s=sigma_fit, scale=np.exp(mu_fit))
+        p_upper = stats.lognorm.cdf(bin_edges[i+1], s=sigma_fit, scale=np.exp(mu_fit))
+        p_bin = p_upper - p_lower
+        expected_counts.append(total_count * p_bin)
+
+    expected_counts = np.array(expected_counts)
+
+    # Chi-square test (only for bins with expected count >= 5)
+    mask_chi2 = expected_counts >= 5
+    if np.sum(mask_chi2) > 2:  # Need at least 3 bins for chi-square test
+        chi2_stat = np.sum((counts[mask_chi2] - expected_counts[mask_chi2])**2 /
+                          expected_counts[mask_chi2])
+        dof = np.sum(mask_chi2) - 2  # 2 parameters estimated
+        p_value = 1 - stats.chi2.cdf(chi2_stat, dof)
+    else:
+        chi2_stat, p_value = np.nan, np.nan
+
+    # Calculate R-squared
+    ss_res = np.sum((counts - expected_counts)**2)
+    ss_tot = np.sum((counts - np.mean(counts))**2)
+    r_squared = 1 - (ss_res / ss_tot) if ss_tot > 0 else np.nan
+
+    return {
+        'mu': mu_fit,
+        'sigma': sigma_fit,
+        'scale': np.exp(mu_fit),  # scipy.stats.lognorm uses scale parameter
+        'expected_counts': expected_counts,
+        'chi2_stat': chi2_stat,
+        'p_value': p_value,
+        #'r_squared': r_squared,
+        #'method': method
+    }
+
 def from_file(filename):
     results = {}
     with h5py.File(filename,'r') as f:
+        results['filepath'] = f.attrs['filepath']
         for key in f.keys(): 
-            if key == 'filepath':
-                results['filepath'] = f.attrs['filepath']
-            else:
-                results[key] = f[key][:].copy()
+            results[key] = f[key][:].copy()
     return results
             
 def plot_theory_predictions(path_to_file,ax,x_axis = 'M_star',weight = 'weighted',one_halo = True,label = None,**rect_kwargs):

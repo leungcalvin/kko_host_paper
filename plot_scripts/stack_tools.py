@@ -324,9 +324,9 @@ def marginalize_ll_hp(ll,prior,dm_cbm_arr,sigma_cbm_arr):
     Parameters
     ----------
     ll : np.array of shape (n_bursts, n_sigma_cbm_arr, n_dm_cbm_arr)
-        The natural log likelihood
+        The natural log of the likelihood
     prior : np.array of shape (n_sigma_cbm_arr, n_dm_cbm_arr)
-
+        The prior values (not the natural log thereof)
     keep : np.array of bools of shape (n_bursts,)
 
     Returns

@@ -165,7 +165,7 @@
 
 \begin{document}
 
-\title{The Tau of Galaxies: Constraining Baryonic Feedback in $L^*$ Galaxies using Star-Forming Fast Radio Burst Hosts}
+\title{Constraining Baryonic Feedback in Fast Radio Burst Host Galaxies}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -432,9 +432,9 @@ The Bayes factor $K$ that compares feedback models $\mathcal{A}$ and $\mathcal{B
 \end{equation}
 
 In turn, $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})$ can be calculated from the joint posterior combining all sightlines $i$, marginalized over nuisance parameters. If the data $\dm^\mathrm{Macquart}_\mathrm{h,i}$ (hereafter $\dm^\mathcal{M}_{i}$) were an unbiased estimator of the quantity $\dm^\mathcal{M}_{i}$ predicted by model $\mathcal{M}$ for the $i$th sightline, then a Gaussian likelihood with width $\sigma^2_\mathrm{tot,i} = \sigma_\mathrm{cosmic,i}^2 + S_i^2 + \sigma_\mathrm{CBM}^2$ for uncertainties due to large-scale structure $\sigma_\mathrm{cosmic,i}$, halo-to-halo scatter in the model prediction for that sightline $S_i$, and uncertainty from the circumburst contribution $\sigma_\mathrm{CBM}$ would be appropriate. However, more realistically, $\dm_i$ should be seen as an an upper limit on $\widehat{\dm}_{i}$ because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as $\dmhcbmi$. 
-\begin{equation}
-    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_\mathrm{tot,i}^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \dmhcbmi - $\dm^\mathcal{M}_{i}$)^2}{2\sigma_\mathrm{tot,i}^2} \right] \label{eq:logl}
-\end{equation}
+%#\begin{equation}
+%#    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_\mathrm{tot,i}^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \dmhcbmi - $\dm^\mathcal{M}_{i}$)^2}{2\sigma_\mathrm{tot,i}^2} \right] \label{eq:logl}
+%#\end{equation}
 In this case the posterior probability of model prediction $\dm^\mathcal{M}_{i}$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbmi > 0$. We use uninformative priors (uniform for each $\dmhcbmi > 0$) and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$). Starting with Eq.~\ref{eq:logl}, we first marginalize over $\dmhcbmi$ for each sightline:
 
 \begin{align}
