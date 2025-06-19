@@ -311,23 +311,23 @@ def mvsk_numerical_from_lognormal(m,delta_m_plus,delta_m_minus,w,delta_w_plus,de
 
 def plot_survey(ax,df,z_max,**errorbar_kwargs):
     """Apply redshift cutoff, then plot keepers and non-keepers"""
-    keep = (df['primary_z_spec'] < z_max) 
-    keep *= not_clusters(df) 
+    keep = not_clusters(df) 
     keep *= not_edge_on(df)
     keep *= not_scattered(df)
+    keep *= not_dwarf(df)
     keep *= not_elliptical(df)
-    keep *= not_low_galb(df)
     keep *= not_low_dm(df)
     keep *= not_low_galb(df)
     grayed_out = (df['primary_z_spec'] < z_max) * ~keep
+    not_gray =  (df['primary_z_spec'] < z_max) * keep
     y_err = sigma_tot(df)
     if 0: #'extinction_mags' in df.keys():
         x_err = 0.2 * df['extinction_mags']
     else:
         x_err = 0.0
-    ax.errorbar(x = df['M_r'][keep],
+    ax.errorbar(x = df['M_r'][not_gray],
                  xerr = x_err,
-                 y = df['DM_host_restframe'][keep],yerr=y_err[keep],
+                 y = df['DM_host_restframe'][not_gray],yerr=y_err[not_gray],
                  mfc = 'C0',mec = 'C0',ecolor = 'C0',
                  **errorbar_kwargs)
     ax.errorbar(x = df['M_r'][grayed_out],
@@ -335,7 +335,10 @@ def plot_survey(ax,df,z_max,**errorbar_kwargs):
                  yerr=y_err[grayed_out],
                  mfc = 'gray',mec = 'gray',ecolor = 'gray',
                  **errorbar_kwargs)
-    print(f'Plotting {np.sum(keep)}, graying out {np.sum(grayed_out)}')
+    print('Blue:')
+    print(df.index[not_gray].values)
+    #print('Gray:')
+    #print(df.index[grayed_out])
 
 
 def plot_zdm(df,z_max,**errorbar_kwargs):
@@ -368,6 +371,7 @@ def not_clusters(df):
 
 
 def not_edge_on(df):
+    """Inclinations >70 deg rejected"""
     return np.array([n not in [
             'FRB20240201A', # Shannon
             'FRB20240310A', # Shannon 
@@ -376,6 +380,8 @@ def not_edge_on(df):
             'FRB20230203A', # this work
             'FRB20231005A', # this work
             'FRB20210603A', # Cassanelli 2023
+            'FRB20231120A', # looks edge on in https://arxiv.org/pdf/2409.16964
+            'FRB20240213A', # looks edge on in https://www.legacysurvey.org/viewer?ra=166.1683&dec=74.0744&layer=ls-dr9&zoom=13
             ]
             for n in df.index
            ])
