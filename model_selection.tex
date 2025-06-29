@@ -1,0 +1,35 @@
+\section{Model Selection}
+In Fig.~\ref{fig:camels} we have plotted the measured $M^*-\dmh$ relation over the fiducial model predictions, which averages FRB sightlines between $0.13 < b < 0.20$ in the $z = 0.1$ snapshot for each sub-grid model with $w_k \propto$ SFR. 
+Even though our sample was constructed to satisfy $\dmh > \dmhcgm > \langle \dmsnap \rangle$, we see the opposite behavior in the ASTRID simulations at $M^* \sim 10^{10-11}$, where $\langle \dmsnap \rangle > \dmh$.
+Using Bayesian model selection, we show that this discrepancy between ASTRID and our observational data is statistically significant over a wide range of model assumptions.
+
+In this formalism, given that one of these three fiducial models -- ASTRID, IllustrisTNG, and SIMBA -- describes reality, we may compute the Bayes factor for each feedback model to choose between them. In reality, the space of feedback models is continuous and spans a much wider range than the three discrete cases here, but our analysis could be extended in future work to cover the wider range explored e.g. in the CAMELS-LH (Latin Hypercube) dataset.
+
+The Bayes factor $K$ that compares feedback models $\mathcal{A}$ and $\mathcal{B}$ is the ratio of their posterior probabilities $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})$:
+
+\begin{equation}
+    K = \dfrac{P(\mathcal{A} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})}{P(\mathcal{B} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})}
+    \label{eq:kdef}
+\end{equation}
+
+In turn, $P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})$ can be calculated from the joint posterior combining all sightlines $i$, marginalized over nuisance parameters. If the data $\dm^\mathrm{Macquart}_\mathrm{h,i}$ (hereafter $\dm^\mathcal{M}_{i}$) were an unbiased estimator of the quantity $\dm^\mathcal{M}_{i}$ predicted by model $\mathcal{M}$ for the $i$th sightline, then a Gaussian likelihood with width $\sigma^2_\mathrm{tot,i} = \sigma_\mathrm{cosmic,i}^2 + S_i^2 + \sigma_\mathrm{CBM}^2$ for uncertainties due to large-scale structure $\sigma_\mathrm{cosmic,i}$, halo-to-halo scatter in the model prediction for that sightline $S_i$, and uncertainty from the circumburst contribution $\sigma_\mathrm{CBM}$ would be appropriate. However, more realistically, $\dm_i$ should be seen as an an upper limit on $\widehat{\dm}_{i}$ because it includes some unknown contribution from the circumburst medium (CBM) and the host galaxy ISM, which we lump together as $\dmhcbmi$. 
+%#\begin{equation}
+%#    \mathcal{L}_{i} = \dfrac{1}{\sqrt{2\pi\sigma_\mathrm{tot,i}^2}}\exp\left[ -\dfrac{(\dm_{\mathrm{i}} - \dmhcbmi - $\dm^\mathcal{M}_{i}$)^2}{2\sigma_\mathrm{tot,i}^2} \right] \label{eq:logl}
+%#\end{equation}
+In this case the posterior probability of model prediction $\dm^\mathcal{M}_{i}$ being allowed given the data $\dm_i$ is given by marginalizing the likelihood $\mathcal{L}_{i}$ over all possible values of $\dmhcbmi > 0$. We use uninformative priors (uniform for each $\dmhcbmi > 0$) and $\pi(\sigma_\mathrm{CBM}) = \sigma_\mathrm{CBM} / \sigma_i^2$ for $\sigma_\mathrm{CBM} > 0$). Starting with Eq.~\ref{eq:logl}, we first marginalize over $\dmhcbmi$ for each sightline:
+
+\begin{align}
+P&(\mathcal{M}|\sigma_\mathrm{CBM},\mathrm{each~}\dm_i,) = \int \pi(\dmhcbmi)\mathcal{L}_{i}(\dmhcbmi,\sigma_\mathrm{CBM}) \\
+&= \dfrac{1}{2}\left(1 +\mathrm{erf}\left(\dfrac{\dm_i - \dm^\mathcal{M}_{i}}{2\sigma_\mathrm{tot,i}^2} \right)\right)
+\intertext{combine the probabilities over sightlines, and then marginalize over $\sigma_\mathrm{CBM}$:}
+P&(\mathcal{M}|\mathrm{all~}\dm_i)= \int_0^\infty \pi(\sigma_\mathrm{CBM}) \prod_i P(\mathcal{M}|\dm_i,\sigma_h) ~d\sigma_\mathrm{CBM}.
+\label{eq:marginalizedpi}
+\end{align}
+
+\begin{figure}
+    \includegraphics[width=0.49\textwidth]{model_selection_ul.pdf}
+    %\includegraphics[width=0.49\textwidth]{model_selection_gauss.pdf}
+    \caption{We plot the quantity $\log_{10}(K)$ where $K = P(\mathcal{M} | \dm^\mathrm{Macquart}_{\mathrm{h,i}}) / P(\mathrm{SIMBA} | \dm^\mathrm{Macquart}_{\mathrm{h,i}})$ (light colors are more allowed). Under the interpretation that the observed \dmhm values are upper limits on \dmhcgm, Astrid, and to a lesser extent IllustrisTNG, are disfavored relative to SIMBA.
+    }
+    \label{fig:model}
+\end{figure}
