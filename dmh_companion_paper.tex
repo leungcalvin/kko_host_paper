@@ -259,14 +259,14 @@ The dispersion measure, or DM, of FRBs can precisely measure the column density 
 This makes FRBs excellent probes of baryons, sensitive to both the baryons in the cosmic web and the collapsed gas overdensities on the outskirts of galaxies and their dark matter halos.
 
 Since then, two classes of methodologies have emerged that use FRBs to probe extragalactic baryons: one using the relation of the mean extragalactic DM versus redshift, and a second using the variations in the mean.
-Using observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} used the mean extragalactic DM \avgdmcosmic as a function of redshift to locate the so-called ``missing'' baryons to the intergalactic medium (IGM) and constrain the strength of baryonic feedback along each line of sight using an analytical model of the statistics of intercepted halos~\citep{mcquinn2014locating,james2021z}.
+Using observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} used the mean extragalactic DM as a function of redshift~\avgdmcosmic~to locate the so-called ``missing'' baryons to the intergalactic medium (IGM) and constrain the strength of baryonic feedback along each line of sight using an analytical model of the statistics of intercepted halos~\citep{mcquinn2014locating,james2021z}.
 That result established that the cosmic contribution to the DM budget, comprised of diffuse IGM baryons and the collapsed baryons in the intervening halos, collectively dominate the total DM for FRB sources beyond $z \sim 0.2$. 
 
 An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the remaining contributions, such as those from the host galaxy, are subdominant to the cosmic components beyond $z \gtrsim 0.5$.
 However, the fluctuations in the extragalactic DM after removing \avgdmcosmic\ contain their own wealth of information.
 Historically, this residual has been referred to as the ``host contribution'' to the DM budget and is denoted \dmh. It may be estimated by subtracting estimates for the the Galaxy (\dmmw=\dmmwcgm + \dmmwism). In addition, it requires an estimate of the contribution from the cosmic web: calculated either from auxiliary observations~\citep{simha2020disentangling} along that sightline or simply based on the mean cosmic contribution out to the redshift of the host
 (\avgdmcosmic=$\dm_\mathrm{intervening~halos} + \dm_\mathrm{IGM}$).
-Using the observed FRB dispersion measure \dmtot, we take the latter approach, defining %We adopt the convention of~\citet{bernalescortes2025empirical}, defining
+Using the observed FRB dispersion measure \dmtot, we define
 %is defined as
 
 \begin{equation}
@@ -275,13 +275,13 @@ Using the observed FRB dispersion measure \dmtot, we take the latter approach, d
 \label{eq:dmh_definition}
 \end{equation}
 
-\dmhm includes contributions which can be further decomposed in the rest frame of the host galaxy:
+\dmhm can be further decomposed in the rest frame of the host galaxy:
 \begin{equation}
     \dmhm = \dmhcgm + \dmhism + \dmhcbm + \dm_{LSS}.
     \label{eq:dmh_contributions}
 \end{equation}
 
-For each observed sightline, these correspond to the CGM of the host galaxy at the endpoint of each FRB~\citep{prochaska2019probing,medlock2024probing}, the host-galactic ISM~\citep{cassanelli2024fast}, contributions from the stellar ``circum-burst'' environment of the FRB~\citep[see e.g.][]{tendulkar2017host, niu2021repeating,ocker2022large,caleb2023subarc}, individual groups and clusters~\citep{lee2023frb,connor2023deep}, and the large-scale structure along the line of sight~\citep[see e.g.][]{khrykin2024flimflam,medlock2025constraining}. 
+For each observed sightline, these correspond to the CGM of the host galaxy at the endpoint of each FRB~\citep{prochaska2019probing,medlock2024probing}, the host-galactic ISM~\citep{cassanelli2024fast}, contributions from the stellar ``circum-burst'' environment of the FRB~\citep[see e.g.][]{tendulkar2017host, niu2021repeating,ocker2022large,caleb2023subarc}, individual groups and clusters~\citep{lee2023frb,connor2023deep}, and the large-scale structure along the line of sight~\citep[see e.g.][]{khrykin2024flimflam,medlock2025constraining}. Of these four contributions, only $\dm_\mathrm{LSS}$~may be negative.
 
 In particular, if the circumgalactic contribution can be isolated from the others, it could play a crucial role in understanding the three-way relationship between the stellar populations of galaxies, their circumgalactic gas environments, and their dark matter halos. 
 Understanding the baryon cycle as a function of stellar mass ($M*$) and halo mass ($M_h$) is a major goal of galaxy formation and cosmology, and has implications for nascent weak lensing surveys, whose constraining power hinges on an accurate and precise understanding of the impact of baryonic feedback on the matter power spectrum~\citep[for example]{white2004baryons, zhan2004effect, rudd2008effects}.
@@ -294,18 +294,20 @@ The challenge in doing so is that FRB DMs are ``confusion-limited'': while the s
 Several methods have been proposed to circumvent this problem, including angular cross-correlations with galaxy surveys~\citep{2019arXiv190102418M} and pencil-beam spectroscopic surveys~\citep{lee2022constraining,simha2020disentangling,simha2021estimating,khrykin2024flimflam}.
 The bottleneck is that these approaches either require many FRB sources or are expensive in telescope time.
 
-In this paper, we consider a sample of \dmhm\ measurements selected to minimize other contributions to $\dmhm$.
-We compare these measurements to \dmhcgm, which we define to include all contributions to the DM integral between the spatial extent of the stellar disk and $\sim 7.5$ Mpc outside the galaxy. This definition is motivated by the dimensions of the CAMELS snapshots (15 Mpc). 
-We argue that this definition is better-suited for comparisons between simulated and observed FRB sightlines. It is more comprehensive of circumgalactic electrons than, for instance, a definition which fix a boundary between the CGM and IGM at some multiple of $R_{200c}$. 
-Those definitions which invoke a dependence on halo mass, which is nontrivial to measure. 
-Our definition, in contrast, incurs a bias due to the IGM contribution integrated over $15$ Mpc simulated sightline, but this is a small effect on the order of $1-10$ pc cm$^{-3}$ relative to the per-sightline uncertainty ($\sigmacosmic^2 + S_j^2$, defined later).
-
-We introduce and explore the $M^*-\dmh$ relation for isolated star-forming FRB host galaxies at $z < 0.2$, in analogy to ``cluster scaling relations'' which correlate baryonic observables in more massive halos~\citep{battaglia2012on,giodini2013}.
+In this paper, we consider a sample of \dmhm\ measurements selected to minimize the bias and scatter in $\dmhcgm$. We use the sub-sample to demonstrate the ability of FRBs to constrain feedback models through the $M^*-\dmh$ relation (\S\ref{sec:sample}). We characterize the $M^*-\dmh$ relation for isolated star-forming FRB host galaxies at $z < 0.2$, in analogy to ``cluster scaling relations'' which correlate baryonic observables in more massive halos~\citep{battaglia2012on,giodini2013}.
 %~\citep{mushotzky1984xray,bryan2008statistical,markevitch1998lxt}.
-We define a sub-sample of these $z < 0.2$ hosts, constructed to minimize the bias and scatter in $\dmhcgm$, and use the sub-sample to demonstrate the ability of FRBs to constrain feedback models through the $M^*-\dmh$ relation (\S\ref{sec:sample}).
+
+We compare these measurements to predictions for \dmhcgm, the circumgalactic contribution to the host DM, from three sub-grid models implemented in CAMELS: a suite of small-volume (25 Mpc/h)$^3$ hydrodynamical simulations implementing several distinct sub-grid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations~\citep{camels_presentation, camels_data_release,  camels_data_release2} (\S\ref{sec:camels}). 
+These prescriptions aim to accurate capture the large-scale impact of the unresolved small-scale physics that regulate galaxy formation and evolution, such as star formation, gas cooling, and stellar/AGN feedback. 
+One major goal of the CAMELS project is to produce theory predictions for gas probes which can independently constrain the suppression of the matter power spectrum induced by baryonic feedback relative to a dark-matter only simulation, as measured in current and next-generation weak lensing surveys such as the Dark Energy Survey~\citep{chen2023constraining,aric_o2023des} and LSST/Rubin. 
+
 We show by ray-tracing snapshots in the CAMELS suite of hydro-simulations that the $M^*-\dmh$ relation is a sensitive probe of feedback.
 In \S\ref{sec:camels} we compare our sub-sample to theoretical predictions from three sub-grid models implemented in the CAMELS suite of hydrodynamical simulations to constrain models for star formation and galactic winds originating from supernova and AGN feedback in isolated $L^*$ galaxies.
 
+define to include all contributions to the DM integral between the spatial extent of the stellar disk and $\sim 7.5$ Mpc outside the galaxy. This definition is motivated by the dimensions of the CAMELS snapshots (15 Mpc). 
+We argue that this definition is better-suited for comparisons between simulated and observed FRB sightlines. It is more comprehensive of circumgalactic electrons than, for instance, a definition which fix a boundary between the CGM and IGM at some multiple of $R_{200c}$. 
+Those definitions which invoke a dependence on halo mass, which is nontrivial to measure. 
+Our definition, in contrast, incurs a bias due to the IGM contribution integrated over $15$ Mpc simulated sightline, but this is a small effect on the order of $1-10$ pc cm$^{-3}$ relative to the per-sightline uncertainty ($\sigmacosmic^2 + S_j^2$, defined later).
 \section{Constructing the observed $M^*-\dmh$ relation}\label{sec:sample}
 We aggregate all known FRB host galaxies to characterize the $M^*-\dmh$ relation for isolated, star forming galaxies.
 These include sources from~\citet{macquart2020census,bhandari2020host,lanman2022sudden,leewadell2023host,michilli2023subarcminute,ravi2023deep,gordon2023demographics,bhardwaj2024host,law2024deep,sharma2024preferential,connor2024gas,cassanelli2024fast,shannon2024commensal,chime2025catalog}.
@@ -313,18 +315,17 @@ We impose a redshift cutoff of $z < 0.2$ to balance a trade-off:
 on one hand, a cutoff that is more distant adds statistical constraining power by including more sources.
 On the other hand, a less distant cutoff adds several advantages.
 It makes our measurement of $\dmhcgm$ robust against redshift evolution and the cosmic contribution, whose mean \avgdmcosmic and scatter \sigmacosmic\ will add extra noise that also depends on feedback and increases with increasing redshift~\citep{jaroszynski2019fast,batten2021cosmic, walker2024dispersion}. 
-It also reduces the fraction of putative host galaxies which are fainter than the depth of optical surveys, reducing optical selection effects~\citep{seebeck2021effects,marnoch2023unseen,jahnsschindler2023how,hewitt2024repeating}.
+It also reduces the fraction of putative host galaxies which are fainter than the depth of optical observations, reducing optical selection effects~\citep{seebeck2021effects,marnoch2023unseen,jahnsschindler2023how,hewitt2024repeating}.
 
-For each FRB, we calculate $\dmhm$ according to Eq.~\ref{eq:dmh_definition}, using the NE2001~\citep{cordes2002ne2001} model to estimate $\dmmwism$ and the~\citet{yamasaki2020galactic} model to estimate $\dmmwcgm$, and the open-source\footnote{\texttt{average\_DM} function in \texttt{https://github.com/FRBs}; version 0.1} implementation of $\langle \dmcosmic \rangle$.
+For each FRB, we calculate $\dmhm$ according to Eq.~\ref{eq:dmh_definition}, using the NE2001~\citep{cordes2002ne2001} model to estimate $\dmmwism$ and the~\citet{yamasaki2020galactic} model to estimate $\dmmwcgm$, and the open-source\footnote{\texttt{average\_DM} function in \texttt{https://github.com/FRBs}; version 0.1} implementation of $\langle \dmcosmic(z) \rangle$.
 All quantities in this work are calculated using the \textit{Planck} cosmology for a flat $\Lambda$CDM universe of $H_0 = 67.7~\mathrm{km~s}^{-1}~\mathrm{Mpc}^{-1}$, $\Omega_m=0.31$ and $\Omega_\Lambda = 0.69$ \citep{collaboration2020planck}. 
 Where available, we use published stellar mass measurements derived from spectral energy distribution (SED) fitting. For fits using a Kroupa initial mass function (IMF)~\citep{gordon2023demographics,sharma2024preferential,connor2024gas} we scale stellar masses by 0.03 dex~\citep{madau2014cosmic} to standardize them to a~\citet{chabrier2003galactic} IMF.
 For the ten sources that lack $M^*$ measurements from SED fitting,
 we fit publicly available photometry from GALEX, DECaLS, PanSTARRS, and WISE using CIGALE~\citep{boquien2019cigale} assuming a Chabrier IMF and a delayed-$\tau$ star formation history. 
 These fits converged for eight of the ten targets. 
-The remaining two galaxies have stellar mass measurements from the NASA Extragalactic Database-Local Volume Survey~\citep[NED-LVS;][]{cook2023completeness} derived from a mass-to-light ratio.
-We have validated that the stellar masses derived using this method are consistent with the linear relation between $M^*$ and r-band light ($M_r$) characterized by~\citet{mahajan2018galaxy}. They differ by at most 0.5 dex over the range $10^8 < M^*/M_\odot < 10^{11}$, which is consistent with the scatter on that relation ($\pm 0.45$ dex at 1$\sigma$). Furthermore, once converted from a Salpeter to a Chabrier IMF, the CIGALE and NED-LVS mass estimates are consistent within fitting uncertainties for the two sources for which both data are available.
-The $M^*-\dmh$ relation for all FRB sightlines at $z < 0.2$ is shown in Fig.~\ref{fig:host_dm} and~\ref{fig:camels}. 
-
+The remaining two galaxies have stellar mass measurements from the NASA Extragalactic Database-Local Volume Survey~\citep[NED-LVS;][]{cook2023completeness} derived from a mass-to-light ratio assuming a Salpeter IMF.
+We have validated that the stellar masses derived using CIGALE are consistent with the linear relation between $M^*$ and r-band light ($M_r$) characterized by~\citet{mahajan2018galaxy}. They differ by at most 0.5 dex over the range $10^8 < M^*/M_\odot < 10^{11}$, which is consistent with the scatter on that relation ($\pm 0.45$ dex at 1$\sigma$). The NED-LVS mass estimates are also consistant with the CIGALE estimates within fitting uncertainties for the two sources for which both data are available once the correction factor between a Salpeter and Chabrier IMF is applied.
+\dmh~for all FRB sightlines at $z < 0.2$ is plotted as a function of $r$-band light in Fig.~\ref{fig:host_dm}. 
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/dm_host.pdf}
@@ -332,84 +333,97 @@ The $M^*-\dmh$ relation for all FRB sightlines at $z < 0.2$ is shown in Fig.~\re
     \label{fig:host_dm}
 \end{figure*}
 
-\subsection{The observational sample}\label{sec:debias}
-The difficulty in measuring the CGM component of FRB host galaxies using \dmhm\ (Eq.~\ref{eq:dmh_definition}) comes from unmodeled contributions along the line of sight (Eq.~\ref{eq:dmh_contributions})
-In other words, for an FRB chosen at random, $\dmhm$ is not only a noisy estimator of $\dmhcgm$, but it is likely biased as well.
-We mitigate these issues by applying cuts to our dataset, which are summarized in Fig.~\ref{fig:host_dm}. 
+From the data in Fig.~\ref{fig:host_dm}, we apply cuts to minimize contributions besides \dmhcgm to Eq.~\ref{eq:dmh_contributions}. The data points which pass these cuts are shown in blue in Fig.~\ref{fig:host_dm}, while data points that are cut are shown in gray. We cut the following systems:
 \begin{enumerate}
-    \item Host galaxies that are embedded in massive galaxy clusters including FRB 20220914A and FRB 20220509G~\citep{connor2023deep}, FRBs 20231206A, 20230203A, and 20231204A~\citep{chime2025catalog} (see also Lanman et al. in prep). Clusters may contribute several hundred pc cm$^{-3}$ to \dmhm and are some of the highest $\dmhm$ data points in Fig.~\ref{fig:host_dm} and are thus excluded from our analysis. \msbold{For XX of our sightlines covered in DESI and WISE, we cross-match sources against the \citet{wen2018catalogue} catalog to check that their hosts are not within $R_{200c}$ of any cluster within $\Delta z = 0.01$ of the FRB host. For the remaining sightlines, we are unable to assess whether they live in clusters without explicitly using DM-related information, but the absence of large outlier \dmhm\ values in Fig.~\ref{fig:host_dm} and the rarity of FRB hosts in clusters suggest that hosts in clusters do not dominate the remaining sightlines.} %In addition the rate of intervening halos within their $R_{200c}$ is $< 1$ per sightline at $z < 0.2$ for  $M_h \gtrsim 10^{12} M_\odot$ ~\citep{mcquinn2014locating}. 
-    \item The host galaxy ISM can be the dominant contributor to \dmhm~ for inclined galaxies~\citep{cassanelli2024fast}, making $\dmhm$ an overestimate of $\dmhcgm$. We suppress this contribution by eliminating sightlines with host galaxies more inclined than $i = 70^\circ$. These include FRB 20210603A \citep[$i \sim 83^\circ$; ][]{cassanelli2024fast}, FRB 20220207C \citep[$i \sim 74-80^\circ$;][]{law2024deep,bhardwaj2024selection}, FRB 20230203A ($i \sim 77-81^\circ$) and FRB 20231005A ($i \sim 81^\circ$), for which we apply the InclinationZoo estimator~\citep{kourkchi2020cosmicflows} to publicly-available SDSS and Pan-STARRS imaging, verifying that that measurements are robust between both images. For FRB 20231120A ($i \approx 81^\circ$)~\citep{sharma2024preferential}, and FRB 20240201A ($i \approx 72^\circ$) and FRB 20240310A ($i \approx 76^\circ$) presented by~\citet{shannon2024commensal}, we use galaxy major and minor axes measurements from~\citet{gordon2025mapping}.
-    \item FRBs in the outskirts of their hosts: FRB 20200120E~\citep{bhardwaj2021nearby, kirsten2022repeating} and 20240209A\citep{shah2024repeating}, which have $b \sim 5 R_\mathrm{eff}$, are excluded from our measurement, since they may systematically underestimate the average host galaxy CGM.
-    \item Dwarf and elliptical galaxies hosting FRBs are removed with a magnitude cut ($M_R < -17$) and a stellar mass cut ($M^* \sim 10^{9} M_\odot$). This excludes FRB 20121102A; the other two of the three known dwarf hosts~\citep[FRB 20190520B \& 20210117A][]{bhandari2023nonrepeating,hewitt2024repeating} are beyond $z > 0.2$, so they are already cut by our redshift horizon. The elliptical host of FRB 20240209A \citep{eftekhari2024massive} is also already excluded from our sample by .
-    \item The Milky Way ISM adds scatter due to the 20\% uncertainty on the DM$_\mathrm{NE2001}$ estimate of the DM. We exclude sources at $|b| < 10^\circ$, which excludes FRB 20180916B~\citep{collaboration2020periodic,marcote2020repeating}, FRB 20220319A~\citep{ravi2023deep}, and FRB 20210405I~\citep{driessen2024frb}. 
+    \item Host galaxies that are embedded in massive galaxy clusters including FRB 20220914A and FRB 20220509G~\citep{connor2023deep}, FRBs 20231206A, 20230203A, and 20231204A~\citep{chime2025catalog} (see also Lanman et al. in prep). The presence of a galaxy cluster in general may add several hundred pc cm$^{-3}$ to \dmhm\ and can explain some of the highest $\dmhm$ data points in Fig.~\ref{fig:host_dm}. We cross-match our sightlines within the DESI and WISE against the~\citet{wen2018catalogue} catalog to check that their hosts are not within $R_{200c}$ of any cluster within $\Delta z = 0.01$ of the FRB host. For the remaining sightlines, we are unable to assess whether they live in clusters without explicitly using DM-related information. However, the absence of large outlier \dmhm\ values in Fig.~\ref{fig:host_dm} and the rarity of $M_h \gtrsim 10^{12} M_\odot$ halos~\citep{mcquinn2014locating}suggest that hosts in clusters do not dominate the remaining \msbold{$\sim 50\%$} of sightlines. We also exclude the galaxy-merger host of FRB 20190303A, though its \dmhm\ is not anomalously large.
+    \item Host galaxies more inclined than $i = 70^\circ$. The host galaxy ISM is highly uncertain, so we minimize its contribution by excluding systems that are close to edge-on. Some systems have published inclination measurements, including FRB 20210603A \citep[$i \sim 83^\circ$; ][]{cassanelli2024fast}, FRB 20220207C \citep[$i \sim 74-80^\circ$;][]{law2024deep,bhardwaj2024selection}. FRB 20231120A ($i \approx 81^\circ$)~\citep{sharma2024preferential}, FRB 20240201A ($i \approx 72^\circ$), and FRB 20240310A ($i \approx 76^\circ$) are presented in~\citet{shannon2024commensal}, and for these inclination estimates we use galaxy major and minor axes measurements from~\citet{gordon2025mapping}.
+    For FRB 20230203A ($i \sim 77-81^\circ$) and FRB 20231005A ($i \sim 81^\circ$), which lack published estimates, we apply the InclinationZoo estimator~\citep{kourkchi2020cosmicflows} to publicly-available SDSS and Pan-STARRS imaging, verifying that that measurements are consistent between both the shallow SDSS and deeper Pan-STARRS images.
+    \item Host galaxies whose FRBs lie on the outskirts of their stellar disks. FRB 20200120E~\citep{bhardwaj2021nearby, kirsten2022repeating} and 20240209A\citep{shah2024repeating} are located $\sim 5 R_\mathrm{eff}$ from their host galaxy centers. They may systematically underestimate the average host galaxy CGM.
+    \item Dwarf and elliptical FRB hosts. While galaxy classification is somewhat subjective, we exclude these from our sample using a luminosity ($M_R < -17$) and a stellar mass cut ($10^9 < M^*/M_\odot < 10^{11}$). This cut excludes FRB 20240209A \citep{eftekhari2024massive}, the first and only unambiguously elliptical host to date, and FRB 20121102A~\citep{spitler2016repeating,tendulkar2017host}, whose host is a low-mass dwarf galaxy. The other two of the three known dwarf hosts~\citep[FRB 20190520B \& 20210117A][]{bhandari2023nonrepeating,hewitt2024repeating} are beyond $z > 0.2$, so they are already cut by our redshift horizon. The gas properties of dwarf and elliptical galaxies likely differ significantly from star-forming FRB hosts.
+    \item Sightlines at $|b| < 10^\circ$. The Milky Way ISM adds noise due to the 20\% uncertainty on the DM$_\mathrm{NE2001}$ estimate of the DM. This cut excludes the hosts of FRB 20180916B~\citep{collaboration2020periodic,marcote2020repeating}, FRB 20220319A~\citep{ravi2023deep}, and FRB 20210405I~\citep{driessen2024frb}. 
     \item So-called ``low-DM'' FRB sightlines. For surveys with large ($\gtrsim 1'$) localization regions, the low total DM can be used to make a host galaxy association, but only by imposing a DM-inferred distance cutoff. However, these associations bias the sample because of the explicit selection bias on DM$_{tot}$ and therefore $\dmhm$. There are nine FRB hosts identified this way described in~\citet{bhardwaj2021local,michilli2023subarcminute,bhardwaj2024host,Ibik2024host}: They include FRBs 20180814A, 20181030A, 20191220A, 20181223C, 20190418A, 20190110C, 20190425A, 20200223B, as well as 20190303A (note its repeat burst FRB 20231204A). %%20181223C, 20190418A, 20191220A, and 20190425A from Bhardwaj et al. (2024) and FRB 20180814A and FRB 20190303A from Michilli et al. (2023) and 20200223B and 20190110C from Ibik et al. (2024).
-    \item We exclude FRBs whose scattering timescales exceed 5 ms at 600 MHz (extrapolated using a $\nu^{-4}$ scaling if necessary). The presence of large circum-burst contributions to the FRB DM may be indicated by scattering timescales~\citep{cordes2016radio,tendulkar2017host, ocker2022large,caleb2023subarc} and in some cases the rotation measures as well~\citep{michilli2018extreme,mannings2023}. This cut excludes FRB 20190608B~\citep{chittidi2021dissecting}, FRB 20210410D~\citep{caleb2023subarc}, FRB 20230203A and FRB 20230222A~\citep{chime2025catalog} from our sample. 
+    \item Hosts whose FRB scattering timescales exceed 5 ms at 600 MHz (extrapolated using a $\nu^{-4}$ scaling if necessary). This cut excludes FRB 20190608B~\citep{chittidi2021dissecting}, FRB 20210410D~\citep{caleb2023subarc}, FRB 20230203A and FRB 20230222A~\citep{chime2025catalog} from our sample. The presence of large circum-burst contributions to the FRB DM may be indicated by scattering timescales~\citep{cordes2016radio, ocker2022large,caleb2023subarc} and in some cases the rotation measures as well~\citep{michilli2018extreme,mannings2023}. 
 \end{enumerate}
 
 Applying these cuts leaves 20 FRB sightlines. Their \dmhm measurements and stellar masses are shown in Table~\ref{tab:sample}.
-The uncertainty of each individual \dmhm\ estimate is modeled as
-\begin{equation}
-    \sigma_{i}^2 = \sigmacosmic(z_i)^2 + (0.2 \dm_\mathrm{i,NE2001})^2.
-    \label{eq:sigma_i_def}
-\end{equation}
-
-In our analysis we use a prescription for \sigmacosmic(z) measured from snapshots taken from large-volume hydrodynamic simulations which more accurately model large-scale structure not captured in the small CAMELS volumes.
-The choice of \sigmacosmic(z) is important: on one hand it is desirable to define our uncertainties agnostic of feedback; however, \sigmacosmic(z) varies as a function of feedback model, which we are trying to constrain.
-For example, IllustrisTNG implements a feedback model stronger than Astrid and weaker than SIMBA, resulting in $\sigma_\textrm{cosmic} \approx 60$ pc cm$^{-3}$ at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}, whereas the original Illustris simulation finds $\approx15\%$ lower values for \sigmacosmic due to its more extreme feedback~\citealp[see Fig. 2 of]{jaroszynski2019fast}.
-We linearly interpolate the IllustrisTNG values provided in~\citet{walker2024dispersion} in our fiducial analysis (i.e. feedback-independent uncertainties), but we test the impact of varying \sigmacosmic and find that the results are insensitive to the answer.
 
 \input{dmh_table.tex}
 
-\section{Predictions from CAMELS}\label{sec:camels}
-To connect the observed $M^*-\dmh$ distribution to galaxy formation sub-grid models, we compare the \dmh-stellar mass relation to predictions from the CAMELS suite of hydrodynamical simulations \citep{camels_presentation, camels_data_release,  camels_data_release2}. 
-CAMELS is a suite of small-volume (25 Mpc/h)$^3$ hydrodynamical simulations implementing several distinct sub-grid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations. These prescriptions describe the unresolved small-scale physics that regulate galaxy formation and evolution, such as star formation and feedback and AGN activity. 
-One major goal of the CAMELS project is to produce theory predictions to independently constrain the suppression of the matter power spectrum induced by baryonic feedback relative to a dark-matter only simulation, as measured in current and next-generation weak lensing surveys such as the Dark Energy Survey~\citep{chen2023constraining,aric_o2023des} and LSST/Rubin. 
-Cosmological inference from weak lensing will likely need independent gas probes to simultaneously constrain the suppression factor $S(k,z)$. \citet{medlock2025constraining} recently showed with CAMELS that FRB statistics can indeed predict the degree of suppression of the matter power spectrum due to baryonic feedback. We extend~\citet{medlock2024probing} by measuring the $M^*-\dmh$ relation and comparing it to theory predictions as implemented in SIMBA, IllustrisTNG, and Astrid as implemented with CAMELS.
+The uncertainty of each individual \dmhm\ estimate is modeled as
+\begin{equation}
+    \sigma_{i}^2 = \sigmacosmic(z_i)^2 + (0.2 \dm_\mathrm{i,NE2001})^2,
+    \label{eq:sigma_i_def}
+\end{equation}
 
-Using snapshots from each simulation outputted at different epochs of the simulation (here, snapshots at $z = 0.0,~0.1,~$ and 0.2), it is possible to make theory predictions for the $M^*-\dmh$ relation.
-We extend the procedure developed originally in~\citet{medlock2024probing}, slightly modified to guarantee that $\dmhcgm > \dm^\mathcal{M}_j$.
-We use both halo catalogs and simulation snapshots from the \texttt{1P} set of simulations in CAMELS corresponding to the fiducial values from each simulation $(A_{SN1} = A_{SN2} = A_{AGN1} = A_{AGN2} = 1)$. 
+where we use a prescription for \sigmacosmic(z) measured from snapshots taken from large-volume hydrodynamic simulations which more accurately model large-scale structure not captured in the small CAMELS volumes.
+The choice of \sigmacosmic(z) varies as a function of feedback model.
+For example, IllustrisTNG implements a feedback model stronger than Astrid and weaker than SIMBA, resulting in $\sigma_\textrm{cosmic} \approx 60$ pc cm$^{-3}$ at $z = 0$ and 105 pc cm$^{-3}$ at $z = 0.2$~\citep{walker2024dispersion}, whereas the original Illustris simulation finds $\approx15\%$ lower values for \sigmacosmic due to its more extreme feedback~\citealp[see Fig. 2 of]{jaroszynski2019fast}.
+We linearly interpolate the IllustrisTNG values provided in~\citet{walker2024dispersion} in our fiducial analysis, but we test the impact of varying \sigmacosmic on our results, confirming that they are insensitive to the impact of feedback via the data uncertainties.
+
+\section{Predictions from CAMELS}\label{sec:camels}
+We now aim to compare the data to theory predictions, built from a representative sample of sightlines from CAMELS.
+We make our predictions by extending the ray tracing procedure of~\citet{medlock2024probing}.
+We use both halo catalogs and simulation snapshots from the \texttt{1P} set of simulations in CAMELS. For simplicity, in this work we only consider the fiducial feedback prescription $(A_{SN1} = A_{SN2} = A_{AGN1} = A_{AGN2} = 1)$ at $z = 0.1$, the snapshot closest to the median redshift of our sample.
 The halo catalogs are used to assign halo masses, stellar masses, and stellar radii to each halo in the snapshot.
-We use \texttt{yt}~\citep{turk2011yt} to interpolate the electron density field onto a regular grid. 
-To minimize contamination from the host ISM, which is poorly resolved at the resolution of CAMELS, gas particles within $0.1 R_\mathrm{200,crit}$ of each halo in the halo catalog are removed from each snapshot.
-The electron density is then integrated along one of the grid axes over the 15 Mpc extent of the snapshot, and divided by two to account for the fact that observed FRB sightlines skewer halfway through their host halos on average
-This integral is sensitive to the CGM DM in the vicinity of the host galaxy according to our definition of the CGM (see \S~\ref{sec:intro}).
-It is also sensitive to the IGM contribution from a single snapshot, but~\citet{medlock2024probing} finds that the IGM contribution in each snapshot never exceeds 10 pc cm$^{-3}$ (5 pc cm$^{-3}$ after dividing by two).
-After removing sightlines intercepting more than one halo within its $R_\mathrm{200,crit}$, like in criteria 2 in \S\ref{sec:debias}, each sightline can be unambiguously associated with the index of the nearest halo in the halo catalog.
+Next, to minimize contamination from the host ISM, which is poorly resolved at the resolution of CAMELS, gas particles within $0.1 R_\mathrm{200,crit}$ of each halo in the halo catalog are removed from each snapshot.
+The snapshots are then processed using \texttt{yt}~\citep{turk2011yt} to interpolate the electron density field onto a regular grid. 
+The electron density is then integrated along one of the grid axes over the 15 Mpc extent of the snapshot, and divided by two to account for the fact that observed FRB sightlines skewer halfway through their host halos on average.
+This integral over a snapshot defines \dmhcgm\ for this paper. It is also sensitive to the IGM contribution from a single snapshot, but~\citet{medlock2024probing} finds that the IGM contribution in each snapshot never exceeds 10 pc cm$^{-3}$ (5 pc cm$^{-3}$ after dividing by two).
+After removing sightlines intercepting more than one halo within its $R_\mathrm{200,crit}$, like in criteria 2 in \S\ref{sec:sample}, each sightline can be unambiguously associated with the index of the nearest halo in the halo catalog.
 Then, within a range of normalized impact parameters $\rho_{\rm min} < \rho < \rho_{\rm max}$, where $\rho = r_\perp/R_\mathrm{200,crit}$, one sightline per halo is then selected at random.
 This corrects for a preferential sampling of massive halos proportional to their larger two-dimensional cross-section within the snapshot.
 
-We choose an annulus defined by $\rho_{\rm min} = 0.05$ and $\rho_{\rm max} = 0.10$ in our fiducial analysis.
-However, we will later explore variations in both $\rho_{\rm min}$ and $\rho_{\rm max}$.
-Our $\dm^\mathcal{M}_j$ predictions are slightly sensitive to the host offset distribution of FRBs: FRB sightlines highly offset from their gas halos may exclude a portion of \dmhcgm\ from their sightlines~\citealp[see Fig. 5 in]{medlock2024probing}. Though high-offset FRB sightlines are known to exist~\citep{kirsten2022repeating,shah2024repeating,eftekhari2024massive}, it is thought that this does not happen for the majority of FRB sources which are robustly associated with their hosts, whose impact parameter never exceeds 5 $R_\mathrm{eff}$\citep{heintz2020host,shah2024repeating}. Given that the half-light radius $R_\mathrm{eff} \sim 0.015 R_{vir}$\citep{kravtsov2013size}, we may conclude that $b \lesssim 0.1 R_{vir}$ for real FRB sightlines in our sample, even though the projected offset of some sources is not well-constrained by the highly elongated localization ellipse~\citep{chime2025catalog}.
-
-Our fiducial analysis has weights $w_k \propto \mathrm{SFR}$ of the halo associated with simulated halo $h$, which reflect the observed occurrence of FRB sources within star-forming galaxies~\citep{bhandari2020host,loudas2025unveiling}. We also calculate the standard deviation to capture the sightline-to-sightline variance.
-We explore alternative weightings with uniform weighting over all simulated halos ($w_k = 1$) and $w_k \propto M^* \times \mathrm{SFR}$. 
+In Fig.~\ref{fig:camels} we plot the \dmhcgm\ values for our simulated sightlines within a fiducial range of impact parameters ($\rho_{\rm min} = 0.0$ and $\rho_{\rm max} = 0.05$) as a function of stellar mass and feedback model. These predictions are slightly sensitive to the host offset distribution of FRBs: FRB sightlines highly offset from their gas halos may exclude a small portion of \dmhcgm\ from their sightlines~\citealp[see Fig. 5 in]{medlock2024probing}. Though highly-offset FRB sources at impact parameters of $\sim 5 R_\mathrm{eff}$ have been associated with their host galaxies~\citep{kirsten2022repeating,shah2024repeating,eftekhari2024massive}, these sources have been cut from our observational sample (criteria 3 in \S~\ref{sec:sample}). Given that the half-light radius $R_\mathrm{eff} \sim 0.015 R_{200,crit}$\citep{kravtsov2013size}, we may conclude that $\rho \lesssim 0.1 R_{200,crit}$ for FRB sightlines in Tab.~\ref{tab:sample}, even though the projected offset of some sources is not well-constrained by their highly elongated localization ellipses~\citep{chime2025catalog}.
 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\linewidth]{msdm.pdf}
-    \caption{The \dmh-$M^*$ relation for isolated FRB host galaxies, compared against simulation results from ASTRID, IllustrisTNG, and CAMELS (blue, orange, and green traces) with our fiducial model predictions highlighted as hollow upwards triangles. Model predictions for our simulation variants are plotted as additional lines connecting the mean value in each bin. Translucent boxes are drawn to indicate the scatter in the model prediction $S_j$ over halos sampled from each mass bin $j$. The data (red and purple downward triangles) and their best-fit lines show a stark visual difference with the model predictions.}
+    \caption{The \dmh-$M^*$ relation for the FRB host galaxies in Tab.~\ref{tab:sample} (red and purple downward triangles), compared against halos in the CAMELS-ASTRID, CAMELS-IllustrisTNG, and CAMELS-SIMBA simulations (blue, orange, and green points). For both the observation (gray) and simulations (blue, orange, and green), the model prediction best fitting the data is visualized as three lines, to show the relation as its scatter $\pm 1\sigma$, while model evaluations randomly sampled from the posterior probability distributions are plotted translucently in those colors.}
     \label{fig:camels}
 \end{figure}
 
 
 \section{Results}\label{sec:analysis}
-We characterize the $M^*-\dmh$ relation by fitting both the observed data and the simulation data to a quadratic in $\log_{10}(M^*/M_\odot)$ with a constant scatter from the CGM~\sigmacgm.
-We expect that our measurements (\dmh) slightly overestimate the CGM contribution, \dmh > \dmhcgm\ for the sub-sample described in \S\ref{sec:debias}.
+We characterize the $M^*-\dmh$ relation by fitting both the observed data and the simulation data to a quadratic in $x = \log_{10}(M^*/(10^{10} M_\odot))$ with a constant scatter from the CGM~$\sigma^2$. 
 
-In the case of the simulations, our model is
+In the case of the simulation data, our model predicts only the CGM contribution to the DM:
 \begin{equation}
-    \dmhm(M^*) \sim a (\log_{10}(M^*/M_\odot))^2 + b \log_{10}(M^*/M_\odot) + Normal(0, \sigmacgm^2)
+    \dmhcgm(M^*) \sim a x^2 + m x + b + \mathcal{N}(0, \sigma^2)\label{eq:sim_model}
 \end{equation}
 
-In the case of the data, which contain additional scatter from the IGM and the Milky Way ISM, we use 
+In the case of the observational data, which contain all four components of Eq.~\ref{eq:dmh_contributions}, we fit
 \begin{equation}
-    \dmhm(M^*) \sim a (\log_{10}(M^*/M_\odot))^2 + b \log_{10}(M^*/M_\odot) + Normal(0, \sigmacgm^2 + \sigma_i^2)
+    \dmhm(M^*) \sim a x^2 + m x + b + \mathcal{N}(0, \sigma^2 + \sigma_i^2)\label{eq:obs_model}.
 \end{equation}
 
+When fitting the observational data, $\sigma_i$ accounts for $\dm_\mathrm{LSS}$ and the uncertainty in the Milky Way contribution to the DM, as defined in Eq.~\ref{eq:sigma_i_def}. Therefore, $\sigma^2$ in the data fit accounts for not only the scatter in the host CGM contribution, but also the scatter in the host ISM and circumburst contributions as well, which we model for simplicity as uncorrelated with stellar mass.
 
-These fitted trends are complementary to those reported in~\citet{bernalescortes2025empirical}, which report a positive correlation between $M^*$ and \dmh = \dmhism + \dmhcgm. In that paper,  \dmhism is inferred directly from the H$\alpha$ emission measure, while \dmhcgm is inferred using SED-fitting derived stellar masses which are then converted DM estimates by assuming a modified NFW profile~\citep{mathews2017circumgalactic,prochaska2019probing} and using abundance matching to determine halo masses. Our analysis, in contrast, targets the CGM using a larger sample of more local sources, and is agnostic of any particular stellar-mass derived gas profile. Simultaneously replicating in simulations the $M^*-\dmh$ relation in this paper and the $M^*-\dmhism$ relation characterized in~\citet{bernalescortes2025empirical} will be crucial to understanding the impact of galactic feedback processes on the gas distribution within and around galaxies.
+For both observed and simulated data, we fit the model using maximum likelihood estimation with a Gaussian likelihood. Abbreviating the observational measurements as $\dm^\mathrm{Macquart}_\mathrm{host,i}$ as $y_\mathrm{i}$ and the model prediction from Eq.~\ref{eq:sim_model} as $\hat{y}_\mathrm{i}$, the likelihood is
+
+\begin{equation}
+    -\log \mathcal{L} = \dfrac{1}{2} \sum_{i} \dfrac{(y_\mathrm{i} - \hat{y}_{i})^2}{(\sigma^2 + \sigma_i^2)} - \log(2\pi(\sigma^2 + \sigma_i^2)).
+\end{equation}
+We use the same likelihood with $\sigma_i = 0$ for the simulation fits with $\dm_\mathrm{h,CGM,i}$ as $y_\mathrm{data,i}$. 
+
+The Markov Chain Monte Carlo (MCMC) sampler \texttt{emcee}~\citep{foreman_mackey2013emcee} is used to sample the posterior distribution of the model parameters. We adopt uninformative priors: $\pi(a) \sim \mathcal{U}(-1000,1000)$; $\pi(m) \sim \mathcal{U}(-300,300)$;  $\pi(b) \sim \mathcal{U}(-150,250),$ and $\pi(\sigma) = 1/\sigma$ over the range $[1,200]$.
+%We explore alternative weightings with uniform weighting over all simulated halos ($w_k = 1$).
+%Our fiducial analysis has weights $w_i \propto \mathrm{SFR}_i$ of the halo associated with simulated halo $h$, which reflect the observed occurrence of FRB sources within star-forming galaxies~\citep{bhandari2020host,loudas2025unveiling}. 
+
+The posterior for the 20 observed FRB sightlines, as well as the fits to the simulations, are shown in Fig.~\ref{fig:corner}. The model prediction corresponding to the best-fit parameter values, as well as 50 randomly selected parameter draws from the converged posterior, are plotted as lines and translucent bands respectively in Fig.~\ref{fig:camels}.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{figures/corner.pdf}
+    \caption{Posterior distributions of the model parameters for the observed sightlines (gray) and the CAMELS simulations (blue, orange, and green). The best-fit parameters are shown as vertical dashed lines.}
+    \label{fig:corner}
+\end{figure*}
+
+We compare fitted values in the context of galaxy formation models, keeping in mind the slightly different interpretations of the fitted parameters. For all three models, Fig.~\ref{fig:corner} suggests $\sigma_{obs} > \sigma_{sim}$. This is consistent with observational data including positive contributions to the scatter from the host ISM and circum-burst environment, which are not included in the simulation predictions. 
+For similar reasons, we also see that $b_{obs} > b_{sim}$, except in the Astrid model, where $b_{obs} \approx b_{sim}$. This suggests that if the Astrid model accurately captures \dmhcgm, there is not much room for the host ISM and circum-burst medium to contribute to the observed values of\dmhm, with that caveat that positively-biased values of \dmcosmic\ or low values of \dmhism+\dmhcbm could also alleviate the tension.
+
+It is much harder to explain the negative $m$ of our data, which is in tension with the positive $m = $ implied by Astrid.  $m_{obs}$ and $m_\mathrm{Astrid}$ disagree at the XX sigma level Unless the contribution from the host ISM + circumburst medium in face-on galaxies (criteria 2) along non-scattered sightlines (criteria 7) strongly decreases with stellar mass. However, empirical estimates of the slope of the host ISM contribution to the DM~\citep{bernalescortes2025empirical} report a positive correlation between stellar mass and H$\alpha$-inferred values of \dmhism, albeit with a different sample and selection criteria.
+
+Our slope measurements are complementary to those reported in~\citet{bernalescortes2025empirical}, which report a positive correlation between $M^*$ and \dmh = \dmhism + \dmhcgm . In that paper, \dmhism is inferred directly from the H$\alpha$ emission measure, while \dmhcgm is inferred using SED-fitting derived stellar masses which are then converted DM estimates by assuming a modified NFW profile~\citep{mathews2017circumgalactic,prochaska2019probing} and using abundance matching to determine halo masses. Our analysis, in contrast, targets the CGM using a larger sample of more local sources, and is agnostic of any particular stellar-mass derived gas profile. Simultaneously replicating in simulations the $M^*-\dmh$ relation in this paper and the $M^*-\dmhism$ relation characterized in~\citet{bernalescortes2025empirical} will be crucial to understanding the impact of galactic feedback processes on the gas distribution within and around galaxies.
 
 If we make the underlying assumption that one of the three fiducial CAMELS models accurately captures the impact of feedback in star forming $L^*$ halos, then our fiducial analysis offers ``strong evidence'' \citep{jeffreys1998theory} against the feedback model implemented in Astrid.
 Our fiducial results use the $z = 0.1$ snapshot, with sightlines selected between $0.13 < b < 0.20$, followed by calculating the weighted mean and the scatter of \dmhcgm\ in several mass bins, where the weights for each sightline in a mass bin are proportional to the star formation rate of that halo.
@@ -543,7 +557,9 @@ We would like to thank Alexa Gordon for providing inclination angle measurements
 }
 \bibliographystyle{aasjournal}
 \bibliography{references}
-%\appendix
+\appendix
+Here we provide all fitted parameters in this paper.
+\input{params_test.tex}
 %\section{Sensitivity to Cosmic Baryon Content and Cosmological Parameters}
 %Here we demonstrate that our measurements are insensitive to galactic feedback. From the estimator in Eq.~\ref{eq:dmh_definition}, we calculate 
 %$$\dfrac{d(\langle\dmh\rangle)}{d(\Omega_b f_\text{diffuse} H_0)} = \dfrac{XXXX\textrm{pc cm}^{-3}}{0.05 \times 0.7 \times 70 km/s/Mpc}.$$
