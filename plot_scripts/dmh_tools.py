@@ -318,8 +318,8 @@ def plot_survey(ax,df,z_max,**errorbar_kwargs):
     keep *= not_elliptical(df)
     keep *= not_low_dm(df)
     keep *= not_low_galb(df)
-    grayed_out = (df['primary_z_spec'] < z_max) * ~keep
-    not_gray =  (df['primary_z_spec'] < z_max) * keep
+    grayed_out = ((df['primary_z_spec'] < z_max) * ~no_published_Mstar(df)) * ~keep 
+    not_gray =  ((df['primary_z_spec'] < z_max) * ~no_published_Mstar(df)) * keep
     y_err = sigma_tot(df)
     if 0: #'extinction_mags' in df.keys():
         x_err = 0.2 * df['extinction_mags']
@@ -368,7 +368,9 @@ def not_clusters(df):
                   'FRB20230311A', 'FRB20190303A', 'FRB20231203A', # double galaxies!
                  ] for n in df.index])
 
-
+def no_published_Mstar(df):
+    return np.array([n in ['FRB20240213A' # annie DSA
+                               ] for n in df.index],dtype = bool)
 
 def not_edge_on(df):
     """Inclinations >70 deg rejected"""
