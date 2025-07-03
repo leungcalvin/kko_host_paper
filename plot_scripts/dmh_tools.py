@@ -426,4 +426,4 @@ def far_out(df):
     return (0.1 < df['primary_z_spec']) * (df['primary_z_spec'] < 0.2)
 
 def not_dwarf(df):
-    return (9 < df['published_M*']) * (-17 > df['M_r'])
+    return (9 < df['published_M*']) #* (-17 > df['M_r']) # REMOVED 
