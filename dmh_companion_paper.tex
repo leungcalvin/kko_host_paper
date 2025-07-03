@@ -215,9 +215,10 @@
 %% If done correctly the peer review system will be able to
 %% automatically put the author and affiliation information from the manuscript
 %% and save the corresponding author the trouble of entering it by hand.
+\input{authors.tex}
 
-%\correspondingauthor{CHIME}%Calvin Leung}
-%\email{calvin\_leung@berkeley.edu}
+\correspondingauthor{CHIME}%Calvin Leung}
+\email{calvin\_leung@berkeley.edu}
 
 
 %\author[0000-0002-4209-7408]{C.~Leung}
@@ -251,42 +252,39 @@ Our results indirectly imply a lower limit on the strength of baryonic feedback 
 \keywords{Radio transient sources (2008)}
 
 \section{Introduction}\label{sec:intro}
-The dispersion measure, or DM, of fast radio bursts~\citep{petroff2019fast,cordes2019fast,petroff2022fast} can precisely measure the column density of electrons between the observer and the FRB source~\citep{lorimer2004handbook}. 
-This makes FRBs excellent probes of extragalactic ionized gas, sensitive to both the unbound baryons in the large scale structure~\citep{mcquinn2014locating,masui2015dispersion,madhavacheril2019cosmology} and the collapsed gas overdensities on the outskirts of galaxies and their dark matter halos~\citep{prochaska2019probing}.
 Understanding the ionized gas in and around galaxies is a major missing puzzle piece for galaxy formation and cosmology. It plays a crucial role in the baryon cycle and is a major contaminant for nascent weak lensing surveys including the Vera Rubin Observatory~\citep{lsst2009science}, Euclid~\citep{euclid2025overview}, and the Nancy Grace Roman Space Telescope~\citep{spergel2015wide}. The constraining power of those surveys hinges on an accurate and precise understanding of the impact of baryonic feedback on the matter power spectrum~\citep[for example]{white2004baryons, zhan2004effect, rudd2008effects}.
 
-Two classes of methodologies have emerged that use FRBs to probe extragalactic baryons: one using the relation of the mean extragalactic DM versus redshift, and a second using the variations in the mean.
-As a seminal example of the former class, observations from the Australian Square Kilometre Array Pathfinder (ASKAP),~\citet{macquart2020census} measured the mean extragalactic DM as a function of redshift~\avgdmcosmic.
-That result established that the cosmic contribution to the DM budget, comprised of diffuse baryons in the intergalactic medium (IGM) and the collapsed baryons in intervening halos, collectively dominate the total DM for FRB sources beyond $z \sim 0.2$. 
+The dispersion measure, or DM, of fast radio bursts~\citep{petroff2019fast,cordes2019fast,petroff2022fast} can precisely measure the column density of electrons between the observer and the FRB source~\citep{lorimer2004handbook}. 
+This makes FRBs excellent probes of extragalactic ionized gas, sensitive to both the unbound baryons in the large scale structure~\citep{masui2015dispersion,madhavacheril2019cosmology} and the collapsed gas overdensities on the outskirts of galaxies and their dark matter halos~\citep{mcquinn2014locating,prochaska2019probing}.
 
-An implied conclusion of~\citet{macquart2020census}, whose eponymous relation now extends to $z =  1.3$~\citep{connor2024gas}, is that the remaining contributions, such as those from the host galaxy, are subdominant to the \avgdmcosmic\ beyond $z \gtrsim 0.5$.
-However, the fluctuations in the extragalactic DM after removing the redshift-dependent part \avgdmcosmic\ contain their own wealth of information, including about the circumgalactic contribution of the FRB host.
+Several classes of methodologies have emerged which use FRBs to probe extragalactic baryons. 
+One pioneered by~\citet{macquart2020census} aims to model the relationship between the redshift of the FRB host and the total extragalactic DM. The tight relationship between dispersion measure and redshift is known as the Macquart relation \avgdmcosmic\ and now extends to $z > 1$~\citep{connor2024gas}. It implies that other contributions, such as those from the host galaxy or individual groups and clusters, are subdominant to~\avgdmcosmic\ beyond $z \gtrsim 0.5$.
 
-Historically, this has been thought of as a residual ``host contribution'' to the DM budget \dmh\ left after subtracting estimates of contributions from the interstellar medium (ISM) and circumgalactic medium (CGM) of the Milky Way (\dmmw=\dmmwism + \dmmwcgm) and the redshift-dependent \avgdmcosmic contribution. 
-(\avgdmcosmic=$\dm_\mathrm{intervening~halos} + \dm_\mathrm{IGM}$).
-Using the observed FRB dispersion measure \dmtot, we define
-%is defined as
+Other analyses aim to isolate particular contributions to the FRB DM, which is the sum of contributions from the Milky Way, overdensities and underdensities in the large scale structure, intervening halos, the host galaxy of the FRB, and the circumburst environment.
+
+For instance, angular cross-correlations with galaxy surveys ~\citep{shirasaki2017large, madhavacheril2019cosmology,rafiei_ravandi2021chime,shirasaki2022probing,hsu2025decoding,wang2025measurement} and weak lensing~\citep{nicola2022breaking,reischke2023calibrating} are sensitive to baryons in the large-scale structure. Spectroscopic mapping of FRB foregrounds~\citep{lee2022constraining,lee2023frb,simha2020disentangling,simha2021estimating,khrykin2024flimflam,huang2025frb} can infer the contributions from individual galactic halos~\citep{prochaska2019probing}, groups, and clusters~\citep{connor2023deep} along FRB sightlines to the DM budget to separate the bound and the diffuse baryons along the line of sight. Edge-on FRB hosts probe the interstellar medium (ISM) of the host galaxy~\citep{cassanelli2024fast}, whereas all-sky FRB surveys statistically place upper limits on the Milky Way's halo~\citep{cook2023frb}.
+
+Schematically, the DM budget can be modeled as 
 
 \begin{equation}
-\dfrac{\dmhm}{1 + z} = \dmtot -
-\avgdmcosmic - \dmmw.
+\dmtot = \dmmw + \avgdmcosmic + \delta\dm_{LSS}(z) + \dfrac{\dmh}{1 + z}.
 \label{eq:dmh_definition}
 \end{equation}
+where $\dmmw=\dmmwism + \dmmwcgm$ consists of contributions from the interstellar medium (ISM) and circumgalactic medium (CGM) of the Milky Way. \avgdmcosmic~is the average cosmic contribution to the DM budget out to redshift $z$, specified by the Macquart relation. Underdensities and overdensities due to large-scale structure along the line of sight, groups and clusters, and intervening galaxies contribute to $\delta\dm_{LSS}$. 
 
-\dmhm can be further decomposed in the rest frame of the host galaxy:
+The last term is considered to be the ``host contribution'' to the DM budget.\dmh~can be further decomposed in the rest frame of the host:
 \begin{equation}
-    \dmhm = \dmhcgm + \dmhism + \dmhcbm + \delta\dm_{LSS}.
+    \dmh = \dmhcgm + \dmhism + \dmhcbm.
     \label{eq:dmh_contributions}
 \end{equation}
+The three terms here correspond to the CGM and the ISM of the host galaxy and contributions from the stellar ``circum-burst medium'' (CBM) of the FRB~\citep[see e.g.][]{tendulkar2017host, niu2021repeating,ocker2022large,caleb2023subarc}. 
 
-For each observed sightline, these four contributions correspond to the CGM of the host galaxy at the endpoint of each FRB~\citep{prochaska2019probing,medlock2024probing}, the ISM of the host~\citep{cassanelli2024fast}, contributions from the stellar ``circum-burst medium'' (CBM) of the FRB~\citep[see e.g.][]{tendulkar2017host, niu2021repeating,ocker2022large,caleb2023subarc}, and the large-scale structure along the line of sight~\citep[see e.g.][]{khrykin2024flimflam,medlock2025constraining} including groups and clusters~\citep{lee2023frb,connor2023deep}. Of these four contributions, the first three are positive, while $\delta\dm_\mathrm{LSS}$~may be negative; for this reason individual measurements of \dmhm\ can typically be either positive or negative, but are known to scatter around a positive mean~\citep{shannon2018dispersion,macquart2020census,james2022fast,shin2023inferring,bernalescortes2025empirical}.
+The ``Macquart'' estimate of the host DM is given by solving Eq.~\ref{eq:dmh_definition} for \dmh, and using models for the Milky Way ISM~\citep{cordes2002ne2001} and CGM~\citep{yamasaki2020galactic} and the Macquart relation to estimate the cosmic and Galactic contributions. 
+\begin{equation}
+\dfrac{\dmhm}{1+z} \approx \dmtot - \dm_\mathrm{NE2001} - \dm_\mathrm{YT20} - \avgdmcosmic.
+\end{equation}
 
-
-
-Several methods have been proposed to isolate different components of the dispersion measure budget, including angular cross-correlations with galaxy surveys~\citep{madhavacheril2019cosmology} and pencil-beam spectroscopic surveys~\citep{lee2022constraining,simha2020disentangling,simha2021estimating,khrykin2024flimflam}.
-The bottleneck is that these approaches either require many FRB sources or are expensive in telescope time.
-
-
+Because of the stochastic large-scale structure contribution and uncertainties in Galactic electron models, individual estimates of \dmhm\ are noisy: they are either positive or negative. However, they scatter around a positive mean~\citep{shannon2018dispersion,macquart2020census,james2022fast,shin2023inferring,bernalescortes2025empirical}.
 
 %Existing efforts to constrain sub-grid models of baryonic feedback using observational gas probes have focused on X-ray and thermal and kinetic Sunyaev-Zeldovich (tSZ and kSZ) observations, which are readily observable only in $M_h \sim 10^{13-15}$ halos~\citep[e.g.][]{nagai2007effects,tanimura2021direct,battaglia2016tau,hadzhiyska2023interpreting,schaan2021atacama,hadzhiyska2024evidence,braspenning2024flamingo}. 
 %For lower-mass halos, such as those of isolated star-forming galaxies ($M_h \sim 10^{12}$), the circumgalactic medium was primarily studied using quasar absorption spectroscopy~\citep{ tumlinson2011large,prochaska2011probing,werk2016coshalos,chen2024circumgalactic}, using metal lines to study the kinematics, temperature, and baryonic mass of the circumgalactic medium.
@@ -294,7 +292,8 @@ The bottleneck is that these approaches either require many FRB sources or are e
 %In principle, FRBs offer a complementary probe of the circumgalactic gas in $L^*$ halos, by virtue of being insensitive to temperatures and metallicities.
 %The challenge in doing so is that FRB DMs are ``confusion-limited'': while the signal from $L^*$ halos is observable, it is difficult to separate any particular DM signal of interest along the line of sight from the others.
 
-In this paper, we consider a sample of \dmhm\ measurements selected to minimize contributions to \dmhm\ other than $\dmhcgm$. We select bursts off the Galactic plane with low scattering timescales and whose hosts do not belong to a galaxy cluster and are viewed in a face-on geometry (\S\ref{sec:sample}). We characterize the $M^*-\dmh$ relation for our sample of FRB host galaxies at $z < 0.2$, in analogy to ``cluster scaling relations'' which correlate baryonic observables in more massive halos~\citep{battaglia2012on,giodini2013}. 
+In this paper, we use statistics of \dmhm\ to constrain the circumgalactic contribution of the host galaxy. 
+We consider a sample of \dmhm\ measurements selected to minimize contributions to \dmhm\ other than $\dmhcgm$. We select bursts off the Galactic plane with low scattering timescales and whose hosts do not belong to a galaxy cluster and are viewed in a face-on geometry (\S\ref{sec:sample}). We characterize the $M^*-\dmh$ relation for our sample of FRB host galaxies at $z < 0.2$, in analogy to ``cluster scaling relations'' which correlate baryonic observables in more massive halos~\citep{battaglia2012on,giodini2013}. 
 %~\citep{mushotzky1984xray,bryan2008statistical,markevitch1998lxt}.
 
 We compare our measurements to predictions for \dmhcgm, the circumgalactic contribution to the host DM, from three sub-grid models implemented in CAMELS: a suite of small-volume (25 Mpc/h)$^3$ hydrodynamic simulations implementing several distinct sub-grid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations~\citep{camels_presentation, camels_data_release,  camels_data_release2} (\S\ref{sec:camels}). 
@@ -477,7 +476,7 @@ However, this comparison is subject to several caveats.
 First, our measurements have only constrained the volume-filling ionized component of the CGM of FRB hosts.
 If the CGM is instead clumpy, then it is possible that only a fraction of sightlines $f$ encounter the CGM -- in that case, a larger number of FRB sightlines (increased by $\sim 1/f$) would be needed to place meaningful constraints on $\dmhcgm$.
 Second, our measurement does not fully account for the impact of feedback since the small volume of CAMELS snapshots does not sufficiently sample the high-mass end of the halo mass function, which is thought to contribute significantly to baryonic feedback as measured in cosmic shear. For example, our data probe feedback from galaxies in the range $10^9 < M/M_\odot < 10^{11}$ which correspond roughly to halos at $M_h \sim 10^{11-13} M_\odot$ halos at $z \sim 0$. In contrast, cosmic shear analyses target halo masses of $M_h \sim 10^{12-14}$ over a range of redshifts ($z \sim 0.5$ for the DES and $z\sim 0.9$ for Subaru-HSC). Since CAMELS does not capture structure on scales larger than the box size of 25 Mpc/h ($k > 0.03$ Mpc$^{-1}$), it does not sample the full range of the halo mass function, or contributions to the smoothing of the density field from group and cluster-scale halos.
-We thus consider our results as a lower limit on the impact of feedback: in other words, an indirect upper limit on $S(k,z=0)$. We note that other approaches using FRBs, such as those focusing on the DM-redshift distribution~\citep{macquart2020census,james2021z}, also quantify feedback through metrics complementary to $S(k,z)$~\citep[see e.g.,][]{connor2024gas,hussaini2025correlation}, and rely on simulations to connect their results to $S(k,z)$~\citep{sharma2025hydrodynamical}.
+We thus consider our results as a lower limit on the impact of feedback: in other words, an indirect upper limit on $S(k,z=0)$. We note that other approaches using FRBs, such as those focusing on the DM-redshift distribution~\citep{macquart2020census,james2021z}, also quantify feedback through metrics other than $S(k,z)$~\citep[see e.g.,][]{connor2024gas,hussaini2025correlation}, and rely on simulations to connect their results to $S(k,z)$~\citep{sharma2025hydrodynamical}.
 
 \section{Conclusions and Future Work}
 In this paper, we have pointed out that the relationship between the stellar mass of a galaxy and its \dmhm\ is a sensitive probe of baryonic feedback in isolated galaxies. Our findings are as follows:
