@@ -375,8 +375,8 @@ def no_published_Mstar(df):
 def not_edge_on(df):
     """Inclinations >70 deg rejected"""
     return np.array([n not in [
-            'FRB20240201A', # Shannon
-            'FRB20240310A', # Shannon 
+            'FRB20240201A', # Shannon # only has b/a = 0.166; implies i ~ 80 degrees from Glowacki
+            'FRB20240310A', # Shannon # has i ~ 85 deg in Glowacki
             'FRB20231120A', #  Sharma
             'FRB20220207C', # Law
             'FRB20230203A', # this work
