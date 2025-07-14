@@ -370,12 +370,15 @@ This corrects for a preferential sampling of massive halos proportional to their
 
 In Fig.~\ref{fig:camels} we plot the \dmhcgm\ values for our simulated sightlines within a fiducial range of impact parameters ($\rho_{\rm min} = 0.0$ and $\rho_{\rm max} = 0.05$) as a function of stellar mass and feedback model. These predictions are slightly sensitive to the host offset distribution of FRBs: FRB sightlines highly offset from their gas halos may exclude a small portion of \dmhcgm\ from their sightlines~\citep[see Fig. 5 of][]{medlock2024probing}. Though highly-offset FRB sources at impact parameters of $\sim 5 R_\mathrm{eff}$ have been associated with their host galaxies~\citep{kirsten2022repeating,shah2024repeating,eftekhari2024massive}, these sources have been cut from our observational sample (criteria 3 in \S~\ref{sec:sample}); most FRBs have offsets of less than $\approx 2 R_\mathrm{eff}$~\citep[see Fig. 6 in][]{shannon2024commensal}. Given that the half-light radius $R_\mathrm{eff}$ is $\sim 0.015 R_{200,crit}$\citep{kravtsov2013size}, we may conclude that $\rho \lesssim 0.03 R_{200,crit}$ for FRB sightlines in Tab.~\ref{tab:sample}, even though the second component of the host offsets of some sources is not well-constrained by their highly elongated localization ellipses~\citep{chime2025catalog}.
 
-\begin{figure}
+\begin{figure*}
     \centering
     \includegraphics[width=1.0\linewidth]{msdm.pdf}
-    \caption{The $M^*-\dmh$ relation for the FRB host galaxies in Tab.~\ref{tab:sample} (red and purple downward triangles), compared against halos in the CAMELS-ASTRID, CAMELS-IllustrisTNG, and CAMELS-SIMBA simulations (blue, orange, and green points). For both the observation (gray) and simulations (blue, orange, and green), the model prediction best fitting the data is visualized as three lines, to show the relation as its scatter $\pm 1\sigma$, while model evaluations randomly sampled from the posterior probability distributions are plotted translucently in those colors.}
+    \caption{Left: The $M^*-\dmh$ relation for the FRB host galaxies in Tab.~\ref{tab:sample} (red and purple downward triangles), to which we fit the model in Eq.~\ref{eq:obs_model} (gray).
+    Right: The $M^*-\dmhcgm$ prediction for halos in the CAMELS-ASTRID, CAMELS-IllustrisTNG, and CAMELS-SIMBA simulations (blue, orange, and green points). 
+    For the fits to observational data and simulations, the model prediction best fitting the data is visualized as three lines, to show the relation as its scatter $\pm 1\sigma$.
+    In addition, model evaluations randomly sampled from the posterior probability distributions are plotted translucently in those same colors.}
     \label{fig:camels}
-\end{figure}
+\end{figure*}
 
 
 \section{Results}\label{sec:analysis}
@@ -411,7 +414,7 @@ The posterior for the 20 observed FRB sightlines, as well as the fits to the sim
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{figures/corner.pdf}
-    \caption{Posterior distributions of the model parameters. We fit the $M^*-\dmh$ relation for a slope $(m)$, an intercept $(b)$ referenced to $M^* = 10^{10} M_\odot$, a quadratic curvature parameter $(a)$, as well as the scatter on the relation $(\sigma)$ (see Eq.~\ref{eq:sim_model},~\ref{eq:obs_model}). We fit both the observed sightlines (gray) and the sightlines simulated through CAMELS snapshots (blue, orange, and green). The best-fit parameter estimates are shown as solid lines, and are quoted in Tab.~\ref{tab:params}.}
+    \caption{Posterior distributions of the model parameters in our fiducial analysis using all 20 bursts. We fit the $M^*-\dmh$ relation for a slope $(m)$, an intercept $(b)$ referenced to $M^* = 10^{10} M_\odot$, a quadratic curvature parameter $(a)$, as well as the scatter on the relation $(\sigma)$ (see Eq.~\ref{eq:sim_model},~\ref{eq:obs_model}). We fit both the observed sightlines (gray) and the sightlines simulated through CAMELS snapshots (blue, orange, and green). The best-fit parameter estimates are shown as solid lines, and are quoted in Tab.~\ref{tab:params}. Comparing the data to the Astrid fits, we find that the slope parameter $m$ is significantly discrepant between observations and simulations, and that measured values of the intercept parameter $b$ are difficult to reconcile with the existence of the host ISM.}
     \label{fig:corner}
 \end{figure*}
 
