@@ -95,8 +95,8 @@
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{\today}%
-\revised{\today}
-\accepted{\today}
+%\revised{\today}
+%\accepted{\today}
 
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
@@ -159,7 +159,7 @@
 %% where dimension is any recognized LaTeX dimension, e.g. pt, in, etc.
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\graphicspath{{./}{figures/}}
+\graphicspath{{./}{./figures/}}
 %% This is the end of the preamble.  Indicate the beginning of the
 %% manuscript itself with \begin{document}.
 
@@ -240,16 +240,16 @@
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Low redshift fast radio bursts (FRBs) provide robust measurements on the host-galaxy contribution to the dispersion measure (DM), which can constrain the circumgalactic medium (CGM) of the hosts.
+Low redshift fast radio bursts (FRBs) enable robust measurements of the host galaxy contribution to the dispersion measure (DM), offering valuable constraints on the circumgalactic medium (CGM) of FRB hosts.
 We curate a sample of 20 nearby FRBs with low scattering timescales and face-on host galaxies with stellar masses ranging from $10^9 < M^* / M_\odot < 10^{11}$.
 We fit the distribution of the host galaxy DM to a quadratic model as a function of stellar mass with a mass-independent scatter and find that the more massive the host, the lower its host DM.
-We report that this relation has a negative slope of $m = -97 \pm 44$ pc/cm$^{-3}$ per dex in stellar mass. 
+We report that this relation has a negative slope of $m = -97 \pm 44$ pc/cm$^{3}$/dex in stellar mass. 
 We compare this measurement to similar fits to three sub-grid models implemented in the CAMELS suite of simulations from Astrid, IllustrisTNG, and SIMBA and find that fine-tuning of the host ISM contribution as a function of stellar mass is required in order to reconcile the observational data with the predictions of the fiducial CAMELS-Astrid model.
 More generally, models which attribute a positive correlation between stellar mass and host dispersion measure ($m > 0$) to the CGM are in tension with our measurement. 
 We show that this conclusion is robust to a wide range of assumptions, such as the offset distribution of FRBs from their hosts and the statistics of the cosmic contribution to the DM budget along each sightline.
 Our results indirectly imply a lower limit on the strength of baryonic feedback in the Local Universe $(z < 0.2)$ in isolated $\sim L^*$ halos, complementing results from weak lensing surveys and kSZ observations which target higher halo mass and redshift ranges.
 \end{abstract}
-\keywords{Radio transient sources (2008)}
+\keywords{Radio transient sources (2008), Circumgalactic medium (1879), Stellar feedback(1602), Hydrodynamical simulations (767)}
 
 \section{Introduction}\label{sec:intro}
 Understanding the ionized gas in and around galaxies is a major missing puzzle piece for galaxy formation and cosmology. It plays a crucial role in the baryon cycle and is a major contaminant for nascent weak lensing surveys including the Vera Rubin Observatory~\citep{lsst2009science}, Euclid~\citep{euclid2025overview}, and the Nancy Grace Roman Space Telescope~\citep{spergel2015wide}. The constraining power of those surveys hinges on an accurate and precise understanding of the impact of baryonic feedback on the matter power spectrum~\citep[for example]{white2004baryons, zhan2004effect, rudd2008effects}.
@@ -297,7 +297,7 @@ In \S~\ref{sec:sample}, we consider a sample of \dmhm\ measurements selected to 
 %~\citep{mushotzky1984xray,bryan2008statistical,markevitch1998lxt}.
 
 In \S~\ref{sec:camels}, we compare our measurements to predictions for \dmhcgm, the circumgalactic contribution to the host DM, from three sub-grid models implemented in CAMELS: a suite of small-volume (25 Mpc/h)$^3$ hydrodynamic simulations implementing several distinct sub-grid ``prescriptions'' found in the Astrid, IllustrisTNG, and SIMBA simulations~\citep{camels_presentation, camels_data_release,  camels_data_release2}. 
-These prescriptions aim to accurate capture the large-scale impact of the unresolved small-scale physics that regulate galaxy formation and evolution. 
+These prescriptions aim to accurately capture the large-scale impact of the unresolved small-scale physics that regulate galaxy formation and evolution. 
 These include prescriptions for star formation, gas cooling, and feedback from stars and active galactic nuclei (AGN). 
 One major goal of the CAMELS project is to produce theory predictions for gas probes which can independently constrain the suppression of the matter power spectrum induced by baryonic feedback relative to a dark-matter only simulation, as measured in current and next-generation weak lensing surveys such as the Dark Energy Survey~\citep{chen2023constraining,aric_o2023des} and LSST/Rubin. In \S~\ref{sec:analysis}, we compare our observations to simulations, and find that in order to reconcile the Astrid CGM prediction with the data, a negative correlation between the host ISM contribution and host stellar mass is needed. On the basis of this being potentially unphysical, we consider in \S~\ref{sec:discussion} the implications of the fiducial CAMELS-Astrid model being disfavored in the context of baryonic feedback in the Local Universe.
 
@@ -321,7 +321,7 @@ We have validated that the stellar masses derived using CIGALE are consistent wi
 \dmh~for all FRB sightlines at $z < 0.2$ is plotted as a function of $r$-band luminosity in Fig.~\ref{fig:host_dm}. 
 \begin{figure*}
     \centering
-    \includegraphics[width=\linewidth]{figures/dm_host.pdf}
+    \includegraphics[width=\linewidth]{dm_host.pdf}
     \caption{Measurements of $\dmhm$, as a function of $r$-band host galaxy luminosity for FRBs at $z < 0.2$ in the literature. The stellar mass implied by the~\citet{mahajan2018galaxy} conversion from r-band light to $M^*$~\citep{mahajan2018galaxy} is shown on the top y-axis to provide a rough sense of scale. For each source we plot $1\sigma$ error bars according to Eq.~\ref{eq:sigma_i_def}. Labels identify systems cut from our sample according to one or more criteria in \S~\ref{sec:sample}. We find that high \dmhm~outliers can often be explained astrophysically by high scattering timescales, cluster membership of the host galaxy, or edge-on host galaxies. Low \dmhm~outliers are often close to the Galactic plane. FRBs which have significant observational biases on their DM measurements are shown with gray X's.}
     \label{fig:host_dm}
 \end{figure*}
@@ -420,7 +420,7 @@ The posterior for the 20 observed FRB sightlines, as well as the parameters best
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{figures/corner.pdf}
+    \includegraphics[width=\textwidth]{corner.pdf}
     \caption{Posterior distributions of the model parameters in our fiducial analysis using all 20 bursts. We fit the $M^*-\dmh$ relation for a slope $(m)$, an intercept $(b)$ referenced to $M^* = 10^{10} M_\odot$, a quadratic curvature parameter $(a)$, as well as the scatter on the relation $(\sigma)$ (see Eq.~\ref{eq:sim_model},~\ref{eq:obs_model}). We fit both the observed sightlines (gray) and the sightlines simulated through CAMELS snapshots (blue, orange, and green). The best-fit parameter estimates are shown as solid lines, and are quoted in Tab.~\ref{tab:params}. Comparing the data to the Astrid fits, we find that the slope parameter $m$ is significantly discrepant between observations and simulations, and that measured values of the intercept parameter $b$ are difficult to reconcile with the existence of the host ISM.}
     \label{fig:corner}
 \end{figure*}
@@ -453,7 +453,7 @@ We also test our sensitivity to $\sigmacosmic$. This is important because our co
 As an extreme test of robustness, we exclude the data point which most drives the slope measurement, FRB 20210807D. The statistical tension in $m$ values is reduced to $2.9\sigma$, but the slope ($m_{obs}$) remains negative. We regard this as an upper bound on the effect of single outliers in our sample, whose small size could be enlarged by upcoming FRB surveys~\citep{collaboration2025chimeoutriggers,wang2025craft,hallinan2019dsa,vanderlinde2019canadian}.
 
 \begin{figure*}
-\includegraphics[trim={0 2cm 0 2cm},clip,width=0.95\textwidth]{figures/params_1d.pdf}
+\includegraphics[trim={0 2cm 0 2cm},clip,width=0.95\textwidth]{params_1d.pdf}
 \label{fig:params}
 \caption{One-dimensional parameter estimates for $a,b,m,$ and $\sigma$ for our fiducial observational data (empty gray histogram), several variants thereof, as well as our simulation data (filled blue, orange, and green histograms). Parameter estimates are quoted in Tab.~\ref{tab:params}.}\end{figure*}
 %To ensure that our results are insensitive to redshift evolution, we repeat the analysis with the same snapshots at different redshifts (``Fiducial $z = 0.0$'' and ``Fiducial $z = 0.2$'' variants).
@@ -478,7 +478,7 @@ Replicating the $M^*-\dmh$ relation measured in this paper and correlations such
 Furthermore, it is an open question whether stellar or AGN feedback is principally responsible for feedback effects in isolated galaxies. In this case, further analysis of the CAMELS suite of simulations could explore the divergence between observations and simulations in the slope of the $M^*-\dmh$ relation. Hydrodynamic simulations of stellar and AGN feedback in isolated galaxies~\citep{newton2013study} suggest that stellar feedback dominates in isolated galaxies in the absence of galaxy merger activity. This leads to the notion that in this mass range, we are primarily sensitive to stellar feedback. 
 The negative slope exhibited by our data may be interpreted in terms of the cold flow paradigm of galaxy formation, which suggests that cool gas flows in sufficiently-massive halos $\gtrsim 10^{12} M_\odot$~\citep[see e.g.,][]{dekel2006galaxy} are shock-heated and rarefied, making them vulnerable to expulsion by \emph{either} stellar or AGN feedback effects. 
 
-On the other hand, as pointed out by~\citet{ni2023camels}, the principal difference that sets apart Astrid from IllustrisTNG and SIMBA is the kinetic AGN feedback in ASTRID, which is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model. In addition, it is known that prescriptions for black hole seeding and dynamics differ and are potentially less realistic in the lower resolution Astrid runs in CAMELS (referred to in~\citep{ni2023camels} as CAMELS-Astrid) than in the production run of Astrid. SIMBA, which predicts the lowest \dmhcgm, notably features anisotropic AGN feedback~\citep{anglesalcazar2017black,dave2019simba} in which collimated jets expel gas from their halos, and it is thought that anisotropic feedback more effectively expels gas to larger radii than isotropic feedback. 
+On the other hand, as pointed out by~\citet{ni2023camels}, the principal difference that sets apart Astrid from IllustrisTNG and SIMBA is the kinetic AGN feedback in ASTRID, which is activated in a more stringent way and with a lower maximum efficiency than in the IllustrisTNG model. In addition, it is known that prescriptions for black hole seeding and dynamics differ and are potentially less realistic in the lower resolution Astrid runs in CAMELS (referred to in~\citep{ni2023camels} as CAMELS-Astrid) than in the production run of Astrid. SIMBA, which predicts the lowest \dmhcgm, notably features anisotropic AGN feedback~\citep{anglesalcazar2017black,dave2019simba,khrykin2024cosmic} in which collimated jets expel gas from their halos, and it is thought that anisotropic feedback more effectively expels gas to larger radii than isotropic feedback. 
 
 It is possible that both stellar \emph{and} AGN feedback play a role in this mass range, since the reservoir of ionized gas in the CGM couples to both stellar and AGN feedback processes. 
 This causes a complex interplay between star formation and AGN activity~\citep{2025ApJ...980...61M}. 
@@ -493,7 +493,7 @@ In simulations like CAMELS, this is defined as $S(k) \equiv P_{\rm hydro}/P_{\rm
 The suppression factor inferred from Dark Energy Survey~\citep{chen2023constraining} and Subaru Hyper Suprime Cam~\citep{terasawa2025exploring} power spectra are also plotted for comparison in Fig.~\ref{fig:sk}.
 
 While our conclusions are difficult to compare directly with other gas probes, our conclusion is qualitatively consistent with findings from~\citet{hadzhiyska2024evidence}, which finds that the feedback implementation in IllustrisTNG is too weak to explain observations of the kinetic Sunyaev-Zeldovich effect. We can provide a comparison to other measurements of baryonic feedback subject to the important caveat that the small volume of CAMELS snapshots considered in this work does not sample the redshift range or the range of the halo mass function to which cosmic shear measurements are most sensitive~\citep{tr_oster2022joint,aric_o2023des,terasawa2025exploring}. Our comparison probes feedback from galaxies in the range $10^9 < M/M_\odot < 10^{11}$ which correspond roughly to halos at $M_h \sim 10^{11-13} M_\odot$ halos at $z \sim 0$. In contrast, cosmic shear analyses target halo masses of $M_h \sim 10^{12-14}$ at earlier times ($z \sim 0.5$ for the Kilo-Degree Survey and DES and $z\sim 0.9$ for Subaru-HSC). Since CAMELS does not capture structure on scales larger than the box size of 25 Mpc/h ($k > 0.03$ Mpc$^{-1}$), it does not sample the full range of the halo mass function, or include contributions to the smoothing of the density field on large scales from group and cluster-scale halos.
-We thus consider our results as a lower limit on the impact of feedback: in other words, an indirect upper limit on $S(k,z=0)$. We note that other approaches, short of direct angular cross-correlations~\citep{wang2025measurement}, also quantify feedback through metrics other than $S(k,z)$. Those focus on quantities like the DM-redshift distribution~\citep{macquart2020census,james2021z,sharma2025hydrodynamical}, the baryon spread~\citep{medlock2025constraining} and $f_\mathrm{IGM}$~\citep[see e.g.,][]{connor2024gas,hussaini2025correlation}, and like the work presented here, rely on simulation snapshots to connect their inferences of feedback to $S(k,z)$.
+We thus consider our results as a lower limit on the impact of feedback: in other words, an indirect upper limit on $S(k,z=0)$. We note that other approaches, short of direct angular cross-correlations~\citep{wang2025measurement}, also quantify feedback through metrics other than $S(k,z)$. Those focus on quantities like the DM-redshift distribution~\citep{macquart2020census,james2021z,sharma2025hydrodynamical}, the baryon spread~\citep{medlock2025constraining} and IGM/CGM baryon fractions~\citep[see e.g.,][]{khrykin2024flimflam,khrykin2024cosmic,connor2024gas,hussaini2025correlation}, and like the work presented here, rely on simulation snapshots to connect their inferences of feedback to $S(k,z)$.
 
 \section{Conclusions and Future Work}
 In this paper, we have pointed out that the relationship between the stellar mass of a galaxy and its \dmhm\ is a sensitive probe of baryonic feedback in isolated galaxies. Our findings are as follows:
@@ -512,7 +512,7 @@ Doing so will extend the $M^*-\dmh$ relation downwards in stellar and halo mass,
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/sk_frb.pdf}
+    \includegraphics[width=\linewidth]{sk_frb.pdf}
     \caption{The level of suppression of the matter power spectrum on small scales due to baryonic feedback as predictions from ASTRID, IllustrisTNG, and SIMBA, as well as the official DES Y3 and HSC analyses~\citep{chen2023constraining,terasawa2025exploring}. The Astrid model, which corresponds to weak feedback, is difficult to reconcile with observations, implying an upper limit on $S(k,z)$.}
     \label{fig:sk}
 \end{figure}
